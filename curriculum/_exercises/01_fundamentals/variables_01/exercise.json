@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "variables_01",
+  "topic": "variables",
+  "title": "Declare, assign, don't shadow",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["values_01"],
+  "starter_files": ["variables.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    ":= declares new variables, and = assigns to existing ones. Named result parameters already exist when the function body starts, and Go rejects variables that are declared but never used.",
+    "Read each compiler error: \"no new variables on left side of :=\" and \"declared and not used\" each point to a specific line.",
+    "Use = for count and for longest inside the loop. An inner `longest := item` creates a new variable that disappears at the closing brace (shadowing). Remove the unused variable entirely."
+  ]
+}

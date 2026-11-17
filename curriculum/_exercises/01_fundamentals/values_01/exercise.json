@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "values_01",
+  "topic": "values",
+  "title": "Mixing numbers and strings",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 6,
+  "prerequisites": ["hello_world_01"],
+  "starter_files": ["values.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "Go never converts between numeric types or between numbers and strings implicitly. Each compiler error points at a place where two different types meet.",
+    "A conversion looks like float64(x). For turning an int into its decimal text, look at strconv.Itoa or fmt.Sprint.",
+    "Convert before dividing, as in float64(sum) / float64(count). Converting the result of sum / count is too late, because integer division has already dropped the fraction."
+  ]
+}

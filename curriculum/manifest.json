@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "curriculum_version": "0.1.0",
+  "release_complete": false,
+  "modules": [
+    {
+      "id": "01_fundamentals",
+      "title": "Fundamentals",
+      "exercises": ["hello_world_01", "values_01", "variables_01", "slices_01", "maps_01"]
+    },
+    {"id": "02_functions_types", "title": "Functions and types", "exercises": []},
+    {"id": "03_interfaces_generics_errors", "title": "Interfaces, generics, errors", "exercises": []},
+    {"id": "04_concurrency", "title": "Concurrency", "exercises": []},
+    {"id": "05_sorting_control", "title": "Sorting and control", "exercises": []},
+    {"id": "06_stdlib_formats", "title": "Standard library data formats and utilities", "exercises": []},
+    {"id": "07_files_directories", "title": "Files and directories", "exercises": []},
+    {"id": "08_testing_clis", "title": "Testing and CLIs", "exercises": []},
+    {"id": "09_networking_processes", "title": "Networking, context and processes", "exercises": []}
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "hello_world_01",
+  "topic": "hello_world",
+  "title": "Say hello",
+  "type": "output",
+  "difficulty": "beginner",
+  "estimated_minutes": 3,
+  "prerequisites": [],
+  "starter_files": ["main.go"],
+  "fixture_files": [],
+  "checks": ["output"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A Go program starts running in func main of package main. Whatever main writes to standard output is what gets checked.",
+    "The fmt package can print a line of text followed by a newline. You will need to import it.",
+    "Add `import \"fmt\"` under the package clause, then call fmt.Println with the exact text, including capitalization and punctuation."
+  ]
+}

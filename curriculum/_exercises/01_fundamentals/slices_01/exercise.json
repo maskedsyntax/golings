@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "slices_01",
+  "topic": "slices",
+  "title": "Reverse without mutating",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["variables_01"],
+  "starter_files": ["slices.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A slice is a view onto a backing array. Swapping elements of the input slice also changes the caller's data.",
+    "make([]int, len(in)) allocates a fresh slice of the right length, and it's non-nil even when the length is 0.",
+    "Allocate out := make([]int, len(in)), then fill out[i] = in[len(in)-1-i] for every index i."
+  ]
+}

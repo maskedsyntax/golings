@@ -32,3 +32,8 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+# Local golings workspaces and built binaries
+/golings-workspace/
+/golings
+/golings-dev

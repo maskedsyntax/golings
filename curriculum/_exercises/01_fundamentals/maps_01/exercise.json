@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "maps_01",
+  "topic": "maps",
+  "title": "Counting and membership",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["slices_01"],
+  "starter_files": ["maps.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Reading a key that's missing from a map returns the value type's zero value. So a stored 0 and a missing key look the same, unless you ask the map which one it is.",
+    "make(map[string]int) creates a writable, non-nil map. The two-value form v, ok := m[k] reports whether k is present.",
+    "WordCount: make the map, then do counts[w]++ for each word. Has: _, ok := m[key]; return ok."
+  ]
+}
