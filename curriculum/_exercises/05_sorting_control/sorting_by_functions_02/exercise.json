@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "sorting_by_functions_02",
+  "topic": "sorting_by_functions",
+  "title": "Sorting records",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["sorting_by_functions_01", "structs_02"],
+  "starter_files": ["people.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Compare people by Age first. Only when the ages are equal does the name decide.",
+    "cmp.Or(cmp.Compare(a.Age, b.Age), strings.Compare(a.Name, b.Name)) returns the age comparison unless it is 0, in which case it returns the name comparison.",
+    "slices.SortFunc(people, func(a, b Person) int { return cmp.Or(cmp.Compare(a.Age, b.Age), strings.Compare(a.Name, b.Name)) })"
+  ]
+}

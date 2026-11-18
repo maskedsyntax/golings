@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "panic_02",
+  "topic": "panic",
+  "title": "Panics you didn't ask for",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["panic_01", "maps_02", "pointers_02"],
+  "starter_files": ["safe.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Run the checks and read the panic messages: \"index out of range [-1]\" and \"assignment to entry in nil map\". The runtime panics on these mistakes.",
+    "Last must check for an empty slice before indexing. A Registry's map is nil in the zero value, and reading a nil map is fine but writing to one panics.",
+    "In Last: if len(xs) == 0 { return 0, false }.  In Add: if r.counts == nil { r.counts = map[string]int{} }"
+  ]
+}

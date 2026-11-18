@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "recover_01",
+  "topic": "recover",
+  "title": "Turning a panic into an error",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 12,
+  "prerequisites": ["panic_01", "defer_02"],
+  "starter_files": ["safely.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "recover() stops a panic, but only when it's called directly inside a deferred function. It returns the value passed to panic, or nil if there was no panic.",
+    "Give Safely a named result err. A deferred closure can then set err after recovering.",
+    "func Safely(f func()) (err error) { defer func() { if r := recover(); r != nil { err = fmt.Errorf(\"recovered: %v\", r) } }(); f(); return nil }"
+  ]
+}

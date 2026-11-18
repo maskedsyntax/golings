@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "sorting_01",
+  "topic": "sorting",
+  "title": "A sorted copy",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["slices_03"],
+  "starter_files": ["alpha.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "slices.Sort sorts the slice you pass it in place. The caller's slice shares the same backing array, so the caller's words get reordered too.",
+    "Make a copy first and sort the copy. slices.Clone(words) returns a new slice with the same elements.",
+    "sorted := slices.Clone(words); slices.Sort(sorted); return sorted"
+  ]
+}

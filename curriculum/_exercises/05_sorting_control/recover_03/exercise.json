@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "recover_03",
+  "topic": "recover",
+  "title": "A panic in a goroutine",
+  "type": "concurrency",
+  "difficulty": "advanced",
+  "estimated_minutes": 18,
+  "prerequisites": ["recover_02", "waitgroups_03"],
+  "starter_files": ["jobs.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A deferred recover only catches panics in its own goroutine. A panic in any other goroutine that nobody recovers crashes the entire program.",
+    "Move the defer/recover into the goroutine that runs each job, and store the resulting error in errs[i].",
+    "go func() { defer wg.Done(); defer func() { if r := recover(); r != nil { errs[i] = fmt.Errorf(\"job %d panicked: %v\", i, r) } }(); job() }()"
+  ]
+}

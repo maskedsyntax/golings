@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "defer_02",
+  "topic": "defer",
+  "title": "When defer looks",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["defer_01", "closures_01"],
+  "starter_files": ["run.go"],
+  "fixture_files": [],
+  "checks": ["unit", "ast"],
+  "ast_rules": ["uses_defer:Run"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "The arguments of a deferred call are evaluated when the defer statement runs, not when the deferred function runs. At that moment last is still \"\".",
+    "Defer a closure instead: defer func() { … }(). The closure reads last when it runs, at the very end. To change what Run returns from a deferred function, the result must be named.",
+    "func Run(steps []string) (log []string) { last := \"\"; defer func() { log = append(log, \"cleanup after \"+last) }(); for _, s := range steps { log = append(log, \"run \"+s); last = s }; return log }"
+  ]
+}

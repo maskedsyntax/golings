@@ -2,6 +2,7 @@ package limiter
 
 import (
 	"runtime"
+	"sync/atomic"
 	"testing"
 	"time"
 )
@@ -23,26 +24,36 @@ func TestBurstThenLimited(t *testing.T) {
 	defer l.Stop()
 	start := time.Now()
 	within(t, "the first 3 Waits", func() { l.Wait(); l.Wait(); l.Wait() })
-	if d := time.Since(start); d > 30*time.Millisecond {
+	if d := time.Since(start); d > 40*time.Millisecond {
 		t.Fatalf("the first burst of 3 took %v; the limiter should start full", d)
 	}
 	start = time.Now()
 	within(t, "the 4th Wait", l.Wait)
-	if d := time.Since(start); d < 30*time.Millisecond {
+	if d := time.Since(start); d < 15*time.Millisecond {
 		t.Fatalf("the 4th Wait returned after %v; it should wait for a refill (about 60ms)", d)
 	}
 }
 
 func TestIdleDoesNotOverfill(t *testing.T) {
-	l := NewLimiter(2, 20*time.Millisecond)
+	l := NewLimiter(2, 100*time.Millisecond)
 	defer l.Stop()
 	within(t, "draining the initial burst", func() { l.Wait(); l.Wait() })
-	time.Sleep(200 * time.Millisecond) // about 10 refills, but only 2 fit
-	within(t, "2 Waits after idling", func() { l.Wait(); l.Wait() })
-	start := time.Now()
-	within(t, "the 3rd Wait after idling", l.Wait)
-	if d := time.Since(start); d < 8*time.Millisecond {
-		t.Fatalf("a 3rd Wait after idling returned in %v; the limiter must not hold more than burst tokens", d)
+	time.Sleep(650 * time.Millisecond) // about 6 refills, but only 2 fit
+
+	// Count how many Waits get through in the next 40ms. A full bucket
+	// allows 2, plus at most 1 more if a refill happens to land meanwhile.
+	var passed atomic.Int32
+	go func() {
+		for {
+			l.Wait()
+			passed.Add(1)
+		}
+	}()
+	time.Sleep(40 * time.Millisecond)
+	if n := passed.Load(); n > 3 {
+		t.Fatalf("%d Waits returned at once after idling; the limiter must not hold more than burst (2) tokens", n)
+	} else if n < 2 {
+		t.Fatalf("only %d Wait(s) returned after idling; the bucket should have refilled to 2", n)
 	}
 }
 

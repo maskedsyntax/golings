@@ -4,8 +4,8 @@
 
 - Curriculum version: 0.1.0
 - Topic inventory: https://gobyexample.com/, snapshot 2026-11-17 (85 topics)
-- Exercises: 126
-- Topics with at least 2 exercises: 45/85
+- Exercises: 139
+- Topics with at least 2 exercises: 50/85
 
 ## 01 — Fundamentals
 
@@ -76,11 +76,11 @@
 
 | # | Topic | Exercises | Status |
 |---|---|---|---|
-| 046 | [Sorting](https://gobyexample.com/sorting) | — | ⬜ none |
-| 047 | [Sorting by Functions](https://gobyexample.com/sorting-by-functions) | — | ⬜ none |
-| 048 | [Panic](https://gobyexample.com/panic) | — | ⬜ none |
-| 049 | [Defer](https://gobyexample.com/defer) | — | ⬜ none |
-| 050 | [Recover](https://gobyexample.com/recover) | — | ⬜ none |
+| 046 | [Sorting](https://gobyexample.com/sorting) | `sorting_01`, `sorting_02` | ✅ |
+| 047 | [Sorting by Functions](https://gobyexample.com/sorting-by-functions) | `sorting_by_functions_01`, `sorting_by_functions_02`, `sorting_by_functions_03` | ✅ |
+| 048 | [Panic](https://gobyexample.com/panic) | `panic_01`, `panic_02` | ✅ |
+| 049 | [Defer](https://gobyexample.com/defer) | `defer_01`, `defer_02`, `defer_03` | ✅ |
+| 050 | [Recover](https://gobyexample.com/recover) | `recover_01`, `recover_02`, `recover_03` | ✅ |
 
 ## 06 — Standard library data formats and utilities
 

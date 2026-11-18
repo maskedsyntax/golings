@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "defer_01",
+  "topic": "defer",
+  "title": "Always clean up",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["functions_02", "errors_01"],
+  "starter_files": ["copy.go"],
+  "fixture_files": [],
+  "checks": ["unit", "ast"],
+  "ast_rules": ["uses_defer:Copy"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Copy returns early when a write fails, and that path never reaches the Close calls at the bottom.",
+    "defer schedules a call to run when the surrounding function returns, however it returns. Put defer src.Close() right after the source is opened.",
+    "src := open(); defer src.Close(); dst := create(); defer dst.Close()  — and delete the Close calls at the end."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "sorting_02",
+  "topic": "sorting",
+  "title": "The median",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["sorting_01"],
+  "starter_files": ["median.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "The median is the middle value once the numbers are in order, so sort (a copy of) the input first.",
+    "With an odd count, the median is sorted[n/2]. With an even count, it's the average of the two middle values, sorted[n/2-1] and sorted[n/2].",
+    "s := slices.Clone(nums); slices.Sort(s); n := len(s); if n%2 == 1 { return s[n/2], true }; return (s[n/2-1] + s[n/2]) / 2, true"
+  ]
+}

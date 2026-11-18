@@ -72,7 +72,17 @@
         "stateful_goroutines_01", "stateful_goroutines_02", "stateful_goroutines_03"
       ]
     },
-    {"id": "05_sorting_control", "title": "Sorting and control", "exercises": []},
+    {
+      "id": "05_sorting_control",
+      "title": "Sorting and control",
+      "exercises": [
+        "sorting_01", "sorting_02",
+        "sorting_by_functions_01", "sorting_by_functions_02", "sorting_by_functions_03",
+        "panic_01", "panic_02",
+        "defer_01", "defer_02", "defer_03",
+        "recover_01", "recover_02", "recover_03"
+      ]
+    },
     {"id": "06_stdlib_formats", "title": "Standard library data formats and utilities", "exercises": []},
     {"id": "07_files_directories", "title": "Files and directories", "exercises": []},
     {"id": "08_testing_clis", "title": "Testing and CLIs", "exercises": []},

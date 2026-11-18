@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "sorting_by_functions_01",
+  "topic": "sorting_by_functions",
+  "title": "Shortest first",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["sorting_01"],
+  "starter_files": ["bylength.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "slices.Sort always uses the natural order, which for strings is alphabetical. To sort by something else, use slices.SortFunc with a comparison function.",
+    "The comparison function returns a negative number if a sorts before b, a positive number if after, and 0 if they're equal. cmp.Compare(len(a), len(b)) does exactly that for the lengths.",
+    "slices.SortFunc(words, func(a, b string) int { return cmp.Or(cmp.Compare(len(a), len(b)), strings.Compare(a, b)) })"
+  ]
+}

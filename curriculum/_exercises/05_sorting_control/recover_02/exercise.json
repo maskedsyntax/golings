@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "recover_02",
+  "topic": "recover",
+  "title": "Recover must be called directly",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["recover_01"],
+  "starter_files": ["handle.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "recover only stops a panic when the deferred function itself calls it. Here the deferred function is an anonymous closure, and recover is called one level deeper, inside capture, so it returns nil.",
+    "Defer capture itself: defer capture(&err). Then capture is the deferred function and its recover call works.",
+    "defer capture(&err)"
+  ]
+}

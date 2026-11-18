@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "panic_01",
+  "topic": "panic",
+  "title": "Must or panic",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["errors_01"],
+  "starter_files": ["port.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A Must… function is for values that are known to be valid, typically constants in the program itself. Instead of returning an error, it calls panic.",
+    "Parse with strconv.Atoi. If that fails, or the number is outside 1–65535, call panic with an error that explains why.",
+    "n, err := strconv.Atoi(s); if err != nil { panic(fmt.Errorf(\"invalid port %q: %w\", s, err)) }; if n < 1 || n > 65535 { panic(fmt.Errorf(\"port %d out of range\", n)) }; return n"
+  ]
+}

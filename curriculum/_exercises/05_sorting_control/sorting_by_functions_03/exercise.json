@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "sorting_by_functions_03",
+  "topic": "sorting_by_functions",
+  "title": "Subtraction is not comparison",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["sorting_by_functions_02"],
+  "starter_files": ["richest.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "a.Balance - b.Balance looks like a comparison result, but for large values the subtraction overflows int64 and wraps around to the opposite sign.",
+    "cmp.Compare(x, y) returns -1, 0 or +1 without doing any arithmetic, so it can't overflow.",
+    "slices.SortFunc(accts, func(a, b Account) int { return cmp.Compare(b.Balance, a.Balance) })  — note b before a for largest first."
+  ]
+}
