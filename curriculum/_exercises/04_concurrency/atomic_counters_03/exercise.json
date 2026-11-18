@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "atomic_counters_03",
+  "topic": "atomic_counters",
+  "title": "Close exactly once",
+  "type": "concurrency",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["atomic_counters_02"],
+  "starter_files": ["conn.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Checking closed and then setting it is two steps. Two goroutines can both see false before either sets true, and then both release the connection.",
+    "atomic.Bool's CompareAndSwap(false, true) succeeds for exactly one caller. Everyone else gets false and should return ErrClosed.",
+    "if !c.closed.CompareAndSwap(false, true) { return ErrClosed }; c.release(); return nil  — with closed declared as atomic.Bool"
+  ]
+}

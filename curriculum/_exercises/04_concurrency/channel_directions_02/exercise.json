@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "channel_directions_02",
+  "topic": "channel_directions",
+  "title": "A pipeline stage",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["channel_directions_01", "channels_02"],
+  "starter_files": ["square.go"],
+  "fixture_files": [],
+  "checks": ["unit", "ast"],
+  "ast_rules": ["chan_params_directional:Square"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A stage takes a receive-only input channel and returns a receive-only output channel. Inside, it creates a bidirectional channel, sends on it from a goroutine, and returns it; the return type narrows it to <-chan int.",
+    "Square must not block: start a goroutine that loops forever: v := <-in; out <- v * v.",
+    "func Square(in <-chan int) <-chan int { out := make(chan int); go func() { for { v := <-in; out <- v * v } }(); return out }"
+  ]
+}

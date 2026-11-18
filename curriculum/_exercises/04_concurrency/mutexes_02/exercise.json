@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "mutexes_02",
+  "topic": "mutexes",
+  "title": "The copied lock",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["mutexes_01", "methods_02"],
+  "starter_files": ["counter.go"],
+  "fixture_files": [],
+  "checks": ["unit", "vet", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Inc has a value receiver, so it locks and increments a copy of the Counter. The original never changes.",
+    "A struct containing a sync.Mutex must not be copied. Methods on it need pointer receivers. go vet's copylocks check reports the copy.",
+    "func (c *Counter) Inc() { … }  — and give Value a pointer receiver too."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "atomic_counters_02",
+  "topic": "atomic_counters",
+  "title": "Compare and swap",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["atomic_counters_01"],
+  "starter_files": ["max.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Load, compare, then Store is not atomic as a whole: another goroutine can store a larger value between your Load and your Store, and you overwrite it.",
+    "CompareAndSwap(old, new) stores new only if the value is still old, and reports whether it did. Retry in a loop until either your value isn't larger or the swap succeeds.",
+    "for { cur := m.v.Load(); if x <= cur || m.v.CompareAndSwap(cur, x) { return } }"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "waitgroups_03",
+  "topic": "waitgroups",
+  "title": "Collecting every error",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["waitgroups_01", "custom_errors_04"],
+  "starter_files": ["runall.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Run each task in its own goroutine (wg.Add(1) before go) and store its error in errs[i], one slot per task, so no lock is needed.",
+    "After wg.Wait(), errors.Join(errs...) combines them. It skips nil errors and returns nil if every one is nil.",
+    "errs := make([]error, len(tasks)); for i, task := range tasks { wg.Add(1); go func() { defer wg.Done(); errs[i] = task() }() }; wg.Wait(); return errors.Join(errs...)"
+  ]
+}

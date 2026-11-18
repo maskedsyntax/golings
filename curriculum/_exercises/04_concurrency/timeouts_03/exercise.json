@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "timeouts_03",
+  "topic": "timeouts",
+  "title": "A timeout for each call",
+  "type": "concurrency",
+  "difficulty": "advanced",
+  "estimated_minutes": 18,
+  "prerequisites": ["timeouts_01", "channels_03"],
+  "starter_files": ["callall.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Doing the calls one after another means the timeouts add up. Run each call (and its own timeout) in a separate goroutine.",
+    "Each goroutine does what timeouts_01 did for one call, then writes its Result into results[i]. Wait for all of them with a sync.WaitGroup.",
+    "for i, call := range calls { wg.Add(1); go func() { defer wg.Done(); ch := make(chan int, 1); go func() { ch <- call() }(); select { case v := <-ch: results[i] = Result{Value: v}; case <-time.After(d): results[i] = Result{TimedOut: true} } }() }; wg.Wait()"
+  ]
+}

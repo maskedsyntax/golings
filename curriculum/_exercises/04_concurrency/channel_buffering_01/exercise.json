@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "channel_buffering_01",
+  "topic": "channel_buffering",
+  "title": "A buffered queue",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["channels_01"],
+  "starter_files": ["queue.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "make(chan T, n) creates a channel with room for n values. Sends only block once the buffer is full.",
+    "Queue sends len(msgs) values with no receiver running, so the buffer must hold all of them.",
+    "ch := make(chan string, len(msgs))"
+  ]
+}

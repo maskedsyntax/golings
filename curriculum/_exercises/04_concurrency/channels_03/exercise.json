@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "channels_03",
+  "topic": "channels",
+  "title": "Results in input order",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["channels_02", "structs_01"],
+  "starter_files": ["fetch.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Results arrive on the channel in the order the goroutines finish, not the order they started. A slow first fetch arrives last.",
+    "Send the index along with the value, for example a struct{ i int; body string }, then store each result at results[r.i].",
+    "type result struct { i int; body string }; ch := make(chan result); go func() { ch <- result{i, fetch(u)} }(); … for range urls { r := <-ch; results[r.i] = r.body }"
+  ]
+}

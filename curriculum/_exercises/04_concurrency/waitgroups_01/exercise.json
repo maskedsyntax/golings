@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "waitgroups_01",
+  "topic": "waitgroups",
+  "title": "Add before you go",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["goroutines_01"],
+  "starter_files": ["process.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "wg.Wait() returns when the counter is zero. If the goroutines haven't run wg.Add(1) yet when Wait is called, the counter is still zero.",
+    "Call wg.Add(1) in the loop, before the go statement, not inside the new goroutine.",
+    "for … { wg.Add(1); go func() { defer wg.Done(); … }() }"
+  ]
+}

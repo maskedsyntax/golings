@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "stateful_goroutines_03",
+  "topic": "stateful_goroutines",
+  "title": "Shutting the owner down",
+  "type": "concurrency",
+  "difficulty": "advanced",
+  "estimated_minutes": 20,
+  "prerequisites": ["stateful_goroutines_01", "closing_channels_03"],
+  "starter_files": ["counter.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "After Close, the owner goroutine has exited, so nobody will ever receive on c.incs. A plain send in Inc blocks forever. Make the send a select that also watches c.done.",
+    "Close should close quit (so the owner exits) and then wait on done, which the owner closes as it exits. Then Inc can select { case c.incs <- resp: …; case <-c.done: return 0, ErrClosed }.",
+    "Inc: resp := make(chan int); select { case c.incs <- resp: return <-resp, nil; case <-c.done: return 0, ErrClosed }.  Close: close(c.quit); <-c.done.  The owner: defer close(c.done)."
+  ]
+}

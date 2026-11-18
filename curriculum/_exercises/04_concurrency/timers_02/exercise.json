@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "timers_02",
+  "topic": "timers",
+  "title": "Debouncing",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["timers_01"],
+  "starter_files": ["debounce.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 20,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Every Trigger starts a brand-new timer, so f runs once per trigger. A debouncer needs one timer that each trigger pushes back.",
+    "Create the timer once (in NewDebouncer) and stop it straight away. Trigger then calls Reset(d) on it, which reschedules a pending call.",
+    "func NewDebouncer(d time.Duration, f func()) *Debouncer { t := time.AfterFunc(d, f); t.Stop(); return &Debouncer{d: d, t: t} } — and Trigger: db.t.Reset(db.d)"
+  ]
+}

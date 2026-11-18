@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "rate_limiting_02",
+  "topic": "rate_limiting",
+  "title": "Allowing bursts",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 18,
+  "prerequisites": ["rate_limiting_01", "non_blocking_channel_operations_01", "closing_channels_03"],
+  "starter_files": ["limiter.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Model the allowance as a buffered channel of tokens with capacity burst. Wait takes a token: <-l.tokens. Fill the buffer completely in NewLimiter so the first burst calls don't wait.",
+    "A goroutine adds one token per tick, but only if there's room: a select with a default case, so a full bucket simply drops the token. It exits when stop is closed.",
+    "go func() { t := time.NewTicker(every); defer t.Stop(); for { select { case <-t.C: select { case l.tokens <- struct{}{}: default: }; case <-l.stop: return } } }()"
+  ]
+}

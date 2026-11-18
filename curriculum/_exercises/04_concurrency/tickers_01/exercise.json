@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tickers_01",
+  "topic": "tickers",
+  "title": "Polling on a schedule",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["timers_01", "range_over_channels_01"],
+  "starter_files": ["poll.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "time.NewTicker(d) sends the current time on ticker.C every d. Receive from ticker.C before each check.",
+    "Always stop a ticker you're done with (defer ticker.Stop()), so the runtime can release it.",
+    "ticker := time.NewTicker(interval); defer ticker.Stop(); n := 0; for range ticker.C { n++; if check() { return n } }"
+  ]
+}

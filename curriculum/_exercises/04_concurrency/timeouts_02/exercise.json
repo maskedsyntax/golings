@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "timeouts_02",
+  "topic": "timeouts",
+  "title": "An overall deadline",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["timeouts_01"],
+  "starter_files": ["collect.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "time.After(d) inside the loop creates a new timer every iteration. Each value that arrives restarts the clock, so a steady stream of values means it never fires.",
+    "Create the timer once, before the loop, and select on that same channel every time.",
+    "deadline := time.After(d); for { select { case v := <-ch: out = append(out, v); case <-deadline: return out } }"
+  ]
+}

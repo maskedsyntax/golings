@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "channel_synchronization_02",
+  "topic": "channel_synchronization",
+  "title": "Relay race",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["channel_synchronization_01"],
+  "starter_files": ["relay.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Each step runs in its own goroutine but must not begin until the previous step has finished. Give each step a channel to wait on and a channel to close when it's done.",
+    "Chain them: step i waits on prev, runs, then closes its own done channel. That channel becomes prev for step i+1. Close the first prev yourself so step 0 can start, and wait on the last done before returning.",
+    "prev := make(chan struct{}); close(prev); for _, s := range steps { done := make(chan struct{}); go func(wait <-chan struct{}) { <-wait; s(); close(done) }(prev); prev = done }; <-prev"
+  ]
+}

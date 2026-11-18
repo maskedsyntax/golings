@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "select_03",
+  "topic": "select",
+  "title": "Breaking out of select",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["select_02"],
+  "starter_files": ["sum.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Inside a select, break leaves the select, not the surrounding for loop. The loop just goes around again.",
+    "Use return instead of break, or put a label on the for loop and write break with that label.",
+    "case <-done: return total"
+  ]
+}

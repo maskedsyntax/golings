@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "timers_01",
+  "topic": "timers",
+  "title": "A cancellable reminder",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["timeouts_01"],
+  "starter_files": ["schedule.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 20,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A goroutine that sleeps can't be called off. A *time.Timer can: its Stop method cancels it if it hasn't fired yet.",
+    "time.AfterFunc(d, f) runs f in its own goroutine after d and returns the *time.Timer. Timer.Stop returns true if it stopped the timer before it fired.",
+    "t := time.AfterFunc(d, f); return t.Stop"
+  ]
+}

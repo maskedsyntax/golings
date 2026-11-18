@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "goroutines_03",
+  "topic": "goroutines",
+  "title": "A shared total",
+  "type": "concurrency",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["goroutines_02"],
+  "starter_files": ["sum.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "total += sum is a read, an add and a write. Two goroutines can read the same old total, and then one of the updates is lost. The race detector reports exactly this.",
+    "Don't share the total. Give each goroutine its own slot to write, as in goroutines_02, and add the slots up after Wait.",
+    "partial := make([]int, len(chunks)); in goroutine i: partial[i] = sum of chunk; after wg.Wait(): total := 0; for _, p := range partial { total += p }"
+  ]
+}

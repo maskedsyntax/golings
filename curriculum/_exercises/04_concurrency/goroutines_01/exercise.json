@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "goroutines_01",
+  "topic": "goroutines",
+  "title": "Starting goroutines",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["functions_01", "closures_01"],
+  "starter_files": ["runall.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "The go keyword runs a function call in a new goroutine: go f(). The caller doesn't wait for it; both keep running.",
+    "The starter already has a WaitGroup that waits for every task. Only the calls themselves need to change.",
+    "Inside the loop: go func() { defer wg.Done(); task() }()"
+  ]
+}

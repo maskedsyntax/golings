@@ -4,8 +4,8 @@
 
 - Curriculum version: 0.1.0
 - Topic inventory: https://gobyexample.com/, snapshot 2026-11-17 (85 topics)
-- Exercises: 74
-- Topics with at least 2 exercises: 27/85
+- Exercises: 126
+- Topics with at least 2 exercises: 45/85
 
 ## 01 — Fundamentals
 
@@ -53,24 +53,24 @@
 
 | # | Topic | Exercises | Status |
 |---|---|---|---|
-| 028 | [Goroutines](https://gobyexample.com/goroutines) | — | ⬜ none |
-| 029 | [Channels](https://gobyexample.com/channels) | — | ⬜ none |
-| 030 | [Channel Buffering](https://gobyexample.com/channel-buffering) | — | ⬜ none |
-| 031 | [Channel Synchronization](https://gobyexample.com/channel-synchronization) | — | ⬜ none |
-| 032 | [Channel Directions](https://gobyexample.com/channel-directions) | — | ⬜ none |
-| 033 | [Select](https://gobyexample.com/select) | — | ⬜ none |
-| 034 | [Timeouts](https://gobyexample.com/timeouts) | — | ⬜ none |
-| 035 | [Non-Blocking Channel Operations](https://gobyexample.com/non-blocking-channel-operations) | — | ⬜ none |
-| 036 | [Closing Channels](https://gobyexample.com/closing-channels) | — | ⬜ none |
-| 037 | [Range over Channels](https://gobyexample.com/range-over-channels) | — | ⬜ none |
-| 038 | [Timers](https://gobyexample.com/timers) | — | ⬜ none |
-| 039 | [Tickers](https://gobyexample.com/tickers) | — | ⬜ none |
-| 040 | [Worker Pools](https://gobyexample.com/worker-pools) | — | ⬜ none |
-| 041 | [WaitGroups](https://gobyexample.com/waitgroups) | — | ⬜ none |
-| 042 | [Rate Limiting](https://gobyexample.com/rate-limiting) | — | ⬜ none |
-| 043 | [Atomic Counters](https://gobyexample.com/atomic-counters) | — | ⬜ none |
-| 044 | [Mutexes](https://gobyexample.com/mutexes) | — | ⬜ none |
-| 045 | [Stateful Goroutines](https://gobyexample.com/stateful-goroutines) | — | ⬜ none |
+| 028 | [Goroutines](https://gobyexample.com/goroutines) | `goroutines_01`, `goroutines_02`, `goroutines_03` | ✅ |
+| 029 | [Channels](https://gobyexample.com/channels) | `channels_01`, `channels_02`, `channels_03` | ✅ |
+| 030 | [Channel Buffering](https://gobyexample.com/channel-buffering) | `channel_buffering_01`, `channel_buffering_02` | ✅ |
+| 031 | [Channel Synchronization](https://gobyexample.com/channel-synchronization) | `channel_synchronization_01`, `channel_synchronization_02` | ✅ |
+| 032 | [Channel Directions](https://gobyexample.com/channel-directions) | `channel_directions_01`, `channel_directions_02`, `channel_directions_03` | ✅ |
+| 033 | [Select](https://gobyexample.com/select) | `select_01`, `select_02`, `select_03`, `select_04` | ✅ |
+| 034 | [Timeouts](https://gobyexample.com/timeouts) | `timeouts_01`, `timeouts_02`, `timeouts_03` | ✅ |
+| 035 | [Non-Blocking Channel Operations](https://gobyexample.com/non-blocking-channel-operations) | `non_blocking_channel_operations_01`, `non_blocking_channel_operations_02` | ✅ |
+| 036 | [Closing Channels](https://gobyexample.com/closing-channels) | `closing_channels_01`, `closing_channels_02`, `closing_channels_03` | ✅ |
+| 037 | [Range over Channels](https://gobyexample.com/range-over-channels) | `range_over_channels_01`, `range_over_channels_02`, `range_over_channels_03` | ✅ |
+| 038 | [Timers](https://gobyexample.com/timers) | `timers_01`, `timers_02` | ✅ |
+| 039 | [Tickers](https://gobyexample.com/tickers) | `tickers_01`, `tickers_02` | ✅ |
+| 040 | [Worker Pools](https://gobyexample.com/worker-pools) | `worker_pools_01`, `worker_pools_02`, `worker_pools_03`, `worker_pools_04` | ✅ |
+| 041 | [WaitGroups](https://gobyexample.com/waitgroups) | `waitgroups_01`, `waitgroups_02`, `waitgroups_03` | ✅ |
+| 042 | [Rate Limiting](https://gobyexample.com/rate-limiting) | `rate_limiting_01`, `rate_limiting_02`, `rate_limiting_03` | ✅ |
+| 043 | [Atomic Counters](https://gobyexample.com/atomic-counters) | `atomic_counters_01`, `atomic_counters_02`, `atomic_counters_03` | ✅ |
+| 044 | [Mutexes](https://gobyexample.com/mutexes) | `mutexes_01`, `mutexes_02`, `mutexes_03`, `mutexes_04` | ✅ |
+| 045 | [Stateful Goroutines](https://gobyexample.com/stateful-goroutines) | `stateful_goroutines_01`, `stateful_goroutines_02`, `stateful_goroutines_03` | ✅ |
 
 ## 05 — Sorting and control
 

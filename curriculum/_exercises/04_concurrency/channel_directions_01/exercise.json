@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "channel_directions_01",
+  "topic": "channel_directions",
+  "title": "Send-only and receive-only",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["channels_02"],
+  "starter_files": ["pingpong.go"],
+  "fixture_files": [],
+  "checks": ["unit", "ast"],
+  "ast_rules": ["chan_params_directional:Ping", "chan_params_directional:Pong"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "chan<- T can only be sent to. <-chan T can only be received from. The arrow shows which way the data flows relative to chan.",
+    "Ping only sends on pings, so pings should be chan<- string. Pong receives from pings and sends on pongs.",
+    "func Ping(pings chan<- string, msg string) and func Pong(pings <-chan string, pongs chan<- string)"
+  ]
+}

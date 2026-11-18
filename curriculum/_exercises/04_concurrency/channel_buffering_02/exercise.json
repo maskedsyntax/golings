@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "channel_buffering_02",
+  "topic": "channel_buffering",
+  "title": "The first answer wins",
+  "type": "concurrency",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["channel_buffering_01", "channels_02"],
+  "starter_files": ["first.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "First receives one value and returns. Every other goroutine then blocks forever on ch <- …, because nobody receives again. That is a goroutine leak.",
+    "If the channel had room for every answer, the losing goroutines could send and exit even though nobody reads their answers.",
+    "ch := make(chan string, len(sources))"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "worker_pools_03",
+  "topic": "worker_pools",
+  "title": "Stopping on the first error",
+  "type": "concurrency",
+  "difficulty": "advanced",
+  "estimated_minutes": 20,
+  "prerequisites": ["worker_pools_01", "closing_channels_03"],
+  "starter_files": ["process.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Workers report errors on a channel with a buffer of 1; use a select with a default case so only the first error is kept and nobody blocks. The dispatcher must stop handing out jobs once an error exists.",
+    "Use a quit channel that gets closed once, when the first error arrives. The dispatcher's send becomes a select between jobs <- i and <-quit. Closing exactly once needs coordination: let only the worker that wins the errCh send close quit.",
+    "select { case errCh <- err: close(quit); default: }  in a worker; the dispatcher: select { case jobs <- i: case <-quit: return }; after wg.Wait(): select { case err := <-errCh: return err; default: return nil }"
+  ]
+}

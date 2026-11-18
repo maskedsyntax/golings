@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "closing_channels_02",
+  "topic": "closing_channels",
+  "title": "Many senders, one close",
+  "type": "concurrency",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["closing_channels_01", "goroutines_02"],
+  "starter_files": ["squares.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Every worker closes results when it finishes. The second close panics (\"close of closed channel\"), and any worker still sending panics too (\"send on closed channel\").",
+    "With several senders, close only once, after all of them are done. Wait for the workers with a WaitGroup in one extra goroutine, then close.",
+    "go func() { wg.Wait(); close(results) }()  — and remove the close from the workers."
+  ]
+}

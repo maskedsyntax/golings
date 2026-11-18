@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "rate_limiting_01",
+  "topic": "rate_limiting",
+  "title": "One request per tick",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["tickers_01"],
+  "starter_files": ["throttle.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A ticker is a natural rate limiter: receive from ticker.C before handling each request, and the requests can't go faster than the ticks.",
+    "Create the ticker before the loop and defer ticker.Stop(). Inside the loop: <-ticker.C, then handle(r).",
+    "ticker := time.NewTicker(every); defer ticker.Stop(); for _, r := range reqs { <-ticker.C; handle(r) }"
+  ]
+}

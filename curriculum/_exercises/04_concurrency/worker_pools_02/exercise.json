@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "worker_pools_02",
+  "topic": "worker_pools",
+  "title": "Waiting in the wrong place",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["worker_pools_01"],
+  "starter_files": ["letters.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "The workers send on results, which is unbuffered. Nobody receives until wg.Wait() returns, but wg.Wait() can't return until the workers finish sending. That's a deadlock.",
+    "Receive results while the workers are still running. Close results once they're all done, from a separate goroutine that does wg.Wait() and then close(results).",
+    "go func() { wg.Wait(); close(results) }(); for r := range results { out[r.word] = r.n }"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "range_over_channels_01",
+  "topic": "range_over_channels",
+  "title": "Ranging until closed",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["closing_channels_01", "range_over_built_in_types_01"],
+  "starter_files": ["sum.go"],
+  "fixture_files": [],
+  "checks": ["unit", "ast"],
+  "ast_rules": ["uses_range:Sum"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Sum assumes there are exactly three values. The sender might send any number and then close the channel.",
+    "for v := range ch receives values until ch is closed and drained, then the loop ends.",
+    "total := 0; for v := range ch { total += v }; return total"
+  ]
+}

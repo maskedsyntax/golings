@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "non_blocking_channel_operations_01",
+  "topic": "non_blocking_channel_operations",
+  "title": "Try, don't wait",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["select_01"],
+  "starter_files": ["try.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A select with a default case never blocks. If no other case is ready right now, default runs.",
+    "TrySend: select { case ch <- msg: return true; default: return false }.",
+    "TryReceive: select { case m := <-ch: return m, true; default: return \"\", false }"
+  ]
+}

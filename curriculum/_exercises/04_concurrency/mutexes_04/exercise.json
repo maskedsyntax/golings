@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "mutexes_04",
+  "topic": "mutexes",
+  "title": "Compute once per key",
+  "type": "concurrency",
+  "difficulty": "advanced",
+  "estimated_minutes": 18,
+  "prerequisites": ["mutexes_01"],
+  "starter_files": ["cache.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Between RUnlock and Lock, other goroutines can run the same check, see the same miss, and compute too. A read lock followed by a write lock is not one atomic step.",
+    "After taking the write lock, check the map again: another goroutine may have stored the value while you waited. Compute only if it's still missing, while holding the lock.",
+    "c.mu.RLock(); v, ok := c.data[key]; c.mu.RUnlock(); if ok { return v }; c.mu.Lock(); defer c.mu.Unlock(); if v, ok := c.data[key]; ok { return v }; v = compute(); c.data[key] = v; return v"
+  ]
+}

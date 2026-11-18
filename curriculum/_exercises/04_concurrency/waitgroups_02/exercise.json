@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "waitgroups_02",
+  "topic": "waitgroups",
+  "title": "Don't copy the WaitGroup",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["waitgroups_01", "pointers_02"],
+  "starter_files": ["workers.go"],
+  "fixture_files": [],
+  "checks": ["unit", "vet"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "worker receives the WaitGroup by value, so it calls Done on its own copy. The original's counter never reaches zero.",
+    "A WaitGroup (like a Mutex) must not be copied after first use. go vet's copylocks check reports this: try go vet in your workspace.",
+    "func worker(id int, wg *sync.WaitGroup, out []int) — and call it as go worker(i, &wg, out)"
+  ]
+}

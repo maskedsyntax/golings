@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "mutexes_01",
+  "topic": "mutexes",
+  "title": "Guarding a map",
+  "type": "concurrency",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["maps_01", "goroutines_03"],
+  "starter_files": ["container.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Maps are not safe for concurrent use. Concurrent writes can crash the program with \"fatal error: concurrent map writes\".",
+    "Lock c.mu at the start of Inc and Get and unlock it when they return. defer c.mu.Unlock() right after Lock keeps that tidy.",
+    "func (c *Container) Inc(name string) { c.mu.Lock(); defer c.mu.Unlock(); c.counters[name]++ }  — and the same in Get"
+  ]
+}

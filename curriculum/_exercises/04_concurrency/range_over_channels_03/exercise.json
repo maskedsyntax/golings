@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "range_over_channels_03",
+  "topic": "range_over_channels",
+  "title": "A pipeline that finishes",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["range_over_channels_01", "channel_directions_02"],
+  "starter_files": ["pipeline.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Count ranges over the output of Filter, and that range only ends when Filter's output channel is closed.",
+    "Filter's goroutine finishes its own range loop when in is closed. At that point, nothing more will be sent on out.",
+    "go func() { defer close(out); for v := range in { if keep(v) { out <- v } } }()"
+  ]
+}

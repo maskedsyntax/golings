@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "channels_01",
+  "topic": "channels",
+  "title": "Sending on a channel",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["goroutines_01"],
+  "starter_files": ["greet.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "An unbuffered channel send blocks until another goroutine receives. Greet sends before returning, but the receiver only gets the channel after Greet returns, so nobody can ever receive.",
+    "Do the send in a new goroutine, so Greet can return the channel straight away.",
+    "ch := make(chan string); go func() { ch <- \"Hello, \" + name + \"!\" }(); return ch"
+  ]
+}

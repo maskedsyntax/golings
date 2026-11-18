@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tickers_02",
+  "topic": "tickers",
+  "title": "A stoppable heartbeat",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["tickers_01", "select_02"],
+  "starter_files": ["heartbeat.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "for range time.Tick(…) never ends: the channel is never closed, and nothing in the loop checks stop.",
+    "Use time.NewTicker and a select with two cases, one for ticker.C and one for stop. Return from the stop case and defer ticker.Stop().",
+    "ticker := time.NewTicker(interval); defer ticker.Stop(); for { select { case <-ticker.C: beat(); case <-stop: return } }"
+  ]
+}

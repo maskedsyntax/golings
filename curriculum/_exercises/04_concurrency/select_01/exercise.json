@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "select_01",
+  "topic": "select",
+  "title": "Whichever is ready",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["channels_02"],
+  "starter_files": ["receive.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Receiving from a, then b, then a… blocks on a even when only b has a message. select waits on several channels at once and takes whichever is ready.",
+    "Loop n times. In each iteration, one select with a case for a and a case for b appends the message it receives.",
+    "for range n { select { case m := <-a: out = append(out, m); case m := <-b: out = append(out, m) } }"
+  ]
+}

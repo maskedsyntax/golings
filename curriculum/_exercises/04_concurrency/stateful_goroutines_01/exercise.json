@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "stateful_goroutines_01",
+  "topic": "stateful_goroutines",
+  "title": "One goroutine owns the state",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 20,
+  "prerequisites": ["mutexes_01", "select_02"],
+  "starter_files": ["store.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "NewStore starts a goroutine that owns the map. It loops on a select over s.reads and s.writes and is the only code that ever touches the map.",
+    "Each request carries its own response channel. Get sends a readOp and then waits on its resp. Set sends a writeOp and waits for the acknowledgement on its resp.",
+    "In the owner: case r := <-s.reads: r.resp <- state[r.key]; case w := <-s.writes: state[w.key] = w.val; w.resp <- struct{}{}.  Get: resp := make(chan int); s.reads <- readOp{key, resp}; return <-resp"
+  ]
+}

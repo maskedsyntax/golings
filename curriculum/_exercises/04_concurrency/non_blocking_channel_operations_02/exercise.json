@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "non_blocking_channel_operations_02",
+  "topic": "non_blocking_channel_operations",
+  "title": "Slow subscribers",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["non_blocking_channel_operations_01"],
+  "starter_files": ["hub.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Publish sends to every subscriber with a plain send. One subscriber that stops reading fills its buffer, and then Publish blocks forever, so nobody else gets anything either.",
+    "Use a select with a default case for each subscriber. If the send can't happen right now, count a drop and move on.",
+    "for _, s := range h.subs { select { case s <- v: default: h.Dropped++ } }"
+  ]
+}

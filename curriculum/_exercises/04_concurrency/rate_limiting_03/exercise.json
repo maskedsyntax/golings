@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "rate_limiting_03",
+  "topic": "rate_limiting",
+  "title": "A token bucket on paper",
+  "type": "debug",
+  "difficulty": "advanced",
+  "estimated_minutes": 18,
+  "prerequisites": ["rate_limiting_02"],
+  "starter_files": ["bucket.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Work through the test that idles for an hour: how many tokens does the bucket hold afterwards? A bucket can't hold more than its capacity.",
+    "After adding elapsed × rate tokens, clamp the result: b.tokens = min(b.tokens, b.capacity).",
+    "b.tokens = min(b.capacity, b.tokens+now.Sub(b.last).Seconds()*b.rate); b.last = now"
+  ]
+}

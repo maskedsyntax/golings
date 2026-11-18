@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "channels_02",
+  "topic": "channels",
+  "title": "Producer and consumer",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 12,
+  "prerequisites": ["channels_01"],
+  "starter_files": ["pipe.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Generate creates a channel, starts a goroutine that sends each number, and returns the channel immediately.",
+    "Take receives exactly n values with a loop: for range n { out = append(out, <-ch) }.",
+    "func Generate(nums ...int) <-chan int { ch := make(chan int); go func() { for _, n := range nums { ch <- n } }(); return ch }"
+  ]
+}

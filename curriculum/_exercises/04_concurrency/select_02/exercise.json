@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "select_02",
+  "topic": "select",
+  "title": "Until told to stop",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["select_01"],
+  "starter_files": ["collect.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Loop forever around a select with two cases: a value from data, or a signal from quit.",
+    "A closed channel is always ready to receive from, so case <-quit: fires once quit is closed. Return what you've collected from that case.",
+    "for { select { case v := <-data: out = append(out, v); case <-quit: return out } }"
+  ]
+}

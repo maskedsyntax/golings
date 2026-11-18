@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"context"
 	"errors"
 	"flag"
 	"fmt"
@@ -345,22 +346,66 @@ func verifyAll(e *env) error {
 	if err != nil {
 		return err
 	}
+	// Exercises are evaluated in parallel (many failing concurrency
+	// exercises only fail after a guard timeout), but reported in order.
+	exs := a.Catalog.Exercises()
+	type outcome struct {
+		res *runner.ExerciseResult
+		err error
+	}
+	outcomes := make([]outcome, len(exs))
+	done := make([]chan struct{}, len(exs))
+	for i := range done {
+		done[i] = make(chan struct{})
+	}
+	ctx, cancel := context.WithCancel(e.ctx)
+	defer cancel()
+	jobs := make(chan int)
+	go func() {
+		defer close(jobs)
+		for i := range exs {
+			select {
+			case jobs <- i:
+			case <-ctx.Done():
+				return
+			}
+		}
+	}()
+	for range max(1, runtime.NumCPU()/2) {
+		go func() {
+			for i := range jobs {
+				ex := exs[i]
+				ev, err := a.Evaluate(ctx, tc, ex, e.g.timeout)
+				var missing *workspace.MissingFilesError
+				switch {
+				case errors.As(err, &missing):
+					outcomes[i].res = &runner.ExerciseResult{
+						ExerciseID: ex.ID, Status: runner.StatusFail,
+						Checks: []runner.CheckResult{{Name: "files", Status: runner.StatusFail, Diagnostic: missing.Error()}},
+					}
+				case err != nil:
+					outcomes[i].err = err
+				default:
+					outcomes[i].res = ev.Result
+				}
+				close(done[i])
+			}
+		}()
+	}
+
 	worst := runner.StatusPass
 	var results []*runner.ExerciseResult
 	passed := 0
-	for _, ex := range a.Catalog.Exercises() {
-		ev, err := a.Evaluate(e.ctx, tc, ex, e.g.timeout)
-		var missing *workspace.MissingFilesError
-		switch {
-		case errors.As(err, &missing):
-			ev = &app.Evaluation{Exercise: ex, Result: &runner.ExerciseResult{
-				ExerciseID: ex.ID, Status: runner.StatusFail,
-				Checks: []runner.CheckResult{{Name: "files", Status: runner.StatusFail, Diagnostic: missing.Error()}},
-			}}
-		case err != nil:
-			return err
+	for i, ex := range exs {
+		select {
+		case <-done[i]:
+		case <-ctx.Done():
+			return ctx.Err()
 		}
-		res := ev.Result
+		if err := outcomes[i].err; err != nil {
+			return err // the deferred cancel stops the remaining work
+		}
+		res := outcomes[i].res
 		results = append(results, res)
 		worst = runner.Worst(worst, res.Status)
 		if res.Passed() {

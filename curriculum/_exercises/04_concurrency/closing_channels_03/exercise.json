@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "closing_channels_03",
+  "topic": "closing_channels",
+  "title": "Stopping every worker",
+  "type": "concurrency",
+  "difficulty": "advanced",
+  "estimated_minutes": 18,
+  "prerequisites": ["closing_channels_01", "select_02"],
+  "starter_files": ["workers.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Sending one value on quit wakes exactly one worker. Closing quit wakes all of them, because a closed channel is always ready to receive from.",
+    "stop must also wait until every worker has really exited, so that work is never called after stop returns. Track the workers with a sync.WaitGroup.",
+    "stop := func() { close(quit); wg.Wait() }  — and each worker: defer wg.Done(); for { select { case <-quit: return; default: work(id) } }"
+  ]
+}

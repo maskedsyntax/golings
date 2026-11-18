@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "atomic_counters_01",
+  "topic": "atomic_counters",
+  "title": "Counting without losing",
+  "type": "concurrency",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["goroutines_03"],
+  "starter_files": ["counter.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "c.n++ from many goroutines at once is a data race, and increments get lost. sync/atomic provides operations that the hardware performs indivisibly.",
+    "Change the field to n atomic.Int64. Then use c.n.Add(1), c.n.Add(delta) and c.n.Load().",
+    "type Counter struct { n atomic.Int64 }; func (c *Counter) Inc() { c.n.Add(1) }; func (c *Counter) Add(d int64) { c.n.Add(d) }; func (c *Counter) Value() int64 { return c.n.Load() }"
+  ]
+}

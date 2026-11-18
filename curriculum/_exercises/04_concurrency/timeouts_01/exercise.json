@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "timeouts_01",
+  "topic": "timeouts",
+  "title": "Giving up",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 12,
+  "prerequisites": ["select_02", "channel_buffering_02"],
+  "starter_files": ["timeout.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "time.After(d) returns a channel that receives a value after d. Use it as one case of a select, with the result channel as the other.",
+    "Run fetch in a goroutine that sends its result on a channel. Give that channel a buffer of 1, so the goroutine can still finish and exit when you've stopped waiting for it.",
+    "ch := make(chan string, 1); go func() { ch <- fetch() }(); select { case v := <-ch: return v, nil; case <-time.After(d): return \"\", ErrTimeout }"
+  ]
+}

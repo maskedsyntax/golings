@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "channel_directions_03",
+  "topic": "channel_directions",
+  "title": "Let the compiler find it",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["channel_directions_01"],
+  "starter_files": ["double.go"],
+  "fixture_files": [],
+  "checks": ["unit", "ast"],
+  "ast_rules": ["chan_params_directional:worker"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Give worker's parameters directions first: jobs is only received from and results is only sent to. Then compile and read the error.",
+    "worker sends its answer back on jobs instead of results. The doubled value gets picked up again as a new job, and results never gets anything.",
+    "func worker(jobs <-chan int, results chan<- int) { for { j := <-jobs; results <- j * 2 } }"
+  ]
+}

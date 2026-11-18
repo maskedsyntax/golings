@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "goroutines_02",
+  "topic": "goroutines",
+  "title": "Results from goroutines",
+  "type": "concurrency",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["goroutines_01", "slices_02"],
+  "starter_files": ["mapparallel.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Each goroutine writes its result into its own element results[i]. Different elements of a slice are different variables, so that is safe without a lock.",
+    "The function returns results as soon as the loop has started the goroutines. They haven't written anything yet. Something has to wait for them.",
+    "Call wg.Wait() after the loop and before return results."
+  ]
+}

@@ -60,6 +60,8 @@ func Contract(ctx context.Context, cat *catalog.Catalog, ex *catalog.Exercise, t
 		v := Variant{Name: "starter", Result: res, OK: true}
 		first := res.FirstProblem()
 		switch {
+		case res.Status == runner.StatusUnsupported:
+			v.Problem = "skipped: " + unsupportedReason(res)
 		case res.Status == runner.StatusPass:
 			v.OK, v.Problem = false, "starter passes every check; it must fail until the learner fixes it"
 		case res.Status == runner.StatusRunnerError || res.Status == runner.StatusTimeout:
@@ -79,8 +81,10 @@ func Contract(ctx context.Context, cat *catalog.Catalog, ex *catalog.Exercise, t
 		return cr
 	}
 	res := eval(solution)
-	v := Variant{Name: "solution", Result: res, OK: res.Passed()}
-	if !v.OK {
+	v := Variant{Name: "solution", Result: res, OK: res.Passed() || res.Status == runner.StatusUnsupported}
+	if res.Status == runner.StatusUnsupported {
+		v.Problem = "skipped: " + unsupportedReason(res)
+	} else if !v.OK {
 		v.Problem = "reference solution does not pass: " + describe(res)
 	}
 	add(v)
@@ -112,13 +116,27 @@ func Contract(ctx context.Context, cat *catalog.Catalog, ex *catalog.Exercise, t
 			continue
 		}
 		res := eval(files)
-		v := Variant{Name: "mutant:" + name, Result: res, OK: res.Status == runner.StatusFail}
-		if !v.OK {
+		v := Variant{Name: "mutant:" + name, Result: res, OK: res.Status == runner.StatusFail || res.Status == runner.StatusUnsupported}
+		if res.Status == runner.StatusUnsupported {
+			v.Problem = "skipped: " + unsupportedReason(res)
+		} else if !v.OK {
 			v.Problem = fmt.Sprintf("mutant should fail the checks but got %s", res.Status)
 		}
 		add(v)
 	}
 	return cr
+}
+
+// unsupportedReason explains why a variant could not be fully evaluated on
+// this machine (for example, no race detector). Such variants are neither
+// passes nor failures, so the contract skips them instead of failing.
+func unsupportedReason(res *runner.ExerciseResult) string {
+	for _, c := range res.Checks {
+		if c.Status == runner.StatusUnsupported {
+			return c.Diagnostic
+		}
+	}
+	return "a check is unsupported on this platform"
 }
 
 func readFiles(assets fs.FS, dir string, names []string) (map[string][]byte, error) {

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "closing_channels_01",
+  "topic": "closing_channels",
+  "title": "No more values",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["channels_02"],
+  "starter_files": ["generate.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A receiver can't tell that no more values are coming unless the sender closes the channel. Until then, for … range ch and <-ch wait forever.",
+    "Only the sender should close. Close the channel in the goroutine, after the last send.",
+    "go func() { defer close(ch); for _, n := range nums { ch <- n } }()"
+  ]
+}

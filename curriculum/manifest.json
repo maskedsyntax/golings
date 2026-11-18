@@ -48,7 +48,30 @@
         "custom_errors_01", "custom_errors_02", "custom_errors_03", "custom_errors_04"
       ]
     },
-    {"id": "04_concurrency", "title": "Concurrency", "exercises": []},
+    {
+      "id": "04_concurrency",
+      "title": "Concurrency",
+      "exercises": [
+        "goroutines_01", "goroutines_02", "goroutines_03",
+        "channels_01", "channels_02", "channels_03",
+        "channel_buffering_01", "channel_buffering_02",
+        "channel_synchronization_01", "channel_synchronization_02",
+        "channel_directions_01", "channel_directions_02", "channel_directions_03",
+        "select_01", "select_02", "select_03", "select_04",
+        "timeouts_01", "timeouts_02", "timeouts_03",
+        "non_blocking_channel_operations_01", "non_blocking_channel_operations_02",
+        "closing_channels_01", "closing_channels_02", "closing_channels_03",
+        "range_over_channels_01", "range_over_channels_02", "range_over_channels_03",
+        "timers_01", "timers_02",
+        "tickers_01", "tickers_02",
+        "worker_pools_01", "worker_pools_02", "worker_pools_03", "worker_pools_04",
+        "waitgroups_01", "waitgroups_02", "waitgroups_03",
+        "rate_limiting_01", "rate_limiting_02", "rate_limiting_03",
+        "atomic_counters_01", "atomic_counters_02", "atomic_counters_03",
+        "mutexes_01", "mutexes_02", "mutexes_03", "mutexes_04",
+        "stateful_goroutines_01", "stateful_goroutines_02", "stateful_goroutines_03"
+      ]
+    },
     {"id": "05_sorting_control", "title": "Sorting and control", "exercises": []},
     {"id": "06_stdlib_formats", "title": "Standard library data formats and utilities", "exercises": []},
     {"id": "07_files_directories", "title": "Files and directories", "exercises": []},

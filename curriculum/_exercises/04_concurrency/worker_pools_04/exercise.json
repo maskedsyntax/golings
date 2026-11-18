@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "worker_pools_04",
+  "topic": "worker_pools",
+  "title": "Fan-in",
+  "type": "implement",
+  "difficulty": "advanced",
+  "estimated_minutes": 18,
+  "prerequisites": ["worker_pools_01", "closing_channels_02"],
+  "starter_files": ["merge.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Start one goroutine per input channel that copies every value to a shared output channel.",
+    "The output may be closed only after every copying goroutine has finished, the same pattern as closing_channels_02: a WaitGroup plus one goroutine that waits and then closes.",
+    "for _, c := range chans { wg.Add(1); go func() { defer wg.Done(); for v := range c { out <- v } }() }; go func() { wg.Wait(); close(out) }(); return out"
+  ]
+}

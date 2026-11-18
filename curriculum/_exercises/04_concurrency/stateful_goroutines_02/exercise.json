@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "stateful_goroutines_02",
+  "topic": "stateful_goroutines",
+  "title": "The missing reply",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["stateful_goroutines_01"],
+  "starter_files": ["store.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Delete sends its request and then waits on op.resp. Look at what the owner goroutine does with a delete request.",
+    "Every request type needs a reply, even if there is no data to send back. Otherwise the caller waits forever.",
+    "case op := <-s.deletes: delete(state, op.key); op.resp <- struct{}{}"
+  ]
+}

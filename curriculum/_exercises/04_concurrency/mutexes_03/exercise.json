@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "mutexes_03",
+  "topic": "mutexes",
+  "title": "The forgotten unlock",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["mutexes_01", "errors_01"],
+  "starter_files": ["account.go"],
+  "fixture_files": [],
+  "checks": ["unit", "race"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Follow Withdraw down the path where the balance is too low. Is the mutex ever unlocked?",
+    "A locked sync.Mutex stays locked until someone calls Unlock. The next Lock, in any method, waits forever.",
+    "a.mu.Lock(); defer a.mu.Unlock()  at the top of Withdraw, and remove the manual Unlock."
+  ]
+}
