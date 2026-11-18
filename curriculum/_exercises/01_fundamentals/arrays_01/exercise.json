@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "arrays_01",
+  "topic": "arrays",
+  "title": "Arrays are values",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["for_01"],
+  "starter_files": ["history.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Every history entry ends up identical. Something is shared when it should have been copied.",
+    "A slice is a reference to a backing array, so appending `board` stores the same reference again and again. An array ([3]int) is a value: assigning or appending it copies all of its elements.",
+    "Declare `var board [3]int` and `var history [][3]int`, then append(history, board) on each move. The conversion loop at the end is no longer needed."
+  ]
+}

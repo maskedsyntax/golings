@@ -17,6 +17,8 @@ import (
 	"regexp"
 	"slices"
 	"strings"
+
+	"github.com/maskedsyntax/golings/internal/astcheck"
 )
 
 // ExercisesDir is the directory (inside the curriculum FS) that holds
@@ -45,6 +47,7 @@ const (
 	CheckOutput CheckKind = "output"
 	CheckVet    CheckKind = "vet"
 	CheckRace   CheckKind = "race"
+	CheckAST    CheckKind = "ast"
 )
 
 // Starter expectations used by the curriculum contract checks.
@@ -55,7 +58,7 @@ const (
 
 var (
 	validTypes = []ExerciseType{TypeCompileFix, TypeImplement, TypeDebug, TypeOutput, TypeIntegration, TypeConcurrency}
-	validKinds = []CheckKind{CheckBuild, CheckUnit, CheckOutput, CheckVet, CheckRace}
+	validKinds = []CheckKind{CheckBuild, CheckUnit, CheckOutput, CheckVet, CheckRace, CheckAST}
 	validDiffs = []string{"beginner", "intermediate", "advanced"}
 	validOS    = []string{"darwin", "linux", "windows"}
 
@@ -117,6 +120,7 @@ type Exercise struct {
 	TimeoutSeconds   int          `json:"timeout_seconds"`
 	Platforms        []string     `json:"platforms"`
 	Hints            []string     `json:"hints"`
+	ASTRules         []string     `json:"ast_rules,omitempty"`
 	StarterExpect    string       `json:"starter_expect"`
 
 	// Derived from the manifest and topic inventory.
@@ -339,6 +343,14 @@ func validateExercise(ex *Exercise, topics map[string]*Topic) []string {
 			addf("duplicate check %q", k)
 		}
 		kinds[k] = true
+	}
+	if kinds[CheckAST] != (len(ex.ASTRules) > 0) {
+		addf("the %q check and ast_rules must be used together", CheckAST)
+	}
+	for _, r := range ex.ASTRules {
+		if _, err := astcheck.Parse(r); err != nil {
+			addf("%v", err)
+		}
 	}
 	if ex.Type == TypeOutput && !kinds[CheckOutput] {
 		addf("output exercises must declare the %q check", CheckOutput)

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "maps_04",
+  "topic": "maps",
+  "title": "Writing to a nil map",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["maps_02"],
+  "starter_files": ["merge.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "The tests report a panic: \"assignment to entry in nil map\". A nil map can be read from, but never written to.",
+    "`var out map[string]int` declares a nil map. You need make(...) to get a writable one. Don't fix it with `out := a`, because maps are shared: that would change the caller's map.",
+    "out := make(map[string]int, len(a)+len(b)), then add every entry of a and of b into out with out[k] += v."
+  ]
+}

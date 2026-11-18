@@ -69,26 +69,6 @@ func resultCode(s runner.Status) int {
 	}
 }
 
-// ---- watch (default) -------------------------------------------------------
-
-func cmdWatch() *command {
-	return &command{
-		name:    "watch",
-		summary: "check the current exercise (the default when no command is given)",
-		run: func(e *env, _ *flag.FlagSet, args []string) error {
-			if len(args) > 0 {
-				return exitcode.New(exitcode.Usage, "watch takes no arguments; to check a specific exercise use `golings verify <id>`")
-			}
-			err := verifyCurrent(e)
-			var evaluated silentExit
-			if !e.g.json && (err == nil || errors.As(err, &evaluated)) {
-				fmt.Fprintf(e.stdout, "\n%s\n", e.style.Dim("Edit the file, then run `golings` again. (Live re-checking on save is coming in a later release.)"))
-			}
-			return err
-		},
-	}
-}
-
 func verifyCurrent(e *env) error {
 	a, err := e.app()
 	if err != nil {

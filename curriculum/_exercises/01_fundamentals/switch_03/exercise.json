@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "switch_03",
+  "topic": "switch",
+  "title": "Type switches",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["switch_02"],
+  "starter_files": ["describe.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A type switch, `switch x := v.(type) { case int: … }`, branches on the dynamic type stored in an `any` value. Inside each case, x has that case's type.",
+    "fmt.Sprintf with %d, %q (a quoted string) and %t (a bool) produces the exact formats. `case nil:` matches a nil interface value.",
+    "switch x := v.(type) { case nil: \"nil\"; case int: fmt.Sprintf(\"int %d\", x); case string: fmt.Sprintf(\"string %q\", x); case bool: fmt.Sprintf(\"bool %t\", x); case []int: fmt.Sprintf(\"[]int of length %d\", len(x)); default: \"unknown\" }"
+  ]
+}

@@ -240,3 +240,22 @@ func TestRunMissingLearnerFile(t *testing.T) {
 		t.Errorf("missing file: %+v", res)
 	}
 }
+
+func TestRunASTConstraint(t *testing.T) {
+	tc := &toolchain.Info{GOOS: "linux"} // the ast check runs in-process
+	ex := fakeExercise(catalog.CheckAST)
+	ex.ASTRules = []string{"uses_defer:F"}
+
+	res := run(t, tc, ex, "package fake\nfunc F() int { return 2 }\n", fstest.MapFS{}, 0)
+	if res.Status != StatusFail || res.Checks[0].Failure != FailureConstraint || len(res.Checks[0].Tests) != 1 {
+		t.Errorf("missing defer: %+v", res)
+	}
+	res = run(t, tc, ex, "package fake\nfunc F() int { defer func() {}(); return 2 }\n", fstest.MapFS{}, 0)
+	if res.Status != StatusPass {
+		t.Errorf("with defer: %+v", res)
+	}
+	res = run(t, tc, ex, "package fake\nfunc F( {\n", fstest.MapFS{}, 0)
+	if res.Status != StatusFail || res.Checks[0].Failure != FailureCompile {
+		t.Errorf("syntax error: %+v", res)
+	}
+}

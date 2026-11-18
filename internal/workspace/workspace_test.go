@@ -1,6 +1,7 @@
 package workspace_test
 
 import (
+	"bytes"
 	"errors"
 	"os"
 	"path/filepath"
@@ -145,5 +146,47 @@ func TestFingerprintDependsOnNamesAndContent(t *testing.T) {
 	c := workspace.Fingerprint(map[string][]byte{"a.go": []byte("x"), "b.go": []byte("z")})
 	if a == b || a == c {
 		t.Error("fingerprints collide")
+	}
+}
+
+func TestResetRestoresWithBackup(t *testing.T) {
+	cat := loadCatalog(t)
+	ws, err := workspace.Init(filepath.Join(t.TempDir(), "ws"), cat, workspace.InitOptions{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	ex := cat.Exercises()[0]
+	file := filepath.Join(ws.ExerciseDir(ex), ex.StarterFiles[0])
+	original, _ := os.ReadFile(file)
+
+	if plan, err := ws.PlanReset(cat, ex); err != nil || !plan.Empty() {
+		t.Fatalf("fresh exercise plan = %+v, %v", plan, err)
+	}
+	if dir, err := ws.Reset(cat, ex, true); err != nil || dir != "" {
+		t.Fatalf("no-op reset = %q, %v", dir, err)
+	}
+
+	os.WriteFile(file, []byte("my work"), 0o644)
+	plan, err := ws.PlanReset(cat, ex)
+	if err != nil || len(plan.Changed) != 1 {
+		t.Fatalf("plan = %+v, %v", plan, err)
+	}
+	backup, err := ws.Reset(cat, ex, true)
+	if err != nil || backup == "" {
+		t.Fatalf("reset = %q, %v", backup, err)
+	}
+	if data, _ := os.ReadFile(file); !bytes.Equal(data, original) {
+		t.Error("file not restored")
+	}
+	if data, _ := os.ReadFile(filepath.Join(backup, ex.StarterFiles[0])); string(data) != "my work" {
+		t.Errorf("backup = %q", data)
+	}
+
+	os.Remove(file)
+	if _, err := ws.Reset(cat, ex, false); err != nil {
+		t.Fatal(err)
+	}
+	if data, _ := os.ReadFile(file); !bytes.Equal(data, original) {
+		t.Error("missing file not restored")
 	}
 }

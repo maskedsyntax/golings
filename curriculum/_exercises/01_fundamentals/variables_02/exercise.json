@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "variables_02",
+  "topic": "variables",
+  "title": "The shadowed balance",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["variables_01"],
+  "starter_files": ["balance.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "This code compiles, but some assignments land in brand-new variables that disappear at the end of their block.",
+    "Each `:=` inside the loop declares a new variable that shadows the named result of the same name. Look for `:=` where you meant `=`.",
+    "Change `balance := balance + t` to `balance += t`, and `overdrawn := true` to `overdrawn = true` (then delete the `_ = overdrawn` line)."
+  ]
+}

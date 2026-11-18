@@ -4,23 +4,23 @@
 
 - Curriculum version: 0.1.0
 - Topic inventory: https://gobyexample.com/, snapshot 2026-11-17 (85 topics)
-- Exercises: 5
-- Topics with at least 2 exercises: 0/85
+- Exercises: 26
+- Topics with at least 2 exercises: 10/85
 
 ## 01 — Fundamentals
 
 | # | Topic | Exercises | Status |
 |---|---|---|---|
-| 001 | [Hello World](https://gobyexample.com/hello-world) | `hello_world_01` | 🟨 1/2 |
-| 002 | [Values](https://gobyexample.com/values) | `values_01` | 🟨 1/2 |
-| 003 | [Variables](https://gobyexample.com/variables) | `variables_01` | 🟨 1/2 |
-| 004 | [Constants](https://gobyexample.com/constants) | — | ⬜ none |
-| 005 | [For](https://gobyexample.com/for) | — | ⬜ none |
-| 006 | [If/Else](https://gobyexample.com/if-else) | — | ⬜ none |
-| 007 | [Switch](https://gobyexample.com/switch) | — | ⬜ none |
-| 008 | [Arrays](https://gobyexample.com/arrays) | — | ⬜ none |
-| 009 | [Slices](https://gobyexample.com/slices) | `slices_01` | 🟨 1/2 |
-| 010 | [Maps](https://gobyexample.com/maps) | `maps_01` | 🟨 1/2 |
+| 001 | [Hello World](https://gobyexample.com/hello-world) | `hello_world_01`, `hello_world_02` | ✅ |
+| 002 | [Values](https://gobyexample.com/values) | `values_01`, `values_02` | ✅ |
+| 003 | [Variables](https://gobyexample.com/variables) | `variables_01`, `variables_02` | ✅ |
+| 004 | [Constants](https://gobyexample.com/constants) | `constants_01`, `constants_02` | ✅ |
+| 005 | [For](https://gobyexample.com/for) | `for_01`, `for_02`, `for_03` | ✅ |
+| 006 | [If/Else](https://gobyexample.com/if-else) | `if_else_01`, `if_else_02` | ✅ |
+| 007 | [Switch](https://gobyexample.com/switch) | `switch_01`, `switch_02`, `switch_03` | ✅ |
+| 008 | [Arrays](https://gobyexample.com/arrays) | `arrays_01`, `arrays_02` | ✅ |
+| 009 | [Slices](https://gobyexample.com/slices) | `slices_01`, `slices_02`, `slices_03`, `slices_04` | ✅ |
+| 010 | [Maps](https://gobyexample.com/maps) | `maps_01`, `maps_02`, `maps_03`, `maps_04` | ✅ |
 
 ## 02 — Functions and types
 

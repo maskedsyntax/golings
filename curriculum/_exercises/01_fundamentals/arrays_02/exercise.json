@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "arrays_02",
+  "topic": "arrays",
+  "title": "Matrices as arrays",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["arrays_01"],
+  "starter_files": ["matrix.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Arrays of comparable elements can be compared directly with ==, and a parameter of array type is already a private copy.",
+    "Transposing in place by swapping m[i][j] with m[j][i] for every i and j swaps each pair twice, which puts it back. Write into a separate result array instead.",
+    "Equal: return a == b. Transpose: var t [3][3]int; for i := range 3 { for j := range 3 { t[j][i] = m[i][j] } }; return t."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "if_else_01",
+  "topic": "if_else",
+  "title": "Letter grades",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 6,
+  "prerequisites": ["values_02"],
+  "starter_files": ["grade.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Check the invalid range first, then test thresholds from the highest down, so each branch only has to compare against one boundary.",
+    "Go's if needs braces but no parentheses: if score >= 90 { … } else if score >= 80 { … }. Watch >= versus > at exactly 90, 80, 70 and 60.",
+    "if score < 0 || score > 100 { return \"invalid\" }, then return \"A\" for >= 90, \"B\" for >= 80, \"C\" for >= 70, \"D\" for >= 60, and \"F\" otherwise."
+  ]
+}

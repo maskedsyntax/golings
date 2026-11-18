@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/signal"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/maskedsyntax/golings/curriculum"
@@ -64,8 +65,8 @@ var commands []*command
 
 func init() {
 	commands = []*command{
-		cmdWatch(), cmdInit(), cmdList(), cmdRun(), cmdVerify(), cmdNext(),
-		cmdProgress(), cmdDoctor(), cmdVersion(), cmdHelp(),
+		cmdWatch(), cmdInit(), cmdList(), cmdRun(), cmdVerify(), cmdNext(), cmdHint(),
+		cmdReset(), cmdSolution(), cmdProgress(), cmdDoctor(), cmdVersion(), cmdHelp(),
 	}
 }
 
@@ -80,7 +81,7 @@ func lookup(name string) *command {
 
 // Main runs the CLI and returns the process exit code.
 func Main(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
-	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 	return run(ctx, args, stdin, stdout, stderr)
 }

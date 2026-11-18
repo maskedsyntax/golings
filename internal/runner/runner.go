@@ -14,6 +14,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/maskedsyntax/golings/internal/astcheck"
 	"github.com/maskedsyntax/golings/internal/catalog"
 	"github.com/maskedsyntax/golings/internal/diagnostics"
 	"github.com/maskedsyntax/golings/internal/toolchain"
@@ -102,6 +103,8 @@ func Run(ctx context.Context, req Request) *ExerciseResult {
 			cr = c.vet(ctx)
 		case catalog.CheckOutput:
 			cr = c.output(ctx)
+		case catalog.CheckAST:
+			cr = c.ast()
 		default:
 			cr = CheckResult{Status: StatusRunnerError, Failure: FailureRunner, Diagnostic: fmt.Sprintf("unknown check kind %q", kind)}
 		}
@@ -338,4 +341,27 @@ func describeMismatch(got, want string) string {
 		}
 	}
 	return "output differs"
+}
+
+// ast evaluates the exercise's syntax constraints in-process.
+func (c *checker) ast() CheckResult {
+	start := time.Now()
+	violations, err := astcheck.Check(c.req.Files, c.req.Exercise.ASTRules)
+	cr := CheckResult{Duration: time.Since(start)}
+	switch {
+	case err != nil:
+		cr.Status, cr.Failure = StatusFail, FailureCompile
+		cr.Diagnostic = "your code does not compile"
+		cr.Stderr = c.rw.Rewrite(err.Error())
+		cr.Diagnostics = diagnostics.Parse(cr.Stderr)
+	case len(violations) > 0:
+		cr.Status, cr.Failure = StatusFail, FailureConstraint
+		cr.Diagnostic = "the code works, but the exercise asks for a specific construct"
+		for _, v := range violations {
+			cr.Tests = append(cr.Tests, TestResult{Name: v.Rule, Status: StatusFail, Output: v.Message})
+		}
+	default:
+		cr.Status = StatusPass
+	}
+	return cr
 }

@@ -230,3 +230,52 @@ func (a *App) Summarize(st *progress.State, goos string) Summary {
 func IsCanceled(err error) bool {
 	return errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded)
 }
+
+// Hint is one revealed hint.
+type Hint struct {
+	Level int    `json:"level"`
+	Total int    `json:"total"`
+	Text  string `json:"text"`
+	// AllRevealed is true when every hint has now been shown.
+	AllRevealed bool `json:"all_revealed"`
+}
+
+// RevealHint shows hint level (1-based), or the next unrevealed hint when
+// level is 0. Once every hint has been revealed, the last one is shown again.
+// The highest revealed level is persisted.
+func (a *App) RevealHint(ex *catalog.Exercise, level int) (Hint, error) {
+	total := len(ex.Hints)
+	if level < 0 || level > total {
+		return Hint{}, fmt.Errorf("%s has %d hints; --level must be between 1 and %d", ex.ID, total, total)
+	}
+	var h Hint
+	_, err := a.Store.Update(func(s *progress.State) error {
+		e := s.Entry(ex.ID)
+		if level == 0 {
+			level = min(e.HintsRevealed+1, total)
+		}
+		e.HintsRevealed = max(e.HintsRevealed, level)
+		if e.Status == progress.NotStarted {
+			e.Status = progress.InProgress
+		}
+		h = Hint{Level: level, Total: total, Text: ex.Hints[level-1], AllRevealed: e.HintsRevealed >= total}
+		return nil
+	})
+	return h, err
+}
+
+// RevealedHints returns the hints already revealed for ex.
+func (a *App) RevealedHints(ex *catalog.Exercise, st *progress.State) []string {
+	n := min(st.Get(ex.ID).HintsRevealed, len(ex.Hints))
+	return ex.Hints[:n]
+}
+
+// MarkSolutionViewed records that the learner looked at the solution. It
+// does not affect completion.
+func (a *App) MarkSolutionViewed(ex *catalog.Exercise) error {
+	_, err := a.Store.Update(func(s *progress.State) error {
+		s.Entry(ex.ID).SolutionViewed = true
+		return nil
+	})
+	return err
+}

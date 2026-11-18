@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "for_01",
+  "topic": "for",
+  "title": "Go has only for",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 5,
+  "prerequisites": ["variables_01"],
+  "starter_files": ["loops.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "Go has a single looping keyword, for, which covers three-part loops, condition-only (\"while\") loops and infinite loops.",
+    "A Go for clause has no parentheses: for i := 0; i < n; i++ { … }. A while loop is just `for condition { … }`.",
+    "Write `for n > 0 {` in CountDown, and remove the parentheses around the clause in SumTo."
+  ]
+}

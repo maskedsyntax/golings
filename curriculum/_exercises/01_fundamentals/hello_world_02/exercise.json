@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "hello_world_02",
+  "topic": "hello_world",
+  "title": "Imports and exported names",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 4,
+  "prerequisites": ["hello_world_01"],
+  "starter_files": ["main.go"],
+  "fixture_files": [],
+  "checks": ["output"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "Go refuses to compile a file that imports a package it never uses, and a file that uses a package it never imports.",
+    "Only names that start with a capital letter are visible outside their package. fmt exports Println, not println.",
+    "Replace the unused import with \"fmt\", and capitalize the P in the misspelled call."
+  ]
+}

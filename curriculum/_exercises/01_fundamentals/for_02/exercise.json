@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "for_02",
+  "topic": "for",
+  "title": "Collatz steps",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["for_01"],
+  "starter_files": ["collatz.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "You don't know in advance how many steps there will be, so a condition-only loop (for n != 1 { … }) fits better than a counting loop.",
+    "Inside the loop, use if n%2 == 0 to choose between the two rules, and increment a step counter once per transformation.",
+    "Handle n <= 0 first (return -1). Then steps := 0; for n != 1 { if n%2 == 0 { n /= 2 } else { n = 3*n + 1 }; steps++ }; return steps."
+  ]
+}

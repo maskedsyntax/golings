@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "slices_03",
+  "topic": "slices",
+  "title": "Remove duplicate values",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["slices_02"],
+  "starter_files": ["unique.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "For each number, ask: is it already in the output? Only append it if it isn't.",
+    "The standard slices package has slices.Contains(s, v). Start from out := []int{} (not var out []int), so empty input gives a non-nil result.",
+    "out := []int{}; for _, n := range numbers { if !slices.Contains(out, n) { out = append(out, n) } }; return out"
+  ]
+}

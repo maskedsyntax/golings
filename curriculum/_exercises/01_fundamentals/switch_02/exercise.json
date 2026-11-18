@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "switch_02",
+  "topic": "switch",
+  "title": "A switch with no expression",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 7,
+  "prerequisites": ["switch_01"],
+  "starter_files": ["fizzbuzz.go"],
+  "fixture_files": [],
+  "checks": ["unit", "ast"],
+  "ast_rules": ["uses_switch:FizzBuzz"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A switch with no expression (`switch { … }`) runs the first case whose condition is true. It's a tidy if/else-if chain.",
+    "Order matters: a number divisible by 15 is also divisible by 3, so its case must come first. strconv.Itoa turns an int into its text.",
+    "switch { case n%15 == 0: return \"FizzBuzz\"; case n%3 == 0: return \"Fizz\"; case n%5 == 0: return \"Buzz\"; default: return strconv.Itoa(n) }"
+  ]
+}

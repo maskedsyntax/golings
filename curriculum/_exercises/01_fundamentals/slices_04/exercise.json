@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "slices_04",
+  "topic": "slices",
+  "title": "The haunted grid",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["slices_02"],
+  "starter_files": ["grid.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Writing to one cell changes the same column in every row. How many distinct backing arrays does this grid actually have?",
+    "A [][]int is a slice of slice headers. Assigning `row` to every grid[i] makes all the rows share a single backing array.",
+    "Allocate a fresh row inside the loop: for i := range grid { grid[i] = make([]int, cols) }."
+  ]
+}

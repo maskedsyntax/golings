@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -11,6 +12,7 @@ import (
 	"testing"
 
 	"github.com/maskedsyntax/golings/curriculum"
+	"github.com/maskedsyntax/golings/internal/catalog"
 	"github.com/maskedsyntax/golings/internal/exitcode"
 	"github.com/maskedsyntax/golings/internal/toolchain"
 )
@@ -84,34 +86,35 @@ func TestLearnerJourney(t *testing.T) {
 	if _, err := toolchain.Detect(context.Background()); err != nil {
 		t.Skipf("Go toolchain unavailable: %v", err)
 	}
+	total := curriculumSize(t)
 	ws := filepath.Join(t.TempDir(), "my workspace")
 	golings(t, "init", ws).expect(t, exitcode.OK, "Created a workspace")
 	w := []string{"--workspace", ws, "--no-color"}
 	cmd := func(args ...string) result { return golings(t, append(append([]string{}, w...), args...)...) }
 
 	// The first exercise fails until it is fixed.
-	cmd().expect(t, exitcode.VerifyFailed, "hello_world_01", "Output mismatch", "Not passing yet")
+	cmd("verify").expect(t, exitcode.VerifyFailed, "hello_world_01", "Output mismatch", "Not passing yet")
 
 	// Unknown and misspelled ids are usage errors with suggestions.
 	cmd("verify", "hello_wrld_01").expect(t, exitcode.Usage, "did you mean", "hello_world_01")
 
 	// A compile error points at the learner's file.
-	cmd("verify", "values").expect(t, exitcode.VerifyFailed, "Compiler error",
+	cmd("verify", "values_01").expect(t, exitcode.VerifyFailed, "Compiler error",
 		filepath.Join("exercises", "01_fundamentals", "values_01", "values.go")+":")
 
 	copySolution(t, ws, "01_fundamentals", "hello_world_01", "main.go")
-	cmd("verify").expect(t, exitcode.OK, "Hello, Golings!", "Exercise complete", "values_01")
+	cmd("verify").expect(t, exitcode.OK, "Hello, Golings!", "Exercise complete", "hello_world_02")
 
-	cmd("next").expect(t, exitcode.OK, "values_01")
+	cmd("next").expect(t, exitcode.OK, "hello_world_02")
 
 	// A fresh invocation resumes at the selected exercise.
-	cmd().expect(t, exitcode.VerifyFailed, "Exercise 2/5", "values_01")
+	cmd("verify").expect(t, exitcode.VerifyFailed, fmt.Sprintf("Exercise 2/%d", total), "hello_world_02")
 
 	// JSON output is parseable and free of ANSI escapes.
 	r := cmd("progress", "--json")
 	r.expect(t, exitcode.OK)
 	var sum struct{ Total, Completed int }
-	if err := json.Unmarshal([]byte(r.stdout), &sum); err != nil || sum.Completed != 1 || sum.Total != 5 {
+	if err := json.Unmarshal([]byte(r.stdout), &sum); err != nil || sum.Completed != 1 || sum.Total != total {
 		t.Errorf("progress --json = %s (%v)", r.stdout, err)
 	}
 	r = golings(t, "--workspace", ws, "list", "--json")
@@ -120,7 +123,7 @@ func TestLearnerJourney(t *testing.T) {
 		t.Error("JSON output contains ANSI escapes")
 	}
 	var rows []struct{ ID, Status string }
-	if err := json.Unmarshal([]byte(r.stdout), &rows); err != nil || len(rows) != 5 || rows[0].Status != "completed" || rows[1].Status != "in_progress" {
+	if err := json.Unmarshal([]byte(r.stdout), &rows); err != nil || len(rows) != total || rows[0].Status != "completed" || rows[1].Status != "in_progress" {
 		t.Errorf("list --json = %s (%v)", r.stdout, err)
 	}
 
@@ -148,5 +151,14 @@ func TestLearnerJourney(t *testing.T) {
 	cmd("verify", "hello_world_01").expect(t, exitcode.Workspace, "missing")
 
 	// --all reports every exercise and fails overall.
-	cmd("verify", "--all").expect(t, exitcode.VerifyFailed, "of 5 exercises pass")
+	cmd("verify", "--all").expect(t, exitcode.VerifyFailed, fmt.Sprintf("of %d exercises pass", total))
+}
+
+func curriculumSize(t *testing.T) int {
+	t.Helper()
+	cat, err := catalog.Load(curriculum.FS)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return len(cat.Exercises())
 }

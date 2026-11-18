@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "switch_01",
+  "topic": "switch",
+  "title": "No fallthrough",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 6,
+  "prerequisites": ["if_else_01"],
+  "starter_files": ["weekend.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Unlike C or Java, a Go case does not fall through into the next one. An empty case just matches and does nothing.",
+    "One case can list several values, separated by commas.",
+    "Merge the two cases: case \"Saturday\", \"Sunday\": return true."
+  ]
+}

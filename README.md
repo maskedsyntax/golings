@@ -7,9 +7,9 @@ following the topics of [Go by Example](https://gobyexample.com/).
 Everything runs locally with the Go toolchain you already have: no accounts, no network,
 no other runtimes.
 
-> **Status:** early development (Milestone A of [spec.md](spec.md)). The runner works end to end
-> with 5 sample exercises. Watch mode, hints, reset and the full 220-exercise curriculum are
-> still to come.
+> **Status:** early development (Milestone B of [spec.md](spec.md)). Watch mode, hints, reset and
+> solutions work, and Module 01 (Fundamentals, 26 exercises) is complete. The remaining modules
+> are still to come.
 
 ## Requirements
 
@@ -30,18 +30,21 @@ golings                    # check the current exercise
 
 | Command | What it does |
 |---|---|
-| `golings` | Check the current exercise (the next unfinished one) |
+| `golings` / `golings watch` | Watch the current exercise and re-check it on every save. Keys: `h` hint, `n` next, `p` previous, `l` list, `r` re-run, `q` quit (`--auto-advance` moves on after a pass) |
 | `golings init [path]` | Create a workspace; refuses to touch non-empty directories |
 | `golings list` | Exercises and their status (`--module`, `--topic`, `--difficulty`, `--status`, `--json`) |
 | `golings verify [id]` / `--all` | Check one exercise, or all of them |
 | `golings run <id>` | Check one exercise and show its program output |
 | `golings next` | Select the next unfinished exercise |
+| `golings hint [id]` | Reveal the next hint (`--level N` for a specific one) |
+| `golings reset <id>` | Restore the starter files; asks first and backs up your version to `.golings/backups/` |
+| `golings solution <id>` | Show the reference solution (asks first, or `--show`; `--out DIR` writes files) |
 | `golings progress` | Completion statistics (`--json`) |
 | `golings doctor` | Diagnose the toolchain and workspace (`--recover-state` repairs a corrupt progress file) |
 | `golings version` | CLI and curriculum versions |
 
-Exercise IDs can be abbreviated to any unambiguous prefix (`golings verify vari`) or given
-as their number (`golings verify 3`).
+Exercises can be named by full ID (`golings verify slices_02`), by any unambiguous prefix, or
+by number (`golings verify 3`). An ambiguous prefix lists the matches instead of guessing.
 
 Exit codes: `0` ok, `1` exercise not passing, `2` usage error, `3` workspace problem,
 `4` Go toolchain problem, `5` infrastructure error or time limit, `130` interrupted.

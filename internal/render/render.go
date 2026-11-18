@@ -45,7 +45,7 @@ func ColorEnabled(w io.Writer, noColor bool) bool {
 		return false
 	}
 	f, ok := w.(*os.File)
-	return ok && IsTerminal(f)
+	return ok && IsTerminal(f) && EnableVT(f)
 }
 
 // JSON writes v as indented JSON followed by a newline.
@@ -82,6 +82,8 @@ func failureLabel(c *runner.CheckResult) string {
 		return "go vet problem"
 	case runner.FailureRace:
 		return "Data race"
+	case runner.FailureConstraint:
+		return "Not quite"
 	case runner.FailureTimeout:
 		return "Timeout"
 	case runner.FailureRunner:
@@ -162,7 +164,7 @@ func printProblem(w io.Writer, s Style, c *runner.CheckResult) {
 		if out := strings.TrimSpace(c.Stderr); out != "" {
 			fmt.Fprintln(w, indent(out, "  "))
 		}
-	case runner.FailureTest:
+	case runner.FailureTest, runner.FailureConstraint:
 		passed := 0
 		for _, t := range c.Tests {
 			switch t.Status {

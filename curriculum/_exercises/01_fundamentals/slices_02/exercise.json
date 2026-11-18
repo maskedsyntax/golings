@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "slices_02",
+  "topic": "slices",
+  "title": "Chunks that don't overlap",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["slices_01"],
+  "starter_files": ["chunk.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "items[i:j] shares memory with items, and its capacity runs to the end of items. So appending to that sub-slice overwrites items[j] in place.",
+    "A full slice expression items[i:j:j] caps the capacity at j-i, which makes append allocate a new array instead. Copying each chunk works too.",
+    "for start := 0; start < len(items); start += size { end := min(start+size, len(items)); chunks = append(chunks, items[start:end:end]) }. Return nil if size <= 0."
+  ]
+}

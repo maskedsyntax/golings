@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "maps_02",
+  "topic": "maps",
+  "title": "Inventory: delete and sorted keys",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 12,
+  "prerequisites": ["maps_01"],
+  "starter_files": ["inventory.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Maps are reference-like: a function that receives a map can change the caller's map. The built-in delete(m, key) removes an entry.",
+    "Map iteration order is deliberately random. To list keys in order, collect them into a slice and sort it (slices.Sort or sort.Strings).",
+    "Sell: if stock[item] < n { return false }; stock[item] -= n; if stock[item] == 0 { delete(stock, item) }; return true. Items: append each key, then slices.Sort(keys)."
+  ]
+}

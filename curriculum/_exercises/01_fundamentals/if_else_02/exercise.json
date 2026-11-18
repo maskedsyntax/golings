@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "if_else_02",
+  "topic": "if_else",
+  "title": "if with a short statement",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["if_else_01"],
+  "starter_files": ["classify.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "An if can begin with a short statement: if v, err := f(); err != nil { … } else { … }. Variables declared there are visible in every branch, but not after the if.",
+    "strconv.Atoi(s) converts text to an int and returns a non-nil error when the text isn't a number. strings.TrimSpace removes surrounding whitespace.",
+    "if n, err := strconv.Atoi(strings.TrimSpace(s)); err != nil { return \"not a number\" } else if n < 0 { return \"negative\" } else if n == 0 { return \"zero\" } else { return \"positive\" }"
+  ]
+}

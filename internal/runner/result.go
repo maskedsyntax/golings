@@ -47,14 +47,15 @@ func Worst(a, b Status) Status {
 type Failure string
 
 const (
-	FailureNone    Failure = ""
-	FailureCompile Failure = "compile"
-	FailureTest    Failure = "test"
-	FailureOutput  Failure = "output"
-	FailureVet     Failure = "vet"
-	FailureRace    Failure = "race"
-	FailureTimeout Failure = "timeout"
-	FailureRunner  Failure = "runner"
+	FailureNone       Failure = ""
+	FailureCompile    Failure = "compile"
+	FailureTest       Failure = "test"
+	FailureOutput     Failure = "output"
+	FailureVet        Failure = "vet"
+	FailureRace       Failure = "race"
+	FailureConstraint Failure = "constraint" // an ast rule is not satisfied
+	FailureTimeout    Failure = "timeout"
+	FailureRunner     Failure = "runner"
 )
 
 // TestResult is one test (or subtest) reported by `go test -json`.

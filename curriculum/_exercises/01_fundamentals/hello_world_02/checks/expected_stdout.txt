@@ -1,0 +1,2 @@
+Go has exported names.
+They start with a capital letter.

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "values_02",
+  "topic": "values",
+  "title": "Booleans and operators",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 6,
+  "prerequisites": ["values_01"],
+  "starter_files": ["values.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Each function fits in a single boolean expression built from comparisons (==, !=, <, >=) and the logical operators && and ||.",
+    "For the remainder operator, -3 % 2 is -1 in Go, not 1: the result takes the sign of the dividend.",
+    "CanVote: age >= 18 && registered. Differ: a != b. IsEven: n%2 == 0, which is safe for negative numbers."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "constants_01",
+  "topic": "constants",
+  "title": "Typed and untyped constants",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 7,
+  "prerequisites": ["values_01"],
+  "starter_files": ["constants.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "An untyped constant like `const X = 2` adapts to whatever numeric type it's used with. A typed constant like `const X int = 2` behaves exactly like an int.",
+    "A typed constant also has to fit its type: 1 << 40 is far larger than an int32 can hold.",
+    "Remove the explicit types: `const Factor = 2` and `const TB = 1 << 40`. Untyped constants have arbitrary precision until they are used."
+  ]
+}

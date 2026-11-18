@@ -6,7 +6,18 @@
     {
       "id": "01_fundamentals",
       "title": "Fundamentals",
-      "exercises": ["hello_world_01", "values_01", "variables_01", "slices_01", "maps_01"]
+      "exercises": [
+        "hello_world_01", "hello_world_02",
+        "values_01", "values_02",
+        "variables_01", "variables_02",
+        "constants_01", "constants_02",
+        "for_01", "for_02", "for_03",
+        "if_else_01", "if_else_02",
+        "switch_01", "switch_02", "switch_03",
+        "arrays_01", "arrays_02",
+        "slices_01", "slices_02", "slices_03", "slices_04",
+        "maps_01", "maps_02", "maps_03", "maps_04"
+      ]
     },
     {"id": "02_functions_types", "title": "Functions and types", "exercises": []},
     {"id": "03_interfaces_generics_errors", "title": "Interfaces, generics, errors", "exercises": []},

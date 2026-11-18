@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: gofmt (starters are intentionally exempt)
+        run: |
+          files=$(git ls-files '*.go' | grep -v '/starter/' | xargs gofmt -l)
+          if [ -n "$files" ]; then echo "Not gofmt-ed:"; echo "$files"; exit 1; fi
+      - run: go vet ./...
+      - run: go mod tidy -diff
+      - name: Curriculum metadata, assets and coverage doc
+        run: go run ./cmd/golings-dev validate-curriculum
+
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        go: ['1.24.x', stable]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Test (race detector)
+        if: runner.os != 'Windows'
+        run: go test -race -timeout 15m ./...
+      - name: Test
+        if: runner.os == 'Windows'
+        run: go test -timeout 15m ./...
+      - name: Curriculum contract (starters fail, solutions pass, mutants fail)
+        run: go run ./cmd/golings-dev check --all
+      - name: CLI smoke test
+        shell: bash
+        run: |
+          go build -o golings-bin ./cmd/golings
+          ./golings-bin init "$RUNNER_TEMP/ws"
+          ./golings-bin --workspace "$RUNNER_TEMP/ws" doctor
+          ./golings-bin --workspace "$RUNNER_TEMP/ws" list --json > /dev/null
+          set +e
+          ./golings-bin --workspace "$RUNNER_TEMP/ws" verify
+          code=$?
+          set -e
+          if [ "$code" -ne 1 ]; then echo "expected exit 1 for an unsolved exercise, got $code"; exit 1; fi
+
+  cross-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [darwin/amd64, darwin/arm64, linux/amd64, linux/arm64, windows/amd64, windows/arm64]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.x'
+      - name: Build ${{ matrix.target }}
+        run: GOOS=${TARGET%/*} GOARCH=${TARGET#*/} go build ./cmd/golings ./cmd/golings-dev
+        env:
+          TARGET: ${{ matrix.target }}

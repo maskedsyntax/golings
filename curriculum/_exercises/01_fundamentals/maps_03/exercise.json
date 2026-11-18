@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "maps_03",
+  "topic": "maps",
+  "title": "Grouping into a map of slices",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["maps_01"],
+  "starter_files": ["group.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "The zero value of a missing map[int][]string entry is a nil slice, and append works fine on a nil slice.",
+    "So there's no need to check whether a key exists first: groups[k] = append(groups[k], w) both creates and extends.",
+    "groups := make(map[int][]string); for _, w := range words { n := utf8.RuneCountInString(w); groups[n] = append(groups[n], w) }; return groups"
+  ]
+}

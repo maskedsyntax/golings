@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "constants_02",
+  "topic": "constants",
+  "title": "Human-readable sizes with iota",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["constants_01"],
+  "starter_files": ["sizes.go"],
+  "fixture_files": [],
+  "checks": ["unit", "ast"],
+  "ast_rules": ["declares_const:KB", "declares_const:MB", "declares_const:GB"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Inside a const block, iota counts 0, 1, 2, … for each line, and a line with no expression repeats the previous expression with the next iota.",
+    "1 << (10 * iota) gives 1, 1024, 1048576, … Skip the first value with `_ = iota`. To print one decimal place, use fmt.Sprintf(\"%.1f KB\", float64(n)/KB).",
+    "const ( _ = iota; KB = 1 << (10 * iota); MB; GB ). Then check the largest unit first: if n >= GB …, else if n >= MB …, else if n >= KB …, else \"%d B\"."
+  ]
+}

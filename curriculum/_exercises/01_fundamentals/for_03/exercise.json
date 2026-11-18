@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "for_03",
+  "topic": "for",
+  "title": "break, continue and labels",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["for_02"],
+  "starter_files": ["search.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "continue skips to the next iteration. break leaves the innermost loop, and a labeled break (`outer:` on the loop, then `break outer`) leaves the loop you name.",
+    "For FirstPair, nest two loops with j starting at i+1, so each pair is visited once in the required order. Stop both loops as soon as you find a match.",
+    "PositiveSum: `if x <= 0 { continue }; sum += x`. FirstPair: label the outer loop, set i, j, found when nums[i]+nums[j] == target, then `break outer` (or simply return)."
+  ]
+}
