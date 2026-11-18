@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -20,10 +22,27 @@ var lockWait = 5 * time.Second
 // ErrLocked means another golings process holds the state lock.
 var ErrLocked = errors.New("another golings process is updating progress; try again in a moment")
 
-// acquireLock creates path exclusively, retrying until wait elapses. Locks
+// acquireFileLock creates path exclusively, retrying until wait elapses. Locks
 // whose owner process is gone, or that are older than staleLockAge, are
 // broken.
-func acquireLock(path string, wait time.Duration) (release func(), err error) {
+// inProcess serializes goroutines of this process per lock path, so the lock
+// file only arbitrates between processes and goroutines never starve each
+// other by polling it.
+var inProcess sync.Map // lock path -> *sync.Mutex
+
+func acquireLock(path string, wait time.Duration) (func(), error) {
+	mu, _ := inProcess.LoadOrStore(filepath.Clean(path), &sync.Mutex{})
+	m := mu.(*sync.Mutex)
+	m.Lock()
+	fileRelease, err := acquireFileLock(path, wait)
+	if err != nil {
+		m.Unlock()
+		return nil, err
+	}
+	return func() { fileRelease(); m.Unlock() }, nil
+}
+
+func acquireFileLock(path string, wait time.Duration) (release func(), err error) {
 	deadline := time.Now().Add(wait)
 	for {
 		f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644)
