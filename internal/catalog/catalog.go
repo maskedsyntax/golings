@@ -407,6 +407,15 @@ func (c *Catalog) Version() string { return c.Manifest.CurriculumVersion }
 // the returned slice or its elements.
 func (c *Catalog) Exercises() []*Exercise { return c.exercises }
 
+// IDWidth is the length of the longest exercise ID, for aligning columns.
+func (c *Catalog) IDWidth() int {
+	w := 0
+	for _, ex := range c.exercises {
+		w = max(w, len(ex.ID))
+	}
+	return w
+}
+
 // Get returns the exercise with the exact id.
 func (c *Catalog) Get(id string) (*Exercise, bool) {
 	ex, ok := c.byID[id]

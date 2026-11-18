@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "functions_01",
+  "topic": "functions",
+  "title": "Parameter and result types",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 5,
+  "prerequisites": ["hello_world_02"],
+  "starter_files": ["functions.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "Every Go function lists its parameter types, and its result type after the parentheses. A function that returns a value must say what type it returns.",
+    "Consecutive parameters of the same type can share it: func Add(a, b int). A function that declares a result must end every path with a return statement.",
+    "func Add(a, b int) int { return a + b } and, in Greeting, return \"Hello, \" + name + \"!\""
+  ]
+}

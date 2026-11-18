@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "strings_and_runes_01",
+  "topic": "strings_and_runes",
+  "title": "Bytes are not characters",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["range_over_built_in_types_01"],
+  "starter_files": ["text.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "len(s) counts bytes, and characters like é or 日 take more than one byte in UTF-8. Reversing the bytes splits those characters apart.",
+    "unicode/utf8.RuneCountInString counts runes. Converting to []rune decodes the string into one element per character, which you can reverse and convert back with string(...).",
+    "Length: return utf8.RuneCountInString(s). Reverse: r := []rune(s); for i, j := 0, len(r)-1; i < j; i, j = i+1, j-1 { r[i], r[j] = r[j], r[i] }; return string(r)."
+  ]
+}

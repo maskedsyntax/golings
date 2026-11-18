@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "variadic_functions_01",
+  "topic": "variadic_functions",
+  "title": "Spreading a slice",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 5,
+  "prerequisites": ["functions_01", "slices_01"],
+  "starter_files": ["sum.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "Sum takes ...int, which means any number of separate int arguments. A []int is one argument of the wrong type.",
+    "Appending ... after a slice argument passes its elements as the variadic arguments: Sum(xs...).",
+    "In Average, call Sum(xs...). In Total, call Sum(a, b, c) with the three separate ints, or Sum([]int{a, b, c}...)."
+  ]
+}

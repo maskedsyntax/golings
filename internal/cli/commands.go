@@ -204,7 +204,7 @@ func cmdList() *command {
 				if current != nil && current.ID == ex.ID {
 					marker = e.style.Cyan(">")
 				}
-				fmt.Fprintf(e.stdout, "%s %3d  %-16s %s  %s\n", marker, ex.Ordinal, ex.ID, statusCell(e.style, v.Status), ex.Title)
+				fmt.Fprintf(e.stdout, "%s %3d  %-*s %s  %s\n", marker, ex.Ordinal, a.Catalog.IDWidth(), ex.ID, statusCell(e.style, v.Status), ex.Title)
 			}
 			return nil
 		},
@@ -367,7 +367,7 @@ func verifyAll(e *env) error {
 			passed++
 		}
 		if !e.g.json {
-			fmt.Fprintf(e.stdout, "%s %3d  %-16s %s\n", statusMark(e.style, res.Status), ex.Ordinal, ex.ID, problemSummary(res))
+			fmt.Fprintf(e.stdout, "%s %3d  %-*s %s\n", statusMark(e.style, res.Status), ex.Ordinal, a.Catalog.IDWidth(), ex.ID, problemSummary(res))
 		}
 	}
 	if e.g.json {

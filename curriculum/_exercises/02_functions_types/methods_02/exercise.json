@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "methods_02",
+  "topic": "methods",
+  "title": "A stack with a useful zero value",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["methods_01", "slices_01", "multiple_return_values_02"],
+  "starter_files": ["stack.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Push and Pop change the stack, so they need pointer receivers. A nil slice works fine with append and len, so var s Stack is ready to use with no constructor.",
+    "Pop must remove the top element as well as return it: s.items = s.items[:len(s.items)-1]. For an empty stack, return 0, false instead of panicking.",
+    "func (s *Stack) Push(v int) { s.items = append(s.items, v) }; Pop: if len(s.items) == 0 { return 0, false }; v := s.items[len(s.items)-1]; s.items = s.items[:len(s.items)-1]; return v, true."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "closures_02",
+  "topic": "closures",
+  "title": "Closures capture variables",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["closures_01"],
+  "starter_files": ["multipliers.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Every function in the slice returns the same result. A closure captures the variable itself, not the value it had when the closure was created.",
+    "All the closures share the single factor variable declared before the loop, so they all see its final value.",
+    "Use the loop's own variable inside the closure: for _, f := range factors { fns = append(fns, func(x int) int { return x * f }) }. Since Go 1.22, each iteration gets a fresh f."
+  ]
+}

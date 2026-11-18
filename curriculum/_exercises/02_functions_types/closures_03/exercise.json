@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "closures_03",
+  "topic": "closures",
+  "title": "Memoize a function",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["closures_01", "maps_01"],
+  "starter_files": ["memoize.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Memoize returns a new function that wraps f. Before calling f, it checks a cache of earlier answers.",
+    "The cache must belong to one memoized function. Create the map inside Memoize, so it is captured by the closure, and not at package level.",
+    "cache := map[int]int{}; return func(n int) int { if v, ok := cache[n]; ok { return v }; v := f(n); cache[n] = v; return v }"
+  ]
+}

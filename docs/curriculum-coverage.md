@@ -4,8 +4,8 @@
 
 - Curriculum version: 0.1.0
 - Topic inventory: https://gobyexample.com/, snapshot 2026-11-17 (85 topics)
-- Exercises: 26
-- Topics with at least 2 exercises: 10/85
+- Exercises: 52
+- Topics with at least 2 exercises: 20/85
 
 ## 01 — Fundamentals
 
@@ -26,16 +26,16 @@
 
 | # | Topic | Exercises | Status |
 |---|---|---|---|
-| 011 | [Functions](https://gobyexample.com/functions) | — | ⬜ none |
-| 012 | [Multiple Return Values](https://gobyexample.com/multiple-return-values) | — | ⬜ none |
-| 013 | [Variadic Functions](https://gobyexample.com/variadic-functions) | — | ⬜ none |
-| 014 | [Closures](https://gobyexample.com/closures) | — | ⬜ none |
-| 015 | [Recursion](https://gobyexample.com/recursion) | — | ⬜ none |
-| 016 | [Range over Built-in Types](https://gobyexample.com/range-over-built-in-types) | — | ⬜ none |
-| 017 | [Pointers](https://gobyexample.com/pointers) | — | ⬜ none |
-| 018 | [Strings and Runes](https://gobyexample.com/strings-and-runes) | — | ⬜ none |
-| 019 | [Structs](https://gobyexample.com/structs) | — | ⬜ none |
-| 020 | [Methods](https://gobyexample.com/methods) | — | ⬜ none |
+| 011 | [Functions](https://gobyexample.com/functions) | `functions_01`, `functions_02` | ✅ |
+| 012 | [Multiple Return Values](https://gobyexample.com/multiple-return-values) | `multiple_return_values_01`, `multiple_return_values_02` | ✅ |
+| 013 | [Variadic Functions](https://gobyexample.com/variadic-functions) | `variadic_functions_01`, `variadic_functions_02` | ✅ |
+| 014 | [Closures](https://gobyexample.com/closures) | `closures_01`, `closures_02`, `closures_03` | ✅ |
+| 015 | [Recursion](https://gobyexample.com/recursion) | `recursion_01`, `recursion_02` | ✅ |
+| 016 | [Range over Built-in Types](https://gobyexample.com/range-over-built-in-types) | `range_over_built_in_types_01`, `range_over_built_in_types_02` | ✅ |
+| 017 | [Pointers](https://gobyexample.com/pointers) | `pointers_01`, `pointers_02`, `pointers_03` | ✅ |
+| 018 | [Strings and Runes](https://gobyexample.com/strings-and-runes) | `strings_and_runes_01`, `strings_and_runes_02`, `strings_and_runes_03`, `strings_and_runes_04` | ✅ |
+| 019 | [Structs](https://gobyexample.com/structs) | `structs_01`, `structs_02`, `structs_03` | ✅ |
+| 020 | [Methods](https://gobyexample.com/methods) | `methods_01`, `methods_02`, `methods_03` | ✅ |
 
 ## 03 — Interfaces, generics, errors
 

@@ -27,6 +27,13 @@ func Loop(xs []int) (n int) {
 
 func Pipe(in <-chan int, out chan<- int) {}
 func Both(c chan int)                    {}
+
+func Fact(n int) int {
+	if n < 2 {
+		return 1
+	}
+	return n * Fact(n-1)
+}
 `
 
 func TestRules(t *testing.T) {
@@ -38,6 +45,9 @@ func TestRules(t *testing.T) {
 		{"uses_defer:T.Close", true},
 		{"uses_defer:Loop", false},
 		{"uses_range:Loop", true},
+		{"recursive:Fact", true},
+		{"recursive:Loop", false},
+		{"recursive:T.Close", false},
 		{"uses_switch:Loop", true},
 		{"uses_switch:Pipe", false},
 		{"declares_const:Limit", true},

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "methods_03",
+  "topic": "methods",
+  "title": "Methods on named types",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["methods_01"],
+  "starter_files": ["temperature.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "Methods can be declared on any named type you define, including ones based on float64 or a slice. fmt prints a value using its String() string method when it has one.",
+    "Give String a value receiver: fmt.Sprint(c) passes a Celsius value, and a method with a pointer receiver isn't in the method set of a plain value, so fmt wouldn't find it. %.1f formats one decimal place.",
+    "func (c Celsius) Fahrenheit() float64 { return float64(c)*9/5 + 32 }; func (c Celsius) String() string { return fmt.Sprintf(\"%.1f°C\", float64(c)) }; Warmest: like MinMax from earlier, over the slice."
+  ]
+}

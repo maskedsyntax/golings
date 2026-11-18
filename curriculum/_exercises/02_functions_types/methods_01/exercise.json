@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "methods_01",
+  "topic": "methods",
+  "title": "Receivers",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["structs_01", "pointers_01"],
+  "starter_files": ["rect.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "The tests call r.Area() and r.Scale(2), which are methods. A method is declared with a receiver in parentheses before its name: func (r Rect) Area() float64.",
+    "A value receiver works on a copy, so Scale's changes vanish when it returns. A pointer receiver, func (r *Rect) Scale(...), changes the caller's Rect. Go takes &r for you when you call r.Scale on an addressable value.",
+    "func (r Rect) Area() float64 { return r.Width * r.Height } and func (r *Rect) Scale(f float64) { r.Width *= f; r.Height *= f }"
+  ]
+}

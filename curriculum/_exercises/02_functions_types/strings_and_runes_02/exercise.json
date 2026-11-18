@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "strings_and_runes_02",
+  "topic": "strings_and_runes",
+  "title": "Unicode-aware palindromes",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["strings_and_runes_01"],
+  "starter_files": ["palindrome.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Keep only the letters and digits, lowercased, and check whether that sequence reads the same both ways. The unicode package classifies runes for every script, not only ASCII.",
+    "unicode.IsLetter(r) || unicode.IsDigit(r) picks the runes to keep, and unicode.ToLower(r) normalizes case. Collect them into a []rune, then compare r[i] with r[len(r)-1-i].",
+    "var rs []rune; for _, r := range s { if unicode.IsLetter(r) || unicode.IsDigit(r) { rs = append(rs, unicode.ToLower(r)) } }; then loop i over the first half of rs and return false on any mismatch."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "recursion_01",
+  "topic": "recursion",
+  "title": "Base case and recursive case",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["functions_01", "if_else_01"],
+  "starter_files": ["recursion.go"],
+  "fixture_files": [],
+  "checks": ["unit", "ast"],
+  "ast_rules": ["recursive:Factorial", "recursive:Fib"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A recursive function needs a base case that returns without recursing, and a recursive case that calls itself on a smaller input.",
+    "Factorial(0) and Factorial(1) are both 1. Fib(0) is 0 and Fib(1) is 1; every later Fib(n) is Fib(n-1) + Fib(n-2).",
+    "if n <= 1 { return 1 }; return n * Factorial(n-1). And: if n < 2 { return n }; return Fib(n-1) + Fib(n-2)."
+  ]
+}

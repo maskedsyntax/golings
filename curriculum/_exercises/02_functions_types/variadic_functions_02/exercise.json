@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "variadic_functions_02",
+  "topic": "variadic_functions",
+  "title": "At least one argument",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["variadic_functions_01"],
+  "starter_files": ["variadic.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A required first parameter followed by ...int makes \"no arguments at all\" a compile error, so Max never has to handle an empty call.",
+    "Start the running maximum at first, not at 0, or negative inputs break. In JoinNonEmpty, skip empty strings before adding a separator.",
+    "Max: best := first; for _, n := range rest { best = max(best, n) }. JoinNonEmpty: collect the non-empty parts into a slice, then return strings.Join(kept, sep)."
+  ]
+}

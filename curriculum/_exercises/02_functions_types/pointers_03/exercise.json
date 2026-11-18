@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "pointers_03",
+  "topic": "pointers",
+  "title": "Pointers to copies",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["pointers_01", "range_over_built_in_types_01"],
+  "starter_files": ["elements.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Writing through the returned pointers doesn't change nums. In for _, v := range nums, v is a copy of each element, so &v points to that copy.",
+    "To point at the element inside the slice, index the slice: &nums[i] is the address of the i-th element's storage.",
+    "for i := range nums { ptrs = append(ptrs, &nums[i]) }"
+  ]
+}

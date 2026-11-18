@@ -7,9 +7,9 @@ following the topics of [Go by Example](https://gobyexample.com/).
 Everything runs locally with the Go toolchain you already have: no accounts, no network,
 no other runtimes.
 
-> **Status:** early development (Milestone B of [spec.md](spec.md)). Watch mode, hints, reset and
-> solutions work, and Module 01 (Fundamentals, 26 exercises) is complete. The remaining modules
-> are still to come.
+> **Status:** early development (Milestone C of [spec.md](spec.md)). Watch mode, hints, reset and
+> solutions work. Modules 01 (Fundamentals) and 02 (Functions and types) are complete: 52 of the
+> planned 220 exercises. The remaining modules are still to come.
 
 ## Requirements
 

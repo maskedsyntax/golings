@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "strings_and_runes_03",
+  "topic": "strings_and_runes",
+  "title": "Truncate without breaking characters",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["strings_and_runes_01"],
+  "starter_files": ["truncate.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Slicing a string, s[:n], cuts at a byte offset, which can land in the middle of a multi-byte character and leave invalid UTF-8.",
+    "Count and cut in runes: convert to []rune, or range over s, where the index of the k-th rune is its byte offset. If s has at most max runes, return it unchanged.",
+    "r := []rune(s); if len(r) <= max { return s }; if max <= 0 { return \"\" }; return string(r[:max-1]) + \"…\""
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "functions_02",
+  "topic": "functions",
+  "title": "Functions as values",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["functions_01", "slices_01"],
+  "starter_files": ["apply.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A parameter can have a function type, such as f func(int) int. Inside Map you call it like any other function: f(x).",
+    "Build a new result slice and append to it. Writing into nums would change the caller's slice, and the tests check for that.",
+    "out := make([]int, 0, len(nums)); for _, n := range nums { out = append(out, f(n)) }; return out. Filter is the same loop with if keep(n) around the append."
+  ]
+}

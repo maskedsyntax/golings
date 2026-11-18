@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "strings_and_runes_04",
+  "topic": "strings_and_runes",
+  "title": "A Caesar cipher",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["strings_and_runes_01", "switch_02"],
+  "starter_files": ["caesar.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Runes are integers, so you can do arithmetic on them: r - 'a' is a letter's position in the alphabet, 0 to 25. Only shift ASCII letters, keep their case, and copy everything else unchanged.",
+    "In Go, % keeps the sign of the left operand: -1 % 26 == -1. Normalize the shift first with ((shift % 26) + 26) % 26 so negative shifts work. strings.Builder's WriteRune builds the result efficiently.",
+    "k := ((shift%26)+26)%26; for each rune r: switch { case 'a' <= r && r <= 'z': r = 'a' + (r-'a'+rune(k))%26; case 'A' <= r && r <= 'Z': r = 'A' + (r-'A'+rune(k))%26 }; b.WriteRune(r)"
+  ]
+}

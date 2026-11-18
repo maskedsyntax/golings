@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "multiple_return_values_01",
+  "topic": "multiple_return_values",
+  "title": "Receiving two results",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 6,
+  "prerequisites": ["functions_01"],
+  "starter_files": ["divmod.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "A function with more than one result lists the result types in parentheses: func f() (int, string).",
+    "A call that returns two values has to be assigned to two variables. If you only need one of them, put the blank identifier _ in place of the other.",
+    "func DivMod(a, b int) (int, int) { … } and, in Quotient, q, _ := DivMod(a, b)."
+  ]
+}

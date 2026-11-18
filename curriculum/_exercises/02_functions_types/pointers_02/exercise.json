@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "pointers_02",
+  "topic": "pointers",
+  "title": "nil pointers and identity",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["pointers_01", "slices_01"],
+  "starter_files": ["pointers.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Dereferencing a nil pointer panics, so check p == nil first. Two pointers are equal only if they point to the same variable.",
+    "In Largest, keep a pointer to the best element seen so far, and skip nil entries. Returning &v of a copied value would point to a new variable, not to the caller's one.",
+    "var best *int; for _, p := range ptrs { if p != nil && (best == nil || *p > *best) { best = p } }; return best."
+  ]
+}

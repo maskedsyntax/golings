@@ -19,7 +19,22 @@
         "maps_01", "maps_02", "maps_03", "maps_04"
       ]
     },
-    {"id": "02_functions_types", "title": "Functions and types", "exercises": []},
+    {
+      "id": "02_functions_types",
+      "title": "Functions and types",
+      "exercises": [
+        "functions_01", "functions_02",
+        "multiple_return_values_01", "multiple_return_values_02",
+        "variadic_functions_01", "variadic_functions_02",
+        "closures_01", "closures_02", "closures_03",
+        "recursion_01", "recursion_02",
+        "range_over_built_in_types_01", "range_over_built_in_types_02",
+        "pointers_01", "pointers_02", "pointers_03",
+        "strings_and_runes_01", "strings_and_runes_02", "strings_and_runes_03", "strings_and_runes_04",
+        "structs_01", "structs_02", "structs_03",
+        "methods_01", "methods_02", "methods_03"
+      ]
+    },
     {"id": "03_interfaces_generics_errors", "title": "Interfaces, generics, errors", "exercises": []},
     {"id": "04_concurrency", "title": "Concurrency", "exercises": []},
     {"id": "05_sorting_control", "title": "Sorting and control", "exercises": []},

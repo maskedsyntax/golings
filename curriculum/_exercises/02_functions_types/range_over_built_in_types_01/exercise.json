@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "range_over_built_in_types_01",
+  "topic": "range_over_built_in_types",
+  "title": "What range gives you",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["for_01", "slices_01", "maps_01"],
+  "starter_files": ["ranges.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "With one loop variable, range over a slice gives the index, not the element. Over a string, s[i] is a byte, not a character.",
+    "for _, n := range nums gives the elements. Ranging over a string with two variables, for _, r := range s, decodes one rune (Unicode code point) at a time.",
+    "Sum: for _, n := range nums { total += n }. CountRunes: for _, r := range s { counts[r]++ }."
+  ]
+}

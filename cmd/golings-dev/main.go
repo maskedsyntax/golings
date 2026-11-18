@@ -129,6 +129,7 @@ func checkCmd(ctx context.Context, cat *catalog.Catalog, args []string, stdout, 
 	}
 	wg.Wait()
 
+	width := cat.IDWidth()
 	failed := 0
 	for _, r := range results {
 		if r.OK {
@@ -136,7 +137,7 @@ func checkCmd(ctx context.Context, cat *catalog.Catalog, args []string, stdout, 
 			for _, v := range r.Variants {
 				names = append(names, v.Name)
 			}
-			fmt.Fprintf(stdout, "ok    %-18s %s\n", r.ExerciseID, strings.Join(names, ", "))
+			fmt.Fprintf(stdout, "ok    %-*s %s\n", width, r.ExerciseID, strings.Join(names, ", "))
 			continue
 		}
 		failed++

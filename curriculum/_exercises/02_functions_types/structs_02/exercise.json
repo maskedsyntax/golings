@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "structs_02",
+  "topic": "structs",
+  "title": "A slice of structs",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["structs_01", "multiple_return_values_02", "maps_01"],
+  "starter_files": ["inventory.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Range over the slice and read each Item's fields with item.Price and item.Qty. Cheapest returns a second, ok result for the empty case.",
+    "Start Cheapest from items[0] rather than from a zero Item, whose price of 0 would beat every real item. Use a strict < so the first of several equally cheap items wins.",
+    "Total: sum item.Price * item.Qty. Cheapest: if len(items) == 0 { return Item{}, false }; best := items[0]; loop and replace when item.Price < best.Price. ByName: m := make(map[string]Item, len(items)); m[it.Name] = it."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "pointers_01",
+  "topic": "pointers",
+  "title": "Changing the caller's variable",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["functions_01"],
+  "starter_files": ["pointers.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "Go passes arguments by value: Double gets a copy of the caller's int. The tests call Double(&x), passing a pointer, so the parameter must be a *int.",
+    "Through a pointer p, *p reads or writes the value it points to. In Swap, assigning a, b = b, a only swaps the two local pointer copies; swap the values they point to instead.",
+    "func Double(p *int) { *p *= 2 } and, in Swap, *a, *b = *b, *a."
+  ]
+}

@@ -11,6 +11,7 @@
 //	calls:pkg.Name           the code calls pkg.Name
 //	uses_range:Func          Func contains a for ... range loop
 //	uses_switch:Func         Func contains a switch statement
+//	recursive:Func           Func calls itself directly
 //	chan_params_directional:Func  every channel parameter of Func is send- or receive-only
 package astcheck
 
@@ -46,6 +47,7 @@ var rules = map[string]ruleSpec{
 	"uses_defer":              {true, funcContains("a defer statement", func(n ast.Node) bool { _, ok := n.(*ast.DeferStmt); return ok })},
 	"uses_range":              {true, funcContains("a for ... range loop", func(n ast.Node) bool { _, ok := n.(*ast.RangeStmt); return ok })},
 	"uses_switch":             {true, funcContains("a switch statement", isSwitch)},
+	"recursive":               {true, recursive},
 	"declares_const":          {true, declaresConst},
 	"calls":                   {true, calls(true)},
 	"no_call":                 {true, calls(false)},
@@ -177,6 +179,22 @@ func funcContains(what string, match func(ast.Node) bool) func(*program, string)
 		}
 		return nil
 	}
+}
+
+// recursive reports whether a plain function calls itself by name.
+func recursive(p *program, fn string) error {
+	if strings.Contains(fn, ".") {
+		return fmt.Errorf("recursive takes a function name, not a method")
+	}
+	check := funcContains("recursion (a call to itself)", func(n ast.Node) bool {
+		call, ok := n.(*ast.CallExpr)
+		if !ok {
+			return false
+		}
+		id, ok := call.Fun.(*ast.Ident)
+		return ok && id.Name == fn
+	})
+	return check(p, fn)
 }
 
 func declaresConst(p *program, name string) error {

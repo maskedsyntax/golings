@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "multiple_return_values_02",
+  "topic": "multiple_return_values",
+  "title": "Minimum, maximum, and ok",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["multiple_return_values_01", "slices_01"],
+  "starter_files": ["minmax.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "The third result, ok, tells the caller whether the other two mean anything. For an empty slice, return 0, 0, false.",
+    "Don't start min and max at 0: if every number is positive, min would stay 0. Start both at the first element instead.",
+    "if len(nums) == 0 { return 0, 0, false }; lo, hi = nums[0], nums[0]; then loop over nums[1:] and update lo and hi; return lo, hi, true."
+  ]
+}

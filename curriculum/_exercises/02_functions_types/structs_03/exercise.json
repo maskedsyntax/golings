@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "structs_03",
+  "topic": "structs",
+  "title": "Modifying a copy",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 8,
+  "prerequisites": ["structs_02", "pointers_03"],
+  "starter_files": ["curve.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "The scores never change. In for _, s := range students, s is a copy of each Student, so updating s.Score changes only the copy.",
+    "Write to the element in the slice instead, through its index: students[i].Score. A pointer, p := &students[i], works too.",
+    "for i := range students { students[i].Score = min(students[i].Score+bonus, 100) }"
+  ]
+}

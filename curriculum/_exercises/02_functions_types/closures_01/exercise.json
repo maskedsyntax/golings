@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "closures_01",
+  "topic": "closures",
+  "title": "A counter that remembers",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["functions_02"],
+  "starter_files": ["counter.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A function literal can use variables from the function that created it. Each call to Counter should create a fresh variable that only its returned function can see.",
+    "Declare the count inside Counter, not at package level. Otherwise every counter shares one count.",
+    "func Counter() func() int { n := 0; return func() int { n++; return n } }"
+  ]
+}

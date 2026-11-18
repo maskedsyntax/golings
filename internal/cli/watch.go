@@ -362,7 +362,7 @@ func (w *watchUI) listText() string {
 		if v.Exercise.ID == w.ex.ID {
 			marker = ">"
 		}
-		fmt.Fprintf(&b, "%s %3d  %-18s %s\n", marker, v.Exercise.Ordinal, v.Exercise.ID, statusCell(w.e.style, v.Status))
+		fmt.Fprintf(&b, "%s %3d  %-*s %s\n", marker, v.Exercise.Ordinal, w.a.Catalog.IDWidth(), v.Exercise.ID, statusCell(w.e.style, v.Status))
 	}
 	return strings.TrimRight(b.String(), "\n")
 }

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "range_over_built_in_types_02",
+  "topic": "range_over_built_in_types",
+  "title": "Ranging over ints and maps",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["range_over_built_in_types_01"],
+  "starter_files": ["ranges.go"],
+  "fixture_files": [],
+  "checks": ["unit", "ast"],
+  "ast_rules": ["uses_range:Squares"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Since Go 1.22, for i := range n counts i from 0 to n-1. Map iteration order is deliberately unpredictable, so sort the keys if order matters.",
+    "Collect the keys into a slice while ranging over the map, then sort them with slices.Sort. In Squares, append (i+1)*(i+1) for each i in range n.",
+    "keys := make([]string, 0, len(m)); for k := range m { keys = append(keys, k) }; slices.Sort(keys); return keys."
+  ]
+}
