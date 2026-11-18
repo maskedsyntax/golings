@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "string_functions_01",
+  "topic": "string_functions",
+  "title": "Slugs",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 5,
+  "prerequisites": ["strings_and_runes_02"],
+  "starter_files": ["slug.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "Read the compiler errors one at a time. The first says strings has no function called Lower.",
+    "The lowercase function is strings.ToLower. Check strings.Join's signature too: which comes first, the slice or the separator?",
+    "words := strings.Fields(strings.ToLower(title)); return strings.Join(words, \"-\")"
+  ]
+}

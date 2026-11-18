@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "string_formatting_03",
+  "topic": "string_formatting",
+  "title": "A String method that calls itself",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["string_formatting_02", "methods_01"],
+  "starter_files": ["temp.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "The tests don't even run: go vet, which go test runs first, reports that the Sprintf call makes String call itself.",
+    "%v on a value with a String method calls that String method. Inside String, that means String calls String forever.",
+    "Convert to the underlying type first so fmt formats a plain float: fmt.Sprintf(\"%.1f°C\", float64(c)). The precision also gives the single decimal place the tests want."
+  ]
+}

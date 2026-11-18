@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "json_02",
+  "topic": "json",
+  "title": "Strict config with defaults",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["json_01", "errors_01"],
+  "starter_files": ["config.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Fill a Config with the defaults first and then decode into it. Keys missing from the JSON leave those fields untouched.",
+    "json.Unmarshal ignores keys it doesn't know. To reject typos, use json.NewDecoder(bytes.NewReader(data)) and call DisallowUnknownFields() before Decode.",
+    "After decoding, check that Port is between 1 and 65535 and return an error if it isn't."
+  ]
+}

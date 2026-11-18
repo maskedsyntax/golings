@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "xml_02",
+  "topic": "xml",
+  "title": "Reading a catalog",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["xml_01"],
+  "starter_files": ["library.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Add xml tags so the structs match the document: name and id are attributes (,attr), and each <book> becomes an element of Books.",
+    "A path in a tag reaches into nested elements: `xml:\"meta>year\"` reads <meta><year>. A field `XMLName xml.Name `xml:\"library\"`` makes Unmarshal reject any other root element.",
+    "Then ParseLibrary is just: var lib Library; err := xml.Unmarshal(data, &lib); return lib, err"
+  ]
+}

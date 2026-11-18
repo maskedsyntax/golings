@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "number_parsing_02",
+  "topic": "number_parsing",
+  "title": "Hex colors",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["number_parsing_01"],
+  "starter_files": ["color.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "strings.CutPrefix(s, \"#\") strips the hash and tells you whether it was there. Expand the short form by doubling each digit: \"f80\" becomes \"ff8800\".",
+    "strconv.ParseUint(part, 16, 8) parses two hex digits in base 16 and fails if the value doesn't fit in 8 bits. It also rejects signs.",
+    "Check that you have exactly 6 digits after expanding, then parse s[0:2], s[2:4] and s[4:6]."
+  ]
+}

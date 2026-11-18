@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "json_01",
+  "topic": "json",
+  "title": "Exported fields and tags",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["structs_03"],
+  "starter_files": ["user.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "encoding/json can only see exported fields, the ones whose names start with a capital letter. Every field here is lowercase, so the JSON is {}.",
+    "Capitalize the fields, then add struct tags like `json:\"name\"` to choose the lowercase key names.",
+    "`json:\"admin,omitempty\"` leaves the key out when the value is false."
+  ]
+}

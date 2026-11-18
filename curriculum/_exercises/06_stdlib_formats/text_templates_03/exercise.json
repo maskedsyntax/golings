@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "text_templates_03",
+  "topic": "text_templates",
+  "title": "Functions and whitespace",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["text_templates_02"],
+  "starter_files": ["scores.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "The first failure is a panic while the package loads: a template can only call functions that were registered before Parse saw them.",
+    "Call Funcs on the new template before Parse: template.New(\"scores\").Funcs(...).Parse(...). After that, the output has extra blank lines: every newline in the template text is copied into the output.",
+    "A minus sign inside the braces trims whitespace next to an action: {{- trims before it, -}} trims after it. Trim before range, before upper, and after end."
+  ]
+}

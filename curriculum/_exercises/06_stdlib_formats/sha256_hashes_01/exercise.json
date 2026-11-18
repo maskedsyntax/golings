@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "sha256_hashes_01",
+  "topic": "sha256_hashes",
+  "title": "Sum is not a hash function",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["slices_02"],
+  "starter_files": ["fingerprint.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "h.Sum(b) doesn't hash b. It appends the hash of everything written to h so far (nothing, here) to b.",
+    "Either write the data first (h.Write(data)) and then call h.Sum(nil), or use the one-shot sha256.Sum256(data), which returns a [32]byte array.",
+    "sum := sha256.Sum256(data); return hex.EncodeToString(sum[:])"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "string_formatting_01",
+  "topic": "string_formatting",
+  "title": "Lining up columns",
+  "type": "output",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["hello_world_02"],
+  "starter_files": ["main.go"],
+  "fixture_files": [],
+  "checks": ["output"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A number between % and the verb is a width: %5d right-aligns an int in 5 columns. A minus flag, %-10s, left-aligns instead.",
+    "%8.2f means width 8 with 2 digits after the point. For the last line you need %q (quoted string), %x (hex), %08b (binary, zero-padded to 8), %+d (always show the sign) and %T (the type).",
+    "Header: \"%-10s|%5s|%8s\\n\". Rows: \"%-10s|%5d|%8.2f\\n\". Last line: \"%q %x %08b %+d %T\\n\"."
+  ]
+}

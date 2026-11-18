@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "regular_expressions_03",
+  "topic": "regular_expressions",
+  "title": "Replacement templates",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["regular_expressions_02"],
+  "starter_files": ["user.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "In a replacement string, $name refers to a capture group, and a name runs as far as letters, digits and underscores go.",
+    "So \"$2_$1\" asks for a group called \"2_\", which doesn't exist and becomes the empty string.",
+    "Wrap the group number in braces to end the name: \"${2}_${1}\"."
+  ]
+}

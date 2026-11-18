@@ -1,0 +1,4 @@
+item      |  qty|   price
+apple     |    3|    0.50
+banana    |   12|    0.25
+"go" ff 00000101 +7 float64

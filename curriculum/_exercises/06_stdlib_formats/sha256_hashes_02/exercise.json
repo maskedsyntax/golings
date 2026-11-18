@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "sha256_hashes_02",
+  "topic": "sha256_hashes",
+  "title": "Hashing a stream",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["sha256_hashes_01", "errors_01"],
+  "starter_files": ["stream.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A hash.Hash is an io.Writer, so you can feed it a whole reader without loading it into memory.",
+    "io.Copy(h, r) copies everything from r into h and returns the byte count and the first read error (not counting io.EOF).",
+    "n, err := io.Copy(h, r); if err != nil { return \"\", n, err }; return hex.EncodeToString(h.Sum(nil)), n, nil"
+  ]
+}

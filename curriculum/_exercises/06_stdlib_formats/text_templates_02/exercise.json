@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "text_templates_02",
+  "topic": "text_templates",
+  "title": "Lists with range",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["text_templates_01"],
+  "starter_files": ["list.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "{{range .}}...{{end}} repeats its body for each element, with dot set to that element. {{if .}}...{{else}}...{{end}} checks whether the slice is empty.",
+    "Write the template as a raw string literal (backquotes) so real newlines are part of the output. Each line of the list is \"- {{.}}\" followed by a newline.",
+    "One answer: `{{if .}}Shopping list:` newline `{{range .}}- {{.}}` newline `{{end}}{{else}}Nothing to buy.` newline `{{end}}`"
+  ]
+}

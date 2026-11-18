@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "time_formatting_parsing_01",
+  "topic": "time_formatting_parsing",
+  "title": "Reference-time layouts",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["time_02"],
+  "starter_files": ["layouts.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Go layouts are written using one specific moment, Mon Jan 2 15:04:05 MST 2006, not letters like YYYY. \"YYYY\" is copied out literally.",
+    "A date is \"2006-01-02\". The layout passed to Parse has to match the input's shape exactly, and the input here has no time of day.",
+    "For a 12-hour clock without a leading zero use \"3:04 PM\". 15 means the 24-hour clock."
+  ]
+}

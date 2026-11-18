@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "string_formatting_02",
+  "topic": "string_formatting",
+  "title": "Human-readable sizes",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 12,
+  "prerequisites": ["string_formatting_01"],
+  "starter_files": ["size.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Below 1024, print the number as is with \" B\". Otherwise keep dividing by 1024 and move to the next unit.",
+    "Work in float64 so 1536 bytes becomes 1.5. fmt.Sprintf(\"%.1f %s\", v, unit) gives exactly one decimal place.",
+    "Stop at TiB even when the number is bigger: 1<<50 bytes is \"1024.0 TiB\"."
+  ]
+}

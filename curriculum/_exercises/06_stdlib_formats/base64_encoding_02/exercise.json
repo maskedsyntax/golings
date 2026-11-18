@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "base64_encoding_02",
+  "topic": "base64_encoding",
+  "title": "Decoding whatever arrives",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["base64_encoding_01"],
+  "starter_files": ["decode.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Normalize the input to one form first, then decode it with a single encoding.",
+    "strings.TrimRight(s, \"=\") removes padding. strings.NewReplacer(\"-\", \"+\", \"_\", \"/\").Replace(s) turns the URL alphabet into the standard one.",
+    "Then decode the result with base64.RawStdEncoding, which expects the standard alphabet with no padding."
+  ]
+}

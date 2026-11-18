@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "base64_encoding_01",
+  "topic": "base64_encoding",
+  "title": "URL-safe tokens",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["sha256_hashes_01"],
+  "starter_files": ["token.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Standard base64 uses + and /, and pads with =. All three mean something in URLs.",
+    "base64.URLEncoding swaps + and / for - and _. The Raw variants leave out the = padding.",
+    "Use base64.RawURLEncoding for both EncodeToString and DecodeString."
+  ]
+}

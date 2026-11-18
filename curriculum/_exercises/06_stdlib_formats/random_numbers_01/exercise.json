@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "random_numbers_01",
+  "topic": "random_numbers",
+  "title": "Rolling dice",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["slices_03"],
+  "starter_files": ["dice.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "r.IntN(n) returns a number in [0, n): from 0 up to n-1. So IntN(6) gives 0 to 5.",
+    "A die shows 1 to 6. Shift the range up by one.",
+    "rolls[i] = r.IntN(6) + 1"
+  ]
+}

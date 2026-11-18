@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "url_parsing_02",
+  "topic": "url_parsing",
+  "title": "Building query strings",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["url_parsing_01"],
+  "starter_files": ["search.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Gluing strings together doesn't escape anything: \"go & rust\" puts a literal & into the query, which starts a new parameter.",
+    "Parse base with url.Parse, take its existing parameters with u.Query(), Set the new ones, and write them back with u.RawQuery = values.Encode().",
+    "Encode escapes each value, so \"a+b\" becomes \"a%2Bb\" and the + survives. Return u.String()."
+  ]
+}

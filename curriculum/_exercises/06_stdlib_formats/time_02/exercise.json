@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "time_02",
+  "topic": "time",
+  "title": "Business days",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["time_01", "for_02"],
+  "starter_files": ["bizdays.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "t.AddDate(0, 0, 1) moves forward one calendar day and keeps the time of day. t.Weekday() tells you whether that day is a Saturday or Sunday.",
+    "Step forward one day at a time and only count the days that are weekdays, until you've counted n.",
+    "for n > 0 { t = t.AddDate(0, 0, 1); if wd := t.Weekday(); wd != time.Saturday && wd != time.Sunday { n-- } }; return t"
+  ]
+}

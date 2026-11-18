@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "string_functions_02",
+  "topic": "string_functions",
+  "title": "Key=value pairs",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 12,
+  "prerequisites": ["string_functions_01"],
+  "starter_files": ["kv.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Split the line on \";\" with strings.Split, then handle each piece on its own.",
+    "strings.Cut(piece, \"=\") splits at the first \"=\" only, so a value like \"a=b\" survives. Its third result says whether there was an \"=\" at all. Use strings.TrimSpace on both halves.",
+    "for _, seg := range strings.Split(line, \";\") { k, v, ok := strings.Cut(seg, \"=\"); k = strings.TrimSpace(k); if !ok || k == \"\" { continue }; m[k] = strings.TrimSpace(v) }"
+  ]
+}

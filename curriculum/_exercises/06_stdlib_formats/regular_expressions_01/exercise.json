@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "regular_expressions_01",
+  "topic": "regular_expressions",
+  "title": "Anchors",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["string_functions_01"],
+  "starter_files": ["code.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "MatchString reports whether the pattern matches anywhere in the string, so \"xAB-1234\" contains a match.",
+    "^ anchors the pattern to the start of the text and $ to the end. (In Go, $ means the very end unless you turn on multi-line mode.)",
+    "regexp.MustCompile(`^[A-Z]{2}-\\d{4}$`)"
+  ]
+}

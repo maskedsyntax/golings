@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "text_templates_01",
+  "topic": "text_templates",
+  "title": "Template fields",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["structs_01"],
+  "starter_files": ["order.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Run the tests and read the error from Execute: the template can't use the field it names.",
+    "Templates read struct fields by name, and only exported fields (starting with a capital letter) are visible. The field is Name, not name.",
+    "Use {{.Name}} in the template. {{len .Items}} already works."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "time_01",
+  "topic": "time",
+  "title": "Comparing instants",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["structs_01"],
+  "starter_files": ["booking.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A time.Time holds a location as well as an instant. == compares both, so 12:00 UTC and 14:00 in UTC+2 are not ==, even though they are the same moment.",
+    "Use a.Equal(b) to compare instants. For ordering, use Before and After.",
+    "Bookings that only touch (one ends exactly when the other starts) don't overlap: a.Start.Before(b.End) && b.Start.Before(a.End)."
+  ]
+}

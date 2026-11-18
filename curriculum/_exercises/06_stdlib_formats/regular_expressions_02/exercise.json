@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "regular_expressions_02",
+  "topic": "regular_expressions",
+  "title": "Hashtags",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["regular_expressions_01", "maps_02"],
+  "starter_files": ["tags.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A capture group, (...), marks the part you want back. #(\\w+) matches a hash sign and captures the word after it.",
+    "FindAllStringSubmatch(text, -1) returns every match as a []string: index 0 is the whole match and index 1 is the first group.",
+    "Lowercase each tag and keep a map[string]bool of tags you've already added so repeats are skipped while order is kept."
+  ]
+}

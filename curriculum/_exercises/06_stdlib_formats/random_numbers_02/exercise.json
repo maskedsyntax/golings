@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "random_numbers_02",
+  "topic": "random_numbers",
+  "title": "Random samples",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["random_numbers_01", "sorting_01"],
+  "starter_files": ["sample.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Shuffling a copy and taking the first k elements gives k distinct items chosen uniformly.",
+    "slices.Clone(items) makes the copy, so the caller's slice isn't reordered. r.Shuffle(len(s), func(i, j int) { s[i], s[j] = s[j], s[i] }) shuffles it.",
+    "Clamp k to the range [0, len(items)] before slicing: s[:k]."
+  ]
+}

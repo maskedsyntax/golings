@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "url_parsing_01",
+  "topic": "url_parsing",
+  "title": "Taking a URL apart",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 12,
+  "prerequisites": ["number_parsing_01"],
+  "starter_files": ["endpoint.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "url.Parse(raw) returns a *url.URL with Scheme, Host, Path and RawQuery fields. Check the error, the scheme and that Host isn't empty.",
+    "u.Host can include a port (\"example.com:8443\"). u.Hostname() and u.Port() split it for you, and they handle IPv6 brackets.",
+    "When u.Port() is empty, use \"443\" for https and \"80\" for http. u.Query().Get(\"token\") reads the token."
+  ]
+}

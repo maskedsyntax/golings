@@ -4,8 +4,8 @@
 
 - Curriculum version: 0.1.0
 - Topic inventory: https://gobyexample.com/, snapshot 2026-11-17 (85 topics)
-- Exercises: 139
-- Topics with at least 2 exercises: 50/85
+- Exercises: 173
+- Topics with at least 2 exercises: 64/85
 
 ## 01 — Fundamentals
 
@@ -86,20 +86,20 @@
 
 | # | Topic | Exercises | Status |
 |---|---|---|---|
-| 051 | [String Functions](https://gobyexample.com/string-functions) | — | ⬜ none |
-| 052 | [String Formatting](https://gobyexample.com/string-formatting) | — | ⬜ none |
-| 053 | [Text Templates](https://gobyexample.com/text-templates) | — | ⬜ none |
-| 054 | [Regular Expressions](https://gobyexample.com/regular-expressions) | — | ⬜ none |
-| 055 | [JSON](https://gobyexample.com/json) | — | ⬜ none |
-| 056 | [XML](https://gobyexample.com/xml) | — | ⬜ none |
-| 057 | [Time](https://gobyexample.com/time) | — | ⬜ none |
-| 058 | [Epoch](https://gobyexample.com/epoch) | — | ⬜ none |
-| 059 | [Time Formatting / Parsing](https://gobyexample.com/time-formatting-parsing) | — | ⬜ none |
-| 060 | [Random Numbers](https://gobyexample.com/random-numbers) | — | ⬜ none |
-| 061 | [Number Parsing](https://gobyexample.com/number-parsing) | — | ⬜ none |
-| 062 | [URL Parsing](https://gobyexample.com/url-parsing) | — | ⬜ none |
-| 063 | [SHA256 Hashes](https://gobyexample.com/sha256-hashes) | — | ⬜ none |
-| 064 | [Base64 Encoding](https://gobyexample.com/base64-encoding) | — | ⬜ none |
+| 051 | [String Functions](https://gobyexample.com/string-functions) | `string_functions_01`, `string_functions_02`, `string_functions_03` | ✅ |
+| 052 | [String Formatting](https://gobyexample.com/string-formatting) | `string_formatting_01`, `string_formatting_02`, `string_formatting_03` | ✅ |
+| 053 | [Text Templates](https://gobyexample.com/text-templates) | `text_templates_01`, `text_templates_02`, `text_templates_03` | ✅ |
+| 054 | [Regular Expressions](https://gobyexample.com/regular-expressions) | `regular_expressions_01`, `regular_expressions_02`, `regular_expressions_03` | ✅ |
+| 055 | [JSON](https://gobyexample.com/json) | `json_01`, `json_02`, `json_03`, `json_04` | ✅ |
+| 056 | [XML](https://gobyexample.com/xml) | `xml_01`, `xml_02` | ✅ |
+| 057 | [Time](https://gobyexample.com/time) | `time_01`, `time_02` | ✅ |
+| 058 | [Epoch](https://gobyexample.com/epoch) | `epoch_01`, `epoch_02` | ✅ |
+| 059 | [Time Formatting / Parsing](https://gobyexample.com/time-formatting-parsing) | `time_formatting_parsing_01`, `time_formatting_parsing_02` | ✅ |
+| 060 | [Random Numbers](https://gobyexample.com/random-numbers) | `random_numbers_01`, `random_numbers_02` | ✅ |
+| 061 | [Number Parsing](https://gobyexample.com/number-parsing) | `number_parsing_01`, `number_parsing_02` | ✅ |
+| 062 | [URL Parsing](https://gobyexample.com/url-parsing) | `url_parsing_01`, `url_parsing_02` | ✅ |
+| 063 | [SHA256 Hashes](https://gobyexample.com/sha256-hashes) | `sha256_hashes_01`, `sha256_hashes_02` | ✅ |
+| 064 | [Base64 Encoding](https://gobyexample.com/base64-encoding) | `base64_encoding_01`, `base64_encoding_02` | ✅ |
 
 ## 07 — Files and directories
 

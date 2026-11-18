@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "xml_01",
+  "topic": "xml",
+  "title": "Attributes and nesting",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["json_01"],
+  "starter_files": ["book.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "xml tags work like json tags but have extra options. By default every field becomes a child element, which is why id comes out as <id>b1</id>.",
+    "`xml:\"id,attr\"` makes the field an attribute of the parent element.",
+    "`xml:\"authors>author\"` wraps the slice's elements in an <authors> element."
+  ]
+}

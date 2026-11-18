@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "json_04",
+  "topic": "json",
+  "title": "Decoding by kind",
+  "type": "implement",
+  "difficulty": "advanced",
+  "estimated_minutes": 20,
+  "prerequisites": ["json_03", "interfaces_02"],
+  "starter_files": ["shapes.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Decode in two steps. First decode each element into a struct with Kind string and Spec json.RawMessage. RawMessage keeps the spec's raw bytes for later.",
+    "Then switch on Kind: unmarshal Spec into a Circle or a Rect, and append it to the result as a Shape.",
+    "The default case should return an error that names the unknown kind, e.g. fmt.Errorf(\"unknown shape kind %q\", k). Return errors from the inner Unmarshal too."
+  ]
+}

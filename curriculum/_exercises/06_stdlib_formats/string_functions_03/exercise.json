@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "string_functions_03",
+  "topic": "string_functions",
+  "title": "Whole words",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["string_functions_02"],
+  "starter_files": ["words.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "strings.Count counts substrings, not words: \"go\" appears inside \"gopher\" and \"ago\" too.",
+    "Split the text into words first. strings.FieldsFunc(text, f) splits wherever f returns true, so make f return true for anything that isn't a letter or digit (unicode.IsLetter, unicode.IsDigit).",
+    "Compare each word with strings.EqualFold(w, word), which ignores case without building lowercase copies."
+  ]
+}

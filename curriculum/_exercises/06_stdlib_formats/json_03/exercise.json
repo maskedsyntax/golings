@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "json_03",
+  "topic": "json",
+  "title": "Streaming JSON lines",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["json_02"],
+  "starter_files": ["levels.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "json.NewDecoder(r) reads one JSON value per Decode call and skips the whitespace (including newlines) between values.",
+    "Loop: decode into a small struct with a Level field. When Decode returns io.EOF you're done; any other error should be returned.",
+    "Count entries with an empty level under \"unknown\". Start with make(map[string]int) so the result is never nil."
+  ]
+}

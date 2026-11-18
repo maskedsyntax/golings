@@ -83,7 +83,26 @@
         "recover_01", "recover_02", "recover_03"
       ]
     },
-    {"id": "06_stdlib_formats", "title": "Standard library data formats and utilities", "exercises": []},
+    {
+      "id": "06_stdlib_formats",
+      "title": "Standard library data formats and utilities",
+      "exercises": [
+        "string_functions_01", "string_functions_02", "string_functions_03",
+        "string_formatting_01", "string_formatting_02", "string_formatting_03",
+        "text_templates_01", "text_templates_02", "text_templates_03",
+        "regular_expressions_01", "regular_expressions_02", "regular_expressions_03",
+        "json_01", "json_02", "json_03", "json_04",
+        "xml_01", "xml_02",
+        "time_01", "time_02",
+        "epoch_01", "epoch_02",
+        "time_formatting_parsing_01", "time_formatting_parsing_02",
+        "random_numbers_01", "random_numbers_02",
+        "number_parsing_01", "number_parsing_02",
+        "url_parsing_01", "url_parsing_02",
+        "sha256_hashes_01", "sha256_hashes_02",
+        "base64_encoding_01", "base64_encoding_02"
+      ]
+    },
     {"id": "07_files_directories", "title": "Files and directories", "exercises": []},
     {"id": "08_testing_clis", "title": "Testing and CLIs", "exercises": []},
     {"id": "09_networking_processes", "title": "Networking, context and processes", "exercises": []}

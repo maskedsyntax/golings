@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "epoch_01",
+  "topic": "epoch",
+  "title": "Milliseconds since 1970",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["time_01"],
+  "starter_files": ["epoch.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "t.Unix() is whole seconds, so multiplying by 1000 throws the milliseconds away. Likewise ms/1000 drops them on the way back.",
+    "time has direct helpers: t.UnixMilli() and time.UnixMilli(ms). Both handle negative values (times before 1970) correctly.",
+    "time.UnixMilli returns a time in the local zone. Call .UTC() on it so the result is in UTC as documented."
+  ]
+}

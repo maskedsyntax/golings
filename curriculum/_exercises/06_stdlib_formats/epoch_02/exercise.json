@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "epoch_02",
+  "topic": "epoch",
+  "title": "Time to live",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["epoch_01"],
+  "starter_files": ["ttl.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "time.Duration counts nanoseconds. Converting a number of seconds with time.Duration(n) gives n nanoseconds, not n seconds.",
+    "Turn the expiry into a time.Time with time.Unix(expiresAt, 0) and subtract: expiry.Sub(now). That also keeps the fractional second in now.",
+    "If the result is negative the token has already expired, so return 0."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "time_formatting_parsing_02",
+  "topic": "time_formatting_parsing",
+  "title": "Two log formats",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["time_formatting_parsing_01"],
+  "starter_files": ["logtime.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "time.Parse(time.RFC3339, s) handles \"2024-03-05T10:00:00+02:00\". Try it first; if it fails, try the second layout.",
+    "Write the access-log layout using the reference time: \"02/Jan/2006:15:04:05 -0700\". -0700 is a numeric zone offset.",
+    "Parsed times keep the offset from the input. Return t.UTC() so callers always get UTC, and return an error when neither layout matches."
+  ]
+}
