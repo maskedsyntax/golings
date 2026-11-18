@@ -2,6 +2,7 @@ package runner
 
 import (
 	"context"
+	"path/filepath"
 	"strings"
 	"testing"
 	"testing/fstest"
@@ -137,7 +138,7 @@ func TestRunPassFailCompile(t *testing.T) {
 	res = run(t, tc, ex, "package fake\nfunc F() int { return \"x\" }\n", assets, 0)
 	c := res.Checks[0]
 	if res.Status != StatusFail || c.Failure != FailureCompile || len(c.Diagnostics) == 0 ||
-		!strings.HasPrefix(c.Diagnostics[0].File, "exercises/fake_01") {
+		!strings.HasPrefix(filepath.ToSlash(c.Diagnostics[0].File), "exercises/fake_01/") {
 		t.Errorf("non-compiling code: %+v", res)
 	}
 }
