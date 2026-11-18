@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "range_over_iterators_03",
+  "topic": "range_over_iterators",
+  "title": "Iterating a custom collection",
+  "type": "implement",
+  "difficulty": "advanced",
+  "estimated_minutes": 15,
+  "prerequisites": ["range_over_iterators_01", "generics_03"],
+  "starter_files": ["list.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "All returns an iter.Seq2[int, T]: its yield takes two values, the index and the element, which a range loop receives as `for i, v := range list.All()`.",
+    "Walk the linked list from head, following next pointers, and keep a counter for the index. Backward is easier from a slice: collect the values first, then yield them in reverse. Stop whenever yield returns false.",
+    "All: i := 0; for n := l.head; n != nil; n = n.next { if !yield(i, n.val) { return }; i++ }. Backward: vals := slices.Collect(l.Values()), then loop from the end."
+  ]
+}

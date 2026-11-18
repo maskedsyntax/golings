@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "enums_02",
+  "topic": "enums",
+  "title": "Names out of sync",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["enums_01", "maps_01"],
+  "starter_files": ["status.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Suspended prints as \"closed\", and Closed prints as \"Status(3)\". Someone added a constant to the const block but not to the parallel names slice.",
+    "A slice indexed by position silently goes wrong when constants are inserted. A map keyed by the constants themselves, map[Status]string{Pending: \"pending\", …}, can't get out of order.",
+    "var names = map[Status]string{Pending: \"pending\", Active: \"active\", Suspended: \"suspended\", Closed: \"closed\"}; String looks it up with name, ok := names[s]; ParseStatus loops over the map to find a matching name."
+  ]
+}

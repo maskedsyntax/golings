@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "struct_embedding_02",
+  "topic": "struct_embedding",
+  "title": "Overriding and delegating",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["struct_embedding_01", "methods_02"],
+  "starter_files": ["service.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Service embeds *Logger, so it gets Logger's Log method for free. Declaring a Log method on *Service itself shadows the promoted one.",
+    "Inside Service.Log, calling s.Log would call Service.Log again, forever. Reach the embedded logger explicitly through its field name, s.Logger.",
+    "func (s *Service) Log(msg string) { s.Logger.Log(\"[\" + s.Name + \"] \" + msg) }"
+  ]
+}

@@ -28,6 +28,7 @@ func TestRewrite(t *testing.T) {
 		Learner:    map[string]bool{"values.go": true},
 	}
 	in := "# golings.local/exercise\n" +
+		"# [golings.local/exercise]\n" +
 		"./values.go:18:9: cannot use x\n" +
 		staging + string(filepath.Separator) + "values.go:3:1: other\n" +
 		"./values_test.go:4: check file\n" +

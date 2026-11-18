@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "errors_03",
+  "topic": "errors",
+  "title": "Checking wrapped errors",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["errors_02"],
+  "starter_files": ["config.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Fetch wraps ErrNotFound with fmt.Errorf(\"...: %w\", ...), so the error it returns is a different value. Comparing with == only matches the exact sentinel value.",
+    "errors.Is(err, ErrNotFound) looks through the whole wrap chain. Also check what happens to errors that are not \"not found\": they must reach the caller, not be swallowed.",
+    "if errors.Is(err, ErrNotFound) { return def, nil }; if err != nil { return \"\", err }; return v, nil"
+  ]
+}

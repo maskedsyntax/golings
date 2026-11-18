@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "struct_embedding_01",
+  "topic": "struct_embedding",
+  "title": "Promoted fields and methods",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["structs_01", "methods_01", "interfaces_01"],
+  "starter_files": ["container.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "The tests use c.ID and c.Describe() on a Container, and build it with Container{Base: Base{…}}. Those only work if Base is embedded, not stored in a named field.",
+    "An embedded field is written as just a type name, with no field name: `Base` on its own line inside the struct. Its fields and methods are promoted, and the field is named after the type.",
+    "type Container struct { Base; Items []string }"
+  ]
+}

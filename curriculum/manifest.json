@@ -35,7 +35,19 @@
         "methods_01", "methods_02", "methods_03"
       ]
     },
-    {"id": "03_interfaces_generics_errors", "title": "Interfaces, generics, errors", "exercises": []},
+    {
+      "id": "03_interfaces_generics_errors",
+      "title": "Interfaces, generics, errors",
+      "exercises": [
+        "interfaces_01", "interfaces_02", "interfaces_03", "interfaces_04",
+        "enums_01", "enums_02",
+        "struct_embedding_01", "struct_embedding_02",
+        "generics_01", "generics_02", "generics_03", "generics_04",
+        "range_over_iterators_01", "range_over_iterators_02", "range_over_iterators_03",
+        "errors_01", "errors_02", "errors_03",
+        "custom_errors_01", "custom_errors_02", "custom_errors_03", "custom_errors_04"
+      ]
+    },
     {"id": "04_concurrency", "title": "Concurrency", "exercises": []},
     {"id": "05_sorting_control", "title": "Sorting and control", "exercises": []},
     {"id": "06_stdlib_formats", "title": "Standard library data formats and utilities", "exercises": []},

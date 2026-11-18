@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "interfaces_01",
+  "topic": "interfaces",
+  "title": "Satisfying an interface",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["methods_01"],
+  "starter_files": ["shapes.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "A type satisfies an interface by having every method the interface lists. There's no `implements` keyword. Read the compiler error: which method is Circle missing?",
+    "Shape asks for Area() float64 and Perimeter() float64. Rect has both; Circle has only Area. A circle's perimeter is 2πr; math.Pi is available.",
+    "func (c Circle) Perimeter() float64 { return 2 * math.Pi * c.Radius }"
+  ]
+}

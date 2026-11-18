@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "custom_errors_03",
+  "topic": "custom_errors",
+  "title": "Unwrap",
+  "type": "implement",
+  "difficulty": "advanced",
+  "estimated_minutes": 15,
+  "prerequisites": ["custom_errors_01", "errors_03"],
+  "starter_files": ["query.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "If the build complains that the second argument to errors.As must implement error: QueryError doesn't have an Error method yet. errors.Is and errors.As follow a chain by calling an Unwrap() error method on each error. A custom error that wraps a cause should provide one.",
+    "Error() can include the cause's message: fmt.Sprintf(\"query %q: %v\", e.Query, e.Err). Unwrap just returns e.Err. In Run, wrap the failure from exec in a *QueryError.",
+    "func (e *QueryError) Unwrap() error { return e.Err }; Run: if err := exec(q); err != nil { return &QueryError{Query: q, Err: err} }; return nil"
+  ]
+}

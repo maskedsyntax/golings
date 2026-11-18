@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "generics_03",
+  "topic": "generics",
+  "title": "A generic set",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["generics_02", "maps_04", "methods_02"],
+  "starter_files": ["set.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A map with empty-struct values, map[T]struct{}, is the usual way to store a set. Map keys must be comparable, which is why the type parameter is [T comparable].",
+    "The zero Set has a nil map, and writing to a nil map panics. Add must create the map the first time. Has and Len work fine on a nil map.",
+    "func (s *Set[T]) Add(v T) { if s.m == nil { s.m = map[T]struct{}{} }; s.m[v] = struct{}{} }; Has: _, ok := s.m[v]; Len: len(s.m). Union: add every element of both into a new Set."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "interfaces_03",
+  "topic": "interfaces",
+  "title": "A nil that isn't nil",
+  "type": "debug",
+  "difficulty": "advanced",
+  "estimated_minutes": 12,
+  "prerequisites": ["interfaces_01", "pointers_02"],
+  "starter_files": ["find.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "An interface value is nil only when it holds no type and no value. A nil *Circle stored in a Shape is a non-nil Shape: it has a type.",
+    "Find declares var c *Circle and returns it as a Shape. When nothing matches, the Shape it returns holds (*Circle)(nil), which compares unequal to nil.",
+    "Return nil directly when there is no match, for example: if name != \"circle\" { return nil }; return &Circle{Radius: 1}."
+  ]
+}

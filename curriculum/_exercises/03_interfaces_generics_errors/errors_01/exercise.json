@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "errors_01",
+  "topic": "errors",
+  "title": "Returning errors",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["multiple_return_values_02", "if_else_01"],
+  "starter_files": ["age.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "By convention the error is the last result. Return a nil error on success, and a non-nil error, with the other results set to their zero values, on failure.",
+    "strconv.Atoi already returns (int, error); check its error first. errors.New and fmt.Errorf create new errors with a message.",
+    "n, err := strconv.Atoi(strings.TrimSpace(s)); if err != nil { return 0, fmt.Errorf(\"age %q is not a number\", s) }; if n < 0 || n > 150 { return 0, fmt.Errorf(\"age %d is out of range\", n) }; return n, nil"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "custom_errors_04",
+  "topic": "custom_errors",
+  "title": "Reporting every problem",
+  "type": "implement",
+  "difficulty": "advanced",
+  "estimated_minutes": 15,
+  "prerequisites": ["custom_errors_01"],
+  "starter_files": ["validate.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "errors.Join(errs...) combines several errors into one. It returns nil when every argument is nil (or there are none), and errors.Is / errors.As search all of the joined errors.",
+    "Collect a *FieldError for each problem into a []error, then return errors.Join(problems...). Don't stop at the first problem.",
+    "var errs []error; if u.Name == \"\" { errs = append(errs, &FieldError{\"name\", \"must not be empty\"}) }; …the same for email and age…; return errors.Join(errs...)"
+  ]
+}

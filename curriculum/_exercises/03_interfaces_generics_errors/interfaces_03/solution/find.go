@@ -1,0 +1,30 @@
+// interfaces_03: A nil that isn't nil (reference solution)
+package find
+
+import "math"
+
+// Shape is anything with an area.
+type Shape interface {
+	Area() float64
+}
+
+// Circle is a circle.
+type Circle struct{ Radius float64 }
+
+func (c *Circle) Area() float64 { return math.Pi * c.Radius * c.Radius }
+
+// Square is a square.
+type Square struct{ Side float64 }
+
+func (s *Square) Area() float64 { return s.Side * s.Side }
+
+// Find returns a unit shape with the given name, or nil if the name is unknown.
+func Find(name string) Shape {
+	switch name {
+	case "circle":
+		return &Circle{Radius: 1}
+	case "square":
+		return &Square{Side: 1}
+	}
+	return nil // a nil interface, not a nil *Circle
+}

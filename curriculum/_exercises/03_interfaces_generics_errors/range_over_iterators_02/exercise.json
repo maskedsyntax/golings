@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "range_over_iterators_02",
+  "topic": "range_over_iterators",
+  "title": "Composing iterators",
+  "type": "implement",
+  "difficulty": "advanced",
+  "estimated_minutes": 15,
+  "prerequisites": ["range_over_iterators_01", "generics_02"],
+  "starter_files": ["pipeline.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Each adapter returns a new iter.Seq that ranges over its input and decides what to pass on to its own yield. Values are pulled one at a time, so an infinite input such as Naturals() is fine.",
+    "Take must stop pulling from its input after n values. Returning from the inner for … range loop stops the upstream iterator. Both adapters must also stop when their own yield returns false.",
+    "Filter: for v := range seq { if keep(v) && !yield(v) { return } }. Take: if n <= 0 { return }; count := 0; for v := range seq { if !yield(v) { return }; count++; if count == n { return } }."
+  ]
+}

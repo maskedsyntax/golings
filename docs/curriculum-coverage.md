@@ -4,8 +4,8 @@
 
 - Curriculum version: 0.1.0
 - Topic inventory: https://gobyexample.com/, snapshot 2026-11-17 (85 topics)
-- Exercises: 52
-- Topics with at least 2 exercises: 20/85
+- Exercises: 74
+- Topics with at least 2 exercises: 27/85
 
 ## 01 — Fundamentals
 
@@ -41,13 +41,13 @@
 
 | # | Topic | Exercises | Status |
 |---|---|---|---|
-| 021 | [Interfaces](https://gobyexample.com/interfaces) | — | ⬜ none |
-| 022 | [Enums](https://gobyexample.com/enums) | — | ⬜ none |
-| 023 | [Struct Embedding](https://gobyexample.com/struct-embedding) | — | ⬜ none |
-| 024 | [Generics](https://gobyexample.com/generics) | — | ⬜ none |
-| 025 | [Range over Iterators](https://gobyexample.com/range-over-iterators) | — | ⬜ none |
-| 026 | [Errors](https://gobyexample.com/errors) | — | ⬜ none |
-| 027 | [Custom Errors](https://gobyexample.com/custom-errors) | — | ⬜ none |
+| 021 | [Interfaces](https://gobyexample.com/interfaces) | `interfaces_01`, `interfaces_02`, `interfaces_03`, `interfaces_04` | ✅ |
+| 022 | [Enums](https://gobyexample.com/enums) | `enums_01`, `enums_02` | ✅ |
+| 023 | [Struct Embedding](https://gobyexample.com/struct-embedding) | `struct_embedding_01`, `struct_embedding_02` | ✅ |
+| 024 | [Generics](https://gobyexample.com/generics) | `generics_01`, `generics_02`, `generics_03`, `generics_04` | ✅ |
+| 025 | [Range over Iterators](https://gobyexample.com/range-over-iterators) | `range_over_iterators_01`, `range_over_iterators_02`, `range_over_iterators_03` | ✅ |
+| 026 | [Errors](https://gobyexample.com/errors) | `errors_01`, `errors_02`, `errors_03` | ✅ |
+| 027 | [Custom Errors](https://gobyexample.com/custom-errors) | `custom_errors_01`, `custom_errors_02`, `custom_errors_03`, `custom_errors_04` | ✅ |
 
 ## 04 — Concurrency
 

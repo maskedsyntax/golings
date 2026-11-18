@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "generics_04",
+  "topic": "generics",
+  "title": "Generic types and cmp.Ordered",
+  "type": "implement",
+  "difficulty": "advanced",
+  "estimated_minutes": 15,
+  "prerequisites": ["generics_03", "range_over_built_in_types_02"],
+  "starter_files": ["pairs.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "cmp.Ordered is the standard constraint for types that support < and >: integers, floats and strings. Pair[K, V] is a generic struct; you build one with Pair[K, V]{Key: k, Value: v}.",
+    "For Entries, collect the map's keys, sort them with slices.Sort (which needs cmp.Ordered), then build the pairs in that order. GroupBy appends each x to the slice at key(x), which keeps the original order inside each group.",
+    "Entries: keys := slices.Sorted(maps.Keys(m)); for _, k := range keys { out = append(out, Pair[K, V]{k, m[k]}) }. GroupBy: g := map[K][]T{}; for _, x := range xs { k := key(x); g[k] = append(g[k], x) }."
+  ]
+}

@@ -47,7 +47,8 @@ type Rewriter struct {
 
 // Rewrite rewrites tool output. References to learner files ("./main.go:3:1"
 // or "/tmp/golings-123/main.go:3:1") become DisplayDir paths; the synthetic
-// package header and summary lines ("# golings.local/exercise",
+// package header and summary lines ("# golings.local/exercise", or
+// "# [golings.local/exercise]" when go vet reports during go test,
 // "FAIL\tgolings.local/exercise [build failed]") are dropped. References to
 // canonical check files are left as bare names.
 func (r Rewriter) Rewrite(text string) string {
@@ -57,7 +58,8 @@ func (r Rewriter) Rewrite(text string) string {
 	var b strings.Builder
 	for _, line := range strings.SplitAfter(text, "\n") {
 		trimmed := strings.TrimRight(line, "\r\n")
-		if strings.HasPrefix(trimmed, "# golings.local/") || strings.HasPrefix(trimmed, "FAIL\tgolings.local/") ||
+		if strings.HasPrefix(trimmed, "# golings.local/") || strings.HasPrefix(trimmed, "# [golings.local/") ||
+			strings.HasPrefix(trimmed, "FAIL\tgolings.local/") ||
 			strings.HasPrefix(trimmed, "ok  \tgolings.local/") {
 			continue
 		}

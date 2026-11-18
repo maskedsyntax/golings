@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "custom_errors_02",
+  "topic": "custom_errors",
+  "title": "The typed nil error",
+  "type": "debug",
+  "difficulty": "advanced",
+  "estimated_minutes": 12,
+  "prerequisites": ["custom_errors_01", "interfaces_03"],
+  "starter_files": ["check.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Check returns an error even for valid input. Look at its return type: it returns a *CheckError variable through the error interface.",
+    "A nil *CheckError converted to error is a non-nil interface holding a nil pointer, the same trap as in interfaces_03. Functions should declare their result as error and return a literal nil on success.",
+    "Return nil explicitly when there is no problem, for example: if len(problems) == 0 { return nil }; return &CheckError{Problems: problems}."
+  ]
+}

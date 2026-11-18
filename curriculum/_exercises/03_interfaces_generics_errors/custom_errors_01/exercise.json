@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "custom_errors_01",
+  "topic": "custom_errors",
+  "title": "An error type with fields",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["errors_02", "structs_01"],
+  "starter_files": ["validate.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "Any type with an Error() string method is an error. Callers extract your type, fields and all, with errors.As(err, &target) where target is a *ValidationError.",
+    "Give Error a pointer receiver and return &ValidationError{…} from Validate. errors.As(err, &ve) with ve of type *ValidationError only matches if the error really is a *ValidationError, not a ValidationError value.",
+    "func (e *ValidationError) Error() string { return e.Field + \": \" + e.Reason }; in Validate: if u.Name == \"\" { return &ValidationError{Field: \"name\", Reason: \"must not be empty\"} } and so on; return nil at the end."
+  ]
+}

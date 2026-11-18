@@ -8,8 +8,8 @@ Everything runs locally with the Go toolchain you already have: no accounts, no 
 no other runtimes.
 
 > **Status:** early development (Milestone C of [spec.md](spec.md)). Watch mode, hints, reset and
-> solutions work. Modules 01 (Fundamentals) and 02 (Functions and types) are complete: 52 of the
-> planned 220 exercises. The remaining modules are still to come.
+> solutions work. Modules 01–03 (fundamentals; functions and types; interfaces, generics and
+> errors) are complete: 74 of the planned 220 exercises. The remaining modules are still to come.
 
 ## Requirements
 

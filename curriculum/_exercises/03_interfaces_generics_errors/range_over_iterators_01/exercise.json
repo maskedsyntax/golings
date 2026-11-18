@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "range_over_iterators_01",
+  "topic": "range_over_iterators",
+  "title": "Writing an iterator",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["closures_01", "range_over_built_in_types_02"],
+  "starter_files": ["countdown.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "An iter.Seq[int] is just a func(yield func(int) bool). The function calls yield once per value. When range's loop body runs break, yield returns false.",
+    "After yield returns false the iterator must stop immediately. Calling yield again makes the program panic with \"range function continued iteration after function for loop body returned false\".",
+    "return func(yield func(int) bool) { for i := n; i >= 1; i-- { if !yield(i) { return } } }"
+  ]
+}

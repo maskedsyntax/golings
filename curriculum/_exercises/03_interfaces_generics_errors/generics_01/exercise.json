@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "generics_01",
+  "topic": "generics",
+  "title": "Constraints",
+  "type": "compile_fix",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["functions_02", "interfaces_01"],
+  "starter_files": ["sum.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "With [T any], the compiler only allows operations that work for every possible type, and + doesn't work on, say, a struct. The constraint has to list the types that support +.",
+    "An interface can be a type set: interface{ int | float64 }. The tests also pass a Cents value, whose underlying type is int; ~int means \"any type whose underlying type is int\".",
+    "type Number interface { ~int | ~int64 | ~float64 } and func Sum[T Number](xs []T) T"
+  ]
+}

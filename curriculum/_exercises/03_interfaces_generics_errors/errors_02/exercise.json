@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "errors_02",
+  "topic": "errors",
+  "title": "Sentinel errors and wrapping",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["errors_01", "maps_01"],
+  "starter_files": ["price.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A sentinel error is a package-level value, such as ErrNotFound, that callers compare against. Adding context with fmt.Errorf must keep the original error reachable.",
+    "The %w verb wraps an error: errors.Is can then find ErrNotFound inside the new error. %v only copies the message text, which loses the connection.",
+    "if !ok { return 0, fmt.Errorf(\"lookup %q: %w\", key, ErrNotFound) }; and in Price, check if v < 0 { return 0, fmt.Errorf(\"price of %q: %w\", key, ErrInvalid) }."
+  ]
+}

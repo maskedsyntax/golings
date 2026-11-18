@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "interfaces_04",
+  "topic": "interfaces",
+  "title": "Implementing io.Writer",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["interfaces_01", "methods_02"],
+  "starter_files": ["counting.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "io.Writer has one method: Write(p []byte) (n int, err error). Anything with that method can be passed to fmt.Fprintf, io.Copy and friends.",
+    "Write should pass p on to the wrapped writer, add the n it reports to the count, and return n and err unchanged. The wrapped writer may write fewer bytes than len(p), so don't count len(p).",
+    "func (c *CountingWriter) Write(p []byte) (int, error) { n, err := c.W.Write(p); c.N += int64(n); return n, err }"
+  ]
+}

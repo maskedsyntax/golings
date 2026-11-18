@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "generics_02",
+  "topic": "generics",
+  "title": "Map, Filter, Reduce",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["generics_01", "functions_02"],
+  "starter_files": ["fp.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "These are the functions_02 exercise again, but generic: T is the element type, and U (for Map) or A (for Reduce) is a second type parameter for the result.",
+    "Reduce starts from init and folds each element in: acc = f(acc, x). Don't skip init, and don't modify the input slice in any of the three.",
+    "Map: out := make([]U, 0, len(xs)); append f(x). Filter: append x when keep(x). Reduce: acc := init; for _, x := range xs { acc = f(acc, x) }; return acc."
+  ]
+}
