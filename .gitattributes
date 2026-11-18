@@ -1,0 +1,4 @@
+# Keep LF everywhere so embedded starters, expected output and generated
+# docs are byte-identical on every OS.
+* text=auto eol=lf
+*.png binary

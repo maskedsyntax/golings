@@ -72,7 +72,8 @@ func (r Rewriter) rewriteLine(line string) string {
 			line = r.replacePrefixed(line, prefix)
 		}
 	}
-	return r.replacePrefixed(line, "./")
+	// The go command prints ".\name.go" on Windows and "./name.go" elsewhere.
+	return r.replacePrefixed(r.replacePrefixed(line, "./"), ".\\")
 }
 
 // replacePrefixed rewrites every occurrence of prefix+name.go where name.go is
@@ -85,8 +86,8 @@ func (r Rewriter) replacePrefixed(line, prefix string) string {
 			b.WriteString(line)
 			return b.String()
 		}
-		// "./" must start a token, so we don't rewrite "a./b".
-		if prefix == "./" && i > 0 && !isBoundary(line[i-1]) {
+		// "./" and ".\\" must start a token, so we don't rewrite "a./b".
+		if (prefix == "./" || prefix == ".\\") && i > 0 && !isBoundary(line[i-1]) {
 			b.WriteString(line[:i+len(prefix)])
 			line = line[i+len(prefix):]
 			continue

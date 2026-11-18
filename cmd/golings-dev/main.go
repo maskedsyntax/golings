@@ -73,7 +73,7 @@ func validateCmd(cat *catalog.Catalog, stdout, stderr io.Writer) int {
 		fmt.Fprintln(stderr, "error:", e)
 	}
 	// The coverage document must be up to date.
-	if data, err := os.ReadFile(coveragePath); err == nil && string(data) != validate.CoverageMarkdown(cat) {
+	if data, err := os.ReadFile(coveragePath); err == nil && strings.ReplaceAll(string(data), "\r\n", "\n") != validate.CoverageMarkdown(cat) {
 		fmt.Fprintf(stderr, "error: %s is out of date; run `go run ./cmd/golings-dev coverage --write`\n", coveragePath)
 		return 1
 	}

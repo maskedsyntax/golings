@@ -51,3 +51,12 @@ func TestTruncate(t *testing.T) {
 		t.Errorf("Truncate(short) = %q, %v", got, cut)
 	}
 }
+
+func TestRewriteWindowsDotBackslash(t *testing.T) {
+	r := Rewriter{DisplayDir: filepath.Join("exercises", "m", "x"), Learner: map[string]bool{"values.go": true}}
+	got := r.Rewrite(`.\values.go:18:9: cannot use x` + "\n" + `.\values_test.go:4: check` + "\n")
+	want := filepath.Join("exercises", "m", "x", "values.go") + ":18:9: cannot use x\nvalues_test.go:4: check\n"
+	if got != want {
+		t.Errorf("Rewrite = %q, want %q", got, want)
+	}
+}

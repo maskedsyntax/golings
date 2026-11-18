@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/maskedsyntax/golings/curriculum"
@@ -34,7 +35,7 @@ func TestCoverageDocIsCurrent(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if string(got) != want {
+	if strings.ReplaceAll(string(got), "\r\n", "\n") != want {
 		t.Error("docs/curriculum-coverage.md is out of date; run `go run ./cmd/golings-dev coverage --write`")
 	}
 }
