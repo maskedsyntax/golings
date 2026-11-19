@@ -7,24 +7,37 @@ following the topics of [Go by Example](https://gobyexample.com/).
 Everything runs locally with the Go toolchain you already have: no accounts, no network,
 no other runtimes.
 
-> **Status:** the full curriculum is in place: 220 exercises covering all 85 Go by Example
-> topics, from hello world to signals and process exit codes. Release hardening (Milestone D of
-> [spec.md](spec.md): upgrades, release archives, docs) is next.
+> **Status:** feature-complete: 220 exercises covering all 85 Go by Example topics, from hello
+> world to signals and process exit codes, with watch mode, hints, solutions and workspace
+> upgrades. Heading for 1.0.
 
 ## Requirements
 
 - Go 1.24 or newer on your `PATH`.
 
-## Quick start
+## Install
 
-From a checkout of this repository:
+Either download an archive for your platform from the
+[releases page](https://github.com/maskedsyntax/golings/releases) and put `golings` on your
+`PATH`, or build it with Go:
 
 ```sh
-go install ./cmd/golings   # installs into $(go env GOPATH)/bin, which should be on your PATH
+go install github.com/maskedsyntax/golings/cmd/golings@latest
+```
+
+`go install` puts the binary in `$(go env GOPATH)/bin`, which should be on your `PATH`. From a
+checkout of this repository, `go install ./cmd/golings` does the same.
+
+## Quick start
+
+```sh
 golings init               # creates ./golings-workspace
 cd golings-workspace
-golings                    # check the current exercise
+golings                    # watch and check the current exercise
 ```
+
+Edit the file it names, save, and golings re-checks it. When it passes, press `n` for the
+next exercise.
 
 ## Commands
 
@@ -40,6 +53,7 @@ golings                    # check the current exercise
 | `golings reset <id>` | Restore the starter files; asks first and backs up your version to `.golings/backups/` |
 | `golings solution <id>` | Show the reference solution (asks first, or `--show`; `--out DIR` writes files) |
 | `golings progress` | Completion statistics (`--json`) |
+| `golings upgrade` | After updating golings: add new exercises and carry your work over (`--dry-run` first; your code is never rewritten) |
 | `golings doctor` | Diagnose the toolchain and workspace (`--recover-state` repairs a corrupt progress file) |
 | `golings version` | CLI and curriculum versions |
 
@@ -76,11 +90,20 @@ go run ./cmd/golings-dev check --all          # starters fail, solutions pass, m
 go run ./cmd/golings-dev coverage --write     # regenerate docs/curriculum-coverage.md
 ```
 
-See [docs/architecture.md](docs/architecture.md) for the code layout and
-[spec.md](spec.md) for the full specification.
+More documentation:
+
+- [docs/troubleshooting.md](docs/troubleshooting.md): toolchain, firewall, time limits, progress
+- [docs/authoring.md](docs/authoring.md): writing and changing exercises
+- [docs/contributing.md](docs/contributing.md): development workflow and releases
+- [docs/architecture.md](docs/architecture.md): how the code fits together
+- [spec.md](spec.md): the full specification
 
 ## Credits
 
 The exercises, tests and solutions are original. Topic selection follows
-[Go by Example](https://gobyexample.com/) by Mark McGranaghan and Eli Bendersky. The learning
-model comes from Rustlings and Ziglings.
+[Go by Example](https://gobyexample.com/) by Mark McGranaghan and Eli Bendersky
+(CC BY 3.0). The learning model comes from [Rustlings](https://github.com/rust-lang/rustlings)
+and [Ziglings](https://ziglings.org/).
+
+golings is MIT licensed. Release binaries include the Go runtime and `golang.org/x/sys` and
+`golang.org/x/term` (BSD 3-Clause); see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

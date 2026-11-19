@@ -9,7 +9,7 @@ package curriculum
 
 import "embed"
 
-// FS holds manifest.json, topics.json and _exercises/.
+// FS holds manifest.json, topics.json, migrations.json and _exercises/.
 //
-//go:embed manifest.json topics.json all:_exercises
+//go:embed manifest.json topics.json migrations.json all:_exercises
 var FS embed.FS

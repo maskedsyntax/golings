@@ -142,3 +142,69 @@ func TestFind(t *testing.T) {
 		t.Errorf("Find(99) error = %v, want not found", err)
 	}
 }
+
+func TestRenamesFollowChains(t *testing.T) {
+	f := validFS()
+	f["manifest.json"].Data = []byte(strings.Replace(manifestJSON, `"slices_02"`, `"slices_03"`, 1))
+	delete(f, "_exercises/01_basics/slices_02/exercise.json")
+	f["_exercises/01_basics/slices_03/exercise.json"] = &fstest.MapFile{Data: []byte(exerciseJSON("slices_03", "slices", ""))}
+	f["migrations.json"] = &fstest.MapFile{Data: []byte(`{"schema_version":1,"migrations":[
+		{"to_version":"0.0.2","renamed":{"maps_09":"slices_02"},"removed":["maps_08"]},
+		{"to_version":"0.0.3","renamed":{"slices_02":"slices_03"}}]}`)}
+	cat, err := catalog.Load(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := cat.Renames()
+	want := map[string]string{"maps_09": "slices_03", "slices_02": "slices_03", "maps_08": ""}
+	if len(got) != len(want) {
+		t.Fatalf("Renames = %v, want %v", got, want)
+	}
+	for k, v := range want {
+		if got[k] != v {
+			t.Errorf("Renames[%s] = %q, want %q", k, got[k], v)
+		}
+	}
+}
+
+func TestMigrationsAreValidated(t *testing.T) {
+	for name, migrations := range map[string]string{
+		"rename to unknown":     `{"to_version":"0.0.2","renamed":{"old_01":"nope_01"}}`,
+		"renamed id still used": `{"to_version":"0.0.2","renamed":{"maps_01":"slices_01"}}`,
+		"removed id still used": `{"to_version":"0.0.2","removed":["maps_01"]}`,
+		"missing version":       `{"renamed":{"old_01":"maps_01"}}`,
+	} {
+		f := validFS()
+		f["migrations.json"] = &fstest.MapFile{Data: []byte(`{"schema_version":1,"migrations":[` + migrations + `]}`)}
+		if _, err := catalog.Load(f); err == nil {
+			t.Errorf("%s: Load accepted %s", name, migrations)
+		}
+	}
+}
+
+func TestChecksHashTracksChecksOnly(t *testing.T) {
+	hash := func(f fstest.MapFS) string {
+		t.Helper()
+		cat, err := catalog.Load(f)
+		if err != nil {
+			t.Fatal(err)
+		}
+		ex, _ := cat.Get("maps_01")
+		return ex.ChecksHash
+	}
+	f := validFS()
+	f["_exercises/01_basics/maps_01/checks/a_test.go"] = &fstest.MapFile{Data: []byte("package a\n")}
+	base := hash(f)
+	if base == "" {
+		t.Fatal("empty checks hash")
+	}
+	f["_exercises/01_basics/maps_01/README.md"] = &fstest.MapFile{Data: []byte("reworded")}
+	f["_exercises/01_basics/maps_01/exercise.json"].Data = []byte(strings.Replace(exerciseJSON("maps_01", "maps", ""), `"hints":["h"]`, `"hints":["a better hint"]`, 1))
+	if got := hash(f); got != base {
+		t.Error("changing a README or hint changed the checks hash")
+	}
+	f["_exercises/01_basics/maps_01/checks/a_test.go"].Data = []byte("package a\n// stricter\n")
+	if got := hash(f); got == base {
+		t.Error("changing a canonical check did not change the checks hash")
+	}
+}

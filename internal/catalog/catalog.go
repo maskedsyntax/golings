@@ -8,6 +8,8 @@ package catalog
 
 import (
 	"bytes"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -16,6 +18,7 @@ import (
 	"path"
 	"regexp"
 	"slices"
+	"sort"
 	"strings"
 
 	"github.com/maskedsyntax/golings/internal/astcheck"
@@ -103,6 +106,20 @@ type Manifest struct {
 	Modules           []Module `json:"modules"`
 }
 
+// Migration records how one curriculum version changed exercise IDs, so
+// `golings upgrade` can carry learner work and progress across versions.
+type Migration struct {
+	ToVersion string            `json:"to_version"`
+	Renamed   map[string]string `json:"renamed,omitempty"` // old id -> new id
+	Removed   []string          `json:"removed,omitempty"` // ids dropped without a replacement
+}
+
+// Migrations is the migrations.json document, oldest first.
+type Migrations struct {
+	SchemaVersion int         `json:"schema_version"`
+	Migrations    []Migration `json:"migrations"`
+}
+
 // Exercise is the metadata of one exercise (exercise.json) plus fields
 // derived from the manifest.
 type Exercise struct {
@@ -127,6 +144,10 @@ type Exercise struct {
 	Ordinal int    `json:"-"`
 	Module  string `json:"-"`
 	URL     string `json:"-"`
+	// ChecksHash fingerprints everything that decides pass or fail: the
+	// canonical checks, fixtures, and the check, rule and file lists. A
+	// learner who passed under a different hash should re-verify.
+	ChecksHash string `json:"-"`
 }
 
 // SupportsOS reports whether the exercise can be evaluated on goos. An empty
@@ -142,12 +163,13 @@ func (e *Exercise) AssetDir() string {
 
 // Catalog is the validated, immutable curriculum metadata.
 type Catalog struct {
-	Manifest  Manifest
-	Topics    Topics
-	fsys      fs.FS
-	exercises []*Exercise
-	byID      map[string]*Exercise
-	topicByID map[string]*Topic
+	Manifest   Manifest
+	Topics     Topics
+	Migrations Migrations
+	fsys       fs.FS
+	exercises  []*Exercise
+	byID       map[string]*Exercise
+	topicByID  map[string]*Topic
 }
 
 // ValidationError collects every problem found while loading, so authors see
@@ -175,6 +197,13 @@ func Load(fsys fs.FS) (*Catalog, error) {
 	}
 	if err := decodeStrict(fsys, "topics.json", &c.Topics); err != nil {
 		return nil, &ValidationError{Problems: []string{err.Error()}}
+	}
+	// migrations.json is optional: a curriculum that never renamed anything
+	// doesn't need one.
+	if _, err := fs.Stat(fsys, "migrations.json"); err == nil {
+		if err := decodeStrict(fsys, "migrations.json", &c.Migrations); err != nil {
+			return nil, &ValidationError{Problems: []string{err.Error()}}
+		}
 	}
 
 	m := &c.Manifest
@@ -275,10 +304,115 @@ func Load(fsys fs.FS) (*Catalog, error) {
 		}
 	}
 
+	problems = append(problems, c.validateMigrations()...)
+
 	if len(problems) > 0 {
 		return nil, &ValidationError{Problems: problems}
 	}
+	for _, ex := range c.exercises {
+		h, err := c.checksHash(ex)
+		if err != nil {
+			return nil, &ValidationError{Problems: []string{fmt.Sprintf("exercise %s: hashing checks: %v", ex.ID, err)}}
+		}
+		ex.ChecksHash = h
+	}
 	return c, nil
+}
+
+// validateMigrations checks that every rename ends at a current exercise
+// and that no retired ID is still in use.
+func (c *Catalog) validateMigrations() []string {
+	var p []string
+	mig := c.Migrations
+	if len(mig.Migrations) > 0 && mig.SchemaVersion != 1 {
+		p = append(p, fmt.Sprintf("migrations.json: unsupported schema_version %d", mig.SchemaVersion))
+	}
+	for i, m := range mig.Migrations {
+		where := fmt.Sprintf("migrations.json: migration %d (to %s)", i+1, m.ToVersion)
+		if m.ToVersion == "" {
+			p = append(p, where+": to_version is required")
+		}
+		for _, id := range m.Removed {
+			if c.byID[id] != nil {
+				p = append(p, fmt.Sprintf("%s: removed exercise %q is still in the manifest", where, id))
+			}
+		}
+	}
+	for old, final := range c.Renames() {
+		if c.byID[old] != nil {
+			p = append(p, fmt.Sprintf("migrations.json: renamed exercise %q is still in the manifest", old))
+		}
+		if final != "" && c.byID[final] == nil {
+			p = append(p, fmt.Sprintf("migrations.json: %q is renamed to %q, which is not in the manifest", old, final))
+		}
+	}
+	sort.Strings(p)
+	return p
+}
+
+// Renames maps every historical exercise ID to its current ID, following
+// chains of renames across versions (a -> b in one version, b -> c in the
+// next gives a -> c). An ID that was later removed maps to "".
+func (c *Catalog) Renames() map[string]string {
+	out := map[string]string{}
+	for _, m := range c.Migrations.Migrations {
+		for old, cur := range out {
+			if next, ok := m.Renamed[cur]; ok {
+				out[old] = next
+			} else if slices.Contains(m.Removed, cur) {
+				out[old] = ""
+			}
+		}
+		for old, next := range m.Renamed {
+			out[old] = next
+		}
+		for _, id := range m.Removed {
+			if _, ok := out[id]; !ok {
+				out[id] = ""
+			}
+		}
+	}
+	return out
+}
+
+// checksHash hashes the inputs that decide whether a solution passes. Hints,
+// titles and READMEs are deliberately left out: rewording them should not
+// make learners re-verify.
+func (c *Catalog) checksHash(ex *Exercise) (string, error) {
+	assets, err := c.Assets(ex)
+	if err != nil {
+		return "", err
+	}
+	h := sha256.New()
+	spec, _ := json.Marshal(struct {
+		Checks       []CheckKind
+		ASTRules     []string
+		StarterFiles []string
+		FixtureFiles []string
+		Platforms    []string
+	}{ex.Checks, ex.ASTRules, ex.StarterFiles, ex.FixtureFiles, ex.Platforms})
+	fmt.Fprintf(h, "spec %d\n%s\n", len(spec), spec)
+	for _, dir := range []string{"checks", "fixtures"} {
+		err := fs.WalkDir(assets, dir, func(p string, d fs.DirEntry, err error) error {
+			if errors.Is(err, fs.ErrNotExist) && p == dir {
+				return fs.SkipDir
+			}
+			if err != nil || d.IsDir() {
+				return err
+			}
+			data, err := fs.ReadFile(assets, p)
+			if err != nil {
+				return err
+			}
+			fmt.Fprintf(h, "file %s %d\n", p, len(data))
+			h.Write(data)
+			return nil
+		})
+		if err != nil {
+			return "", err
+		}
+	}
+	return hex.EncodeToString(h.Sum(nil))[:16], nil
 }
 
 func validateExercise(ex *Exercise, topics map[string]*Topic) []string {

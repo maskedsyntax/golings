@@ -217,7 +217,7 @@ func statusCell(s render.Style, d app.DisplayStatus) string {
 	switch d {
 	case app.DisplayCompleted:
 		return s.Green(label)
-	case app.DisplayModified, app.DisplayInProgress:
+	case app.DisplayModified, app.DisplayInProgress, app.DisplayRecheck:
 		return s.Yellow(label)
 	case app.DisplayMissing:
 		return s.Red(label)
@@ -543,6 +543,9 @@ func cmdProgress() *command {
 			}
 			if sum.Modified > 0 {
 				fmt.Fprintf(e.stdout, "\n%s %d completed exercise(s) were edited after passing; run `golings verify --all` to re-check them.\n", e.style.Yellow("note:"), sum.Modified)
+			}
+			if sum.Recheck > 0 {
+				fmt.Fprintf(e.stdout, "\n%s the checks of %d completed exercise(s) changed in a curriculum update; verify them again (`golings next` takes you there).\n", e.style.Yellow("note:"), sum.Recheck)
 			}
 			if sum.Unsupported > 0 {
 				fmt.Fprintf(e.stdout, "\n%d exercise(s) are not available on %s and are not counted.\n", sum.Unsupported, runtime.GOOS)

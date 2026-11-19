@@ -37,14 +37,13 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go }}
+      # The curriculum contract runs in the sharded `contract` job instead.
       - name: Test (race detector)
         if: runner.os != 'Windows'
-        run: go test -race -timeout 15m ./...
+        run: go test -race -timeout 15m -skip TestCurriculumContract ./...
       - name: Test
         if: runner.os == 'Windows'
-        run: go test -timeout 15m ./...
-      - name: Curriculum contract (starters fail, solutions pass, mutants fail)
-        run: go run ./cmd/golings-dev check --all
+        run: go test -timeout 15m -skip TestCurriculumContract ./...
       - name: CLI smoke test
         shell: bash
         run: |
@@ -57,6 +56,23 @@ jobs:
           code=$?
           set -e
           if [ "$code" -ne 1 ]; then echo "expected exit 1 for an unsolved exercise, got $code"; exit 1; fi
+
+  contract:
+    name: contract (${{ matrix.os }}, ${{ matrix.go }}, shard ${{ matrix.shard }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        go: ['1.24.x', stable]
+        shard: ['1/2', '2/2']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Curriculum contract (starters fail, solutions pass, mutants fail)
+        run: go run ./cmd/golings-dev check --shard ${{ matrix.shard }} --all
 
   cross-build:
     runs-on: ubuntu-latest

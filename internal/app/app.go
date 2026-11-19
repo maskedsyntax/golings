@@ -50,6 +50,9 @@ const (
 	DisplayModified   DisplayStatus = "modified" // completed, but edited since the passing run
 	DisplaySkipped    DisplayStatus = "skipped"
 	DisplayMissing    DisplayStatus = "missing" // learner files are absent
+	// DisplayRecheck: completed, but a curriculum update changed the
+	// exercise's checks, so the learner should verify it again.
+	DisplayRecheck DisplayStatus = "recheck"
 )
 
 // Done reports whether the status counts toward completion.
@@ -71,6 +74,8 @@ func (a *App) ViewOf(ex *catalog.Exercise, st *progress.State) View {
 	switch {
 	case err != nil:
 		v.Status = DisplayMissing
+	case es.Status == progress.Completed && es.ChecksHash != "" && es.ChecksHash != ex.ChecksHash:
+		v.Status = DisplayRecheck
 	case es.Status == progress.Completed && es.SourceFingerprint != workspace.Fingerprint(files):
 		v.Status = DisplayModified
 	case es.Status == progress.Completed:
@@ -166,8 +171,12 @@ func (a *App) Evaluate(ctx context.Context, tc *toolchain.Info, ex *catalog.Exer
 	fp := workspace.Fingerprint(files)
 	_, err = a.Store.Update(func(s *progress.State) error {
 		before := s.Get(ex.ID)
-		ev.NewlyCompleted = res.Passed() && (before.Status != progress.Completed || before.SourceFingerprint != fp)
+		ev.NewlyCompleted = res.Passed() && (before.Status != progress.Completed || before.SourceFingerprint != fp ||
+			(before.ChecksHash != "" && before.ChecksHash != ex.ChecksHash))
 		s.RecordResult(ex.ID, res.Passed(), string(res.Status), fp, time.Now())
+		if res.Passed() {
+			s.Entry(ex.ID).ChecksHash = ex.ChecksHash
+		}
 		return nil
 	})
 	if err != nil {
@@ -181,6 +190,7 @@ type Summary struct {
 	Total       int             `json:"total"`
 	Completed   int             `json:"completed"`
 	Modified    int             `json:"modified_since_verified"`
+	Recheck     int             `json:"needs_recheck"`
 	Skipped     int             `json:"skipped"`
 	Unsupported int             `json:"unsupported_on_this_platform"`
 	Percent     float64         `json:"percent"`
@@ -220,6 +230,8 @@ func (a *App) Summarize(st *progress.State, goos string) Summary {
 			m.Completed++
 		case DisplayModified:
 			s.Modified++
+		case DisplayRecheck:
+			s.Recheck++
 		case DisplaySkipped:
 			s.Skipped++
 		}

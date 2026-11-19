@@ -1,0 +1,51 @@
+# Release builds: `git tag vX.Y.Z && git push --tags` runs .github/workflows/release.yml.
+# Check locally with: goreleaser check && goreleaser release --snapshot --clean
+version: 2
+
+project_name: golings
+
+before:
+  hooks:
+    - go mod tidy -diff
+
+builds:
+  - id: golings
+    main: ./cmd/golings
+    binary: golings
+    env:
+      - CGO_ENABLED=0
+    goos: [darwin, linux, windows]
+    goarch: [amd64, arm64]
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X github.com/maskedsyntax/golings/internal/version.Version={{ .Version }}
+
+archives:
+  - id: golings
+    formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - LICENSE
+      - README.md
+      - THIRD_PARTY_NOTICES.md
+
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+
+changelog:
+  use: github
+  sort: asc
+  filters:
+    exclude:
+      - "^Merge "
+
+release:
+  draft: true
+  footer: |
+    Requires Go 1.24 or newer on your PATH; golings uses it to check your exercises.
+    Verify downloads against checksums.txt.

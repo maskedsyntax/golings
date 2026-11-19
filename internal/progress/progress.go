@@ -33,9 +33,11 @@ type ExerciseState struct {
 	Attempts          int        `json:"attempts"`
 	HintsRevealed     int        `json:"hints_revealed"`
 	SourceFingerprint string     `json:"source_fingerprint,omitempty"`
-	SolutionViewed    bool       `json:"solution_viewed,omitempty"`
-	LastResult        string     `json:"last_result,omitempty"`
-	LastRunAt         *time.Time `json:"last_run_at,omitempty"`
+	// ChecksHash is the catalog's checks hash when the exercise last passed.
+	ChecksHash     string     `json:"checks_hash,omitempty"`
+	SolutionViewed bool       `json:"solution_viewed,omitempty"`
+	LastResult     string     `json:"last_result,omitempty"`
+	LastRunAt      *time.Time `json:"last_run_at,omitempty"`
 }
 
 // State is the whole state.json document.

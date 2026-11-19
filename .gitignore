@@ -37,3 +37,6 @@ go.work.sum
 /golings-workspace/
 /golings
 /golings-dev
+
+# GoReleaser output
+/dist/

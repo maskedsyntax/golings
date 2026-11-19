@@ -66,7 +66,7 @@ var commands []*command
 func init() {
 	commands = []*command{
 		cmdWatch(), cmdInit(), cmdList(), cmdRun(), cmdVerify(), cmdNext(), cmdHint(),
-		cmdReset(), cmdSolution(), cmdProgress(), cmdDoctor(), cmdVersion(), cmdHelp(),
+		cmdReset(), cmdSolution(), cmdProgress(), cmdUpgrade(), cmdDoctor(), cmdVersion(), cmdHelp(),
 	}
 }
 
@@ -245,7 +245,7 @@ func (e *env) app() (*app.App, error) {
 		return nil, err
 	}
 	if ws.Meta.CurriculumVersion != cat.Version() && !e.g.json {
-		fmt.Fprintf(e.stderr, "%s workspace was created with curriculum %s; this golings ships %s.\n",
+		fmt.Fprintf(e.stderr, "%s workspace uses curriculum %s; this golings ships %s. Run `golings upgrade` to update it.\n",
 			e.style.Yellow("note:"), ws.Meta.CurriculumVersion, cat.Version())
 	}
 	return app.New(cat, ws), nil
@@ -274,7 +274,7 @@ Commands:
 Global flags:
   --workspace <path>   use this workspace instead of searching upward
   --no-color           disable colors (NO_COLOR is honored too)
-  --json               machine-readable output (list, verify, next, progress, doctor, version)
+  --json               machine-readable output (list, verify, next, progress, upgrade, doctor, version)
   --verbose            show more detail
   --timeout <dur>      override the per-exercise time limit
 

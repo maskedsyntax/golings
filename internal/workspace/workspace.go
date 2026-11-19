@@ -37,6 +37,9 @@ type Meta struct {
 	CurriculumVersion      string    `json:"curriculum_version"`
 	CreatedAt              time.Time `json:"created_at"`
 	CreatedBy              string    `json:"created_by"`
+	// UpgradedAt is when `golings upgrade` last brought the workspace to
+	// CurriculumVersion.
+	UpgradedAt *time.Time `json:"upgraded_at,omitempty"`
 }
 
 // Workspace is an opened learner workspace.

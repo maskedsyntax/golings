@@ -3,6 +3,8 @@
 //	golings-dev validate-curriculum   structural and coverage validation
 //	golings-dev check [--all | id...]  contract checks: starter fails, solution passes, mutants fail
 //	golings-dev coverage [--write]     render docs/curriculum-coverage.md
+//	golings-dev new <topic>            scaffold the topic's next exercise
+//	golings-dev compare-topics         diff topics.json against gobyexample.com (read-only; the only networked command)
 package main
 
 import (
@@ -13,6 +15,7 @@ import (
 	"os"
 	"os/signal"
 	"runtime"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -47,6 +50,10 @@ func run(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 		return checkCmd(ctx, cat, args[1:], stdout, stderr)
 	case "coverage":
 		return coverageCmd(cat, args[1:], stdout, stderr)
+	case "new":
+		return newCmd(cat, args[1:], stdout, stderr)
+	case "compare-topics":
+		return compareTopicsCmd(ctx, cat, args[1:], stdout, stderr)
 	case "help", "-h", "--help":
 		usage(stdout)
 		return 0
@@ -60,8 +67,11 @@ func run(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 func usage(w io.Writer) {
 	fmt.Fprintln(w, `usage:
   golings-dev validate-curriculum          validate metadata, assets and coverage
-  golings-dev check [-j N] (--all | id...) starter fails, solution passes, mutants fail
-  golings-dev coverage [--write]           print or write `+coveragePath)
+  golings-dev check [-j N] [--shard i/n] (--all | id...)
+                                           starter fails, solution passes, mutants fail
+  golings-dev coverage [--write]           print or write `+coveragePath+`
+  golings-dev new <topic>                  scaffold the topic's next exercise
+  golings-dev compare-topics [--from FILE] diff topics.json against the live Go by Example index (read-only)`)
 }
 
 func validateCmd(cat *catalog.Catalog, stdout, stderr io.Writer) int {
@@ -89,6 +99,7 @@ func checkCmd(ctx context.Context, cat *catalog.Catalog, args []string, stdout, 
 	fs.SetOutput(stderr)
 	all := fs.Bool("all", false, "check every exercise")
 	jobs := fs.Int("j", max(1, runtime.NumCPU()/2), "exercises to check in parallel")
+	shard := fs.String("shard", "", "check only shard i of n (\"i/n\"), for splitting CI")
 	if err := fs.Parse(args); err != nil {
 		return 2
 	}
@@ -108,6 +119,14 @@ func checkCmd(ctx context.Context, cat *catalog.Catalog, args []string, stdout, 
 			}
 			exs = append(exs, ex)
 		}
+	}
+	if *shard != "" {
+		i, n, err := parseShard(*shard)
+		if err != nil {
+			fmt.Fprintln(stderr, "check:", err)
+			return 2
+		}
+		exs = shardOf(exs, i, n)
 	}
 	tc, err := toolchain.Detect(ctx)
 	if err != nil {
@@ -173,4 +192,28 @@ func coverageCmd(cat *catalog.Catalog, args []string, stdout, stderr io.Writer) 
 	}
 	fmt.Fprintln(stdout, "wrote", coveragePath)
 	return 0
+}
+
+// parseShard parses "i/n" with 1 <= i <= n.
+func parseShard(s string) (i, n int, err error) {
+	a, b, ok := strings.Cut(s, "/")
+	i, err1 := strconv.Atoi(a)
+	n, err2 := strconv.Atoi(b)
+	if !ok || err1 != nil || err2 != nil || n < 1 || i < 1 || i > n {
+		return 0, 0, fmt.Errorf("invalid shard %q (want i/n, e.g. 1/3)", s)
+	}
+	return i, n, nil
+}
+
+// shardOf returns every n-th exercise starting at the i-th (1-based).
+// Interleaving keeps shards balanced, since neighboring exercises tend to
+// cost about the same.
+func shardOf(exs []*catalog.Exercise, i, n int) []*catalog.Exercise {
+	var out []*catalog.Exercise
+	for k, ex := range exs {
+		if k%n == i-1 {
+			out = append(out, ex)
+		}
+	}
+	return out
 }
