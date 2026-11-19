@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "reading_files_02",
+  "topic": "reading_files",
+  "title": "Reading part of a file",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["reading_files_01", "defer_01"],
+  "starter_files": ["peek.go"],
+  "fixture_files": ["data/alphabet.txt"],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "os.Open returns an *os.File. Close it with defer once you know Open succeeded.",
+    "f.ReadAt(buf, offset) reads len(buf) bytes starting at offset without moving the file position. Near the end of the file it returns fewer bytes along with io.EOF.",
+    "io.EOF just means you hit the end, so return string(buf[:n]) with no error in that case. Any other error should be returned."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "exit_02",
+  "topic": "exit",
+  "title": "Choosing exit codes",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["exit_01", "custom_errors_02"],
+  "starter_files": ["exitcode.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Check in order: nil first, then the specific cases, and 1 for everything else.",
+    "Errors are usually wrapped by the time they reach main, so a type assertion or == comparison misses them. Use errors.As for *UsageError and errors.Is for ErrNotFound and context.Canceled.",
+    "var ue *UsageError; if errors.As(err, &ue) { return 2 }"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "http_server_02",
+  "topic": "http_server",
+  "title": "Graceful shutdown",
+  "type": "debug",
+  "difficulty": "advanced",
+  "estimated_minutes": 20,
+  "prerequisites": ["http_server_01", "timeouts_01"],
+  "starter_files": ["server.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "srv.Close drops every open connection at once, including requests still being handled. srv.Shutdown stops accepting new connections and waits for in-flight requests to finish.",
+    "Run srv.Serve(ln) in a goroutine that sends its error on a buffered channel. Wait for either that error or <-ctx.Done().",
+    "On cancellation, call srv.Shutdown with a context.WithTimeout(context.Background(), grace) and then read Serve's result. http.ErrServerClosed is what Serve always returns after Shutdown, so treat it as success and return nil."
+  ]
+}

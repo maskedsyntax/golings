@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "writing_files_01",
+  "topic": "writing_files",
+  "title": "Flush before you close",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["reading_files_01", "defer_01"],
+  "starter_files": ["write.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "bufio.Writer keeps data in memory until its 4 KiB buffer fills. Whatever is still in the buffer when the function returns is lost.",
+    "Call w.Flush() after the loop and return its error.",
+    "Closing a written file can also fail, so return the error from f.Close() as well, rather than dropping it in a defer."
+  ]
+}

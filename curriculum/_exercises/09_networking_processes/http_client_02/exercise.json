@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "http_client_02",
+  "topic": "http_client",
+  "title": "POSTing JSON with a deadline",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 20,
+  "prerequisites": ["http_client_01", "timeouts_01"],
+  "starter_files": ["users.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 20,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Build the request yourself so it carries ctx: http.NewRequestWithContext(ctx, http.MethodPost, baseURL+\"/users\", bytes.NewReader(body)). When ctx expires, the request is cancelled.",
+    "Set req.Header.Set(\"Content-Type\", \"application/json\") and send it with client.Do(req). Close the body, and treat any status other than 201 Created as an error.",
+    "Decode {\"id\": ...} from the response. client.Do's error wraps ctx's error, so callers can check errors.Is(err, context.DeadlineExceeded)."
+  ]
+}

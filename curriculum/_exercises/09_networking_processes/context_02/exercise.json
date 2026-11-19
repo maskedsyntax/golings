@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "context_02",
+  "topic": "context",
+  "title": "First answer wins",
+  "type": "implement",
+  "difficulty": "advanced",
+  "estimated_minutes": 20,
+  "prerequisites": ["context_01", "worker_pools_02"],
+  "starter_files": ["first.go"],
+  "fixture_files": [],
+  "checks": ["race", "unit"],
+  "timeout_seconds": 20,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Derive ctx, cancel := context.WithCancel(ctx) and defer cancel(). Cancelling tells every function still running to stop.",
+    "Start one goroutine per function, each sending its result on a channel with room for all of them, so nobody blocks after you return.",
+    "Receive len(fns) results. Return the first success straight away (the deferred cancel stops the rest). Collect the errors, and if every function failed, return errors.Join(errs...)."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "reading_files_03",
+  "topic": "reading_files",
+  "title": "Very long lines",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["reading_files_02"],
+  "starter_files": ["longest.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "bufio.Scanner refuses lines longer than 64 KiB. When that happens Scan returns false, and only sc.Err() tells you why.",
+    "Always check sc.Err() after the loop. That alone turns the silent wrong answer into an error.",
+    "To accept longer lines, give the scanner a bigger limit before the first Scan: sc.Buffer(make([]byte, 0, 64*1024), 1<<20)."
+  ]
+}

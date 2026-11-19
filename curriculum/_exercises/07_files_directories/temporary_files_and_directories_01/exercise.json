@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "temporary_files_and_directories_01",
+  "topic": "temporary_files_and_directories",
+  "title": "Cleaning up a temp file",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["directories_01", "defer_02"],
+  "starter_files": ["tempfile.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "os.CreateTemp makes a uniquely named file, but nothing deletes it for you. Here every call leaves a file behind in the temp directory.",
+    "Close the file once the data is written (Windows can't delete an open file), then defer os.Remove(name) so it goes away however fn returns.",
+    "Register the defer straight after CreateTemp succeeds, so a failed Write cleans up too."
+  ]
+}

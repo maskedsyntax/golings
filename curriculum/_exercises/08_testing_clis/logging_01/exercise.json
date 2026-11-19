@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "logging_01",
+  "topic": "logging",
+  "title": "Logger prefixes and flags",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["string_formatting_01"],
+  "starter_files": ["logger.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "log.New(out, prefix, flags): the prefix is written exactly as given, so include the separator yourself (\"app: \"). log.LstdFlags adds the date and time.",
+    "Flags of 0 means no date or time. log.Lshortfile adds file:line, the place in the code where the log call was made.",
+    "By default the prefix comes before file:line. log.Lmsgprefix moves it to just before the message: log.Lshortfile|log.Lmsgprefix."
+  ]
+}

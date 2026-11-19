@@ -7,11 +7,9 @@ following the topics of [Go by Example](https://gobyexample.com/).
 Everything runs locally with the Go toolchain you already have: no accounts, no network,
 no other runtimes.
 
-> **Status:** early development (Milestone C of [spec.md](spec.md)). Watch mode, hints, reset and
-> solutions work. Modules 01–06 (fundamentals; functions and types; interfaces, generics and
-> errors; concurrency; sorting, panic, defer and recover; standard-library formats and
-> utilities) are complete: 173 of the planned 220 exercises. The remaining modules are still to
-> come.
+> **Status:** the full curriculum is in place: 220 exercises covering all 85 Go by Example
+> topics, from hello world to signals and process exit codes. Release hardening (Milestone D of
+> [spec.md](spec.md): upgrades, release archives, docs) is next.
 
 ## Requirements
 
@@ -58,6 +56,14 @@ your files and the canonical tests (embedded in the binary) into a temporary dir
 runs `go test` / `go build` there with a clean environment: `GOPROXY=off`, no `go.work`, no
 toolchain downloads, and a time limit that kills the whole process tree. Progress lives in
 `.golings/state.json` and is written atomically.
+
+Some exercises come with data files (fixtures). They are copied into the exercise folder so
+you can read them, but checks always use the original copies.
+
+Two exercises (`execing_processes_02` and `signals_02`) use Unix-only system calls and are
+checked on Linux and macOS only. On Windows they show as unsupported and don't count against
+your progress. Exercises in the networking module listen on `127.0.0.1`; if a firewall blocks
+that, golings says so instead of failing the exercise.
 
 Exercises run with your user's privileges and are not sandboxed. Only run exercises you trust.
 

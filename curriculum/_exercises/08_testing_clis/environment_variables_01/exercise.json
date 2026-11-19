@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "environment_variables_01",
+  "topic": "environment_variables",
+  "title": "Unset versus empty",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["number_parsing_01"],
+  "starter_files": ["port.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "os.Getenv returns \"\" both when the variable is unset and when it's set to the empty string. You can't tell the two apart with it.",
+    "os.LookupEnv returns the value and a bool that says whether the variable exists at all.",
+    "Use the default only when ok is false. Then parse with strconv.Atoi, and reject numbers outside 1 to 65535."
+  ]
+}

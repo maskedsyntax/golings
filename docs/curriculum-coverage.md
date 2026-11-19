@@ -4,8 +4,8 @@
 
 - Curriculum version: 0.1.0
 - Topic inventory: https://gobyexample.com/, snapshot 2026-11-17 (85 topics)
-- Exercises: 173
-- Topics with at least 2 exercises: 64/85
+- Exercises: 220
+- Topics with at least 2 exercises: 85/85
 
 ## 01 — Fundamentals
 
@@ -105,34 +105,34 @@
 
 | # | Topic | Exercises | Status |
 |---|---|---|---|
-| 065 | [Reading Files](https://gobyexample.com/reading-files) | — | ⬜ none |
-| 066 | [Writing Files](https://gobyexample.com/writing-files) | — | ⬜ none |
-| 067 | [Line Filters](https://gobyexample.com/line-filters) | — | ⬜ none |
-| 068 | [File Paths](https://gobyexample.com/file-paths) | — | ⬜ none |
-| 069 | [Directories](https://gobyexample.com/directories) | — | ⬜ none |
-| 070 | [Temporary Files and Directories](https://gobyexample.com/temporary-files-and-directories) | — | ⬜ none |
-| 071 | [Embed Directive](https://gobyexample.com/embed-directive) | — | ⬜ none |
+| 065 | [Reading Files](https://gobyexample.com/reading-files) | `reading_files_01`, `reading_files_02`, `reading_files_03` | ✅ |
+| 066 | [Writing Files](https://gobyexample.com/writing-files) | `writing_files_01`, `writing_files_02` | ✅ |
+| 067 | [Line Filters](https://gobyexample.com/line-filters) | `line_filters_01`, `line_filters_02` | ✅ |
+| 068 | [File Paths](https://gobyexample.com/file-paths) | `file_paths_01`, `file_paths_02` | ✅ |
+| 069 | [Directories](https://gobyexample.com/directories) | `directories_01`, `directories_02`, `directories_03` | ✅ |
+| 070 | [Temporary Files and Directories](https://gobyexample.com/temporary-files-and-directories) | `temporary_files_and_directories_01`, `temporary_files_and_directories_02` | ✅ |
+| 071 | [Embed Directive](https://gobyexample.com/embed-directive) | `embed_directive_01`, `embed_directive_02` | ✅ |
 
 ## 08 — Testing and CLIs
 
 | # | Topic | Exercises | Status |
 |---|---|---|---|
-| 072 | [Testing and Benchmarking](https://gobyexample.com/testing-and-benchmarking) | — | ⬜ none |
-| 073 | [Command-Line Arguments](https://gobyexample.com/command-line-arguments) | — | ⬜ none |
-| 074 | [Command-Line Flags](https://gobyexample.com/command-line-flags) | — | ⬜ none |
-| 075 | [Command-Line Subcommands](https://gobyexample.com/command-line-subcommands) | — | ⬜ none |
-| 076 | [Environment Variables](https://gobyexample.com/environment-variables) | — | ⬜ none |
-| 077 | [Logging](https://gobyexample.com/logging) | — | ⬜ none |
+| 072 | [Testing and Benchmarking](https://gobyexample.com/testing-and-benchmarking) | `testing_and_benchmarking_01`, `testing_and_benchmarking_02`, `testing_and_benchmarking_03` | ✅ |
+| 073 | [Command-Line Arguments](https://gobyexample.com/command-line-arguments) | `command_line_arguments_01`, `command_line_arguments_02` | ✅ |
+| 074 | [Command-Line Flags](https://gobyexample.com/command-line-flags) | `command_line_flags_01`, `command_line_flags_02`, `command_line_flags_03` | ✅ |
+| 075 | [Command-Line Subcommands](https://gobyexample.com/command-line-subcommands) | `command_line_subcommands_01`, `command_line_subcommands_02` | ✅ |
+| 076 | [Environment Variables](https://gobyexample.com/environment-variables) | `environment_variables_01`, `environment_variables_02` | ✅ |
+| 077 | [Logging](https://gobyexample.com/logging) | `logging_01`, `logging_02` | ✅ |
 
 ## 09 — Networking, context and processes
 
 | # | Topic | Exercises | Status |
 |---|---|---|---|
-| 078 | [HTTP Client](https://gobyexample.com/http-client) | — | ⬜ none |
-| 079 | [HTTP Server](https://gobyexample.com/http-server) | — | ⬜ none |
-| 080 | [TCP Server](https://gobyexample.com/tcp-server) | — | ⬜ none |
-| 081 | [Context](https://gobyexample.com/context) | — | ⬜ none |
-| 082 | [Spawning Processes](https://gobyexample.com/spawning-processes) | — | ⬜ none |
-| 083 | [Exec'ing Processes](https://gobyexample.com/execing-processes) | — | ⬜ none |
-| 084 | [Signals](https://gobyexample.com/signals) | — | ⬜ none |
-| 085 | [Exit](https://gobyexample.com/exit) | — | ⬜ none |
+| 078 | [HTTP Client](https://gobyexample.com/http-client) | `http_client_01`, `http_client_02` | ✅ |
+| 079 | [HTTP Server](https://gobyexample.com/http-server) | `http_server_01`, `http_server_02` | ✅ |
+| 080 | [TCP Server](https://gobyexample.com/tcp-server) | `tcp_server_01`, `tcp_server_02` | ✅ |
+| 081 | [Context](https://gobyexample.com/context) | `context_01`, `context_02`, `context_03` | ✅ |
+| 082 | [Spawning Processes](https://gobyexample.com/spawning-processes) | `spawning_processes_01`, `spawning_processes_02` | ✅ |
+| 083 | [Exec'ing Processes](https://gobyexample.com/execing-processes) | `execing_processes_01`, `execing_processes_02` | ✅ |
+| 084 | [Signals](https://gobyexample.com/signals) | `signals_01`, `signals_02` | ✅ |
+| 085 | [Exit](https://gobyexample.com/exit) | `exit_01`, `exit_02` | ✅ |

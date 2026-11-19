@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "line_filters_02",
+  "topic": "line_filters",
+  "title": "A tiny grep",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["line_filters_01"],
+  "starter_files": ["grep.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Count lines as you scan, starting at 1. strings.Contains(line, pattern) decides whether a line matches.",
+    "bufio.Scanner's default line splitter already removes a \\r before the \\n, so Windows line endings come out clean. Splitting the text yourself on \"\\n\" would leave the \\r behind.",
+    "Write matches with fmt.Fprintf(w, \"%d:%s\\n\", lineNo, line), count them, and return sc.Err() at the end."
+  ]
+}

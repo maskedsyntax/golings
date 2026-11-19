@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "command_line_flags_02",
+  "topic": "command_line_flags",
+  "title": "Custom flag types",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["command_line_flags_01", "methods_02"],
+  "starter_files": ["config.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "Any type with String() string and Set(string) error methods is a flag.Value, and fs.Var(&v, name, usage) registers it. Set is called once for every occurrence of the flag.",
+    "Make Set append to the list (with a pointer receiver, so it changes the caller's slice) and return an error for an empty value. fs.Duration handles the timeout.",
+    "fs.BoolVar(&cfg.Verbose, \"v\", false, ...), fs.DurationVar(&cfg.Timeout, \"timeout\", 5*time.Second, ...), fs.Var(&cfg.Tags, \"tag\", ...). After Parse, cfg.Files = fs.Args()."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "spawning_processes_01",
+  "topic": "spawning_processes",
+  "title": "Running a command",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["context_01"],
+  "starter_files": ["run.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "exec.CommandContext(ctx, name, args...) builds the command, and the process is killed if ctx ends first. Point cmd.Stdout at a bytes.Buffer to capture the output, then call cmd.Run().",
+    "A non-zero exit status comes back from Run as an *exec.ExitError. Use errors.As to get it and its ExitCode(). That's a normal result here, not an error.",
+    "Check ctx.Err() first: if the context ended, return it. Any other error from Run (the program doesn't exist, for example) is a real error."
+  ]
+}

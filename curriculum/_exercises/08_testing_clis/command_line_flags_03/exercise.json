@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "command_line_flags_03",
+  "topic": "command_line_flags",
+  "title": "Flags after operands",
+  "type": "implement",
+  "difficulty": "advanced",
+  "estimated_minutes": 20,
+  "prerequisites": ["command_line_flags_02"],
+  "starter_files": ["interspersed.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "fs.Parse stops at the first operand, leaving it and everything after it in fs.Args(). To keep going, take that operand and call Parse again on what follows it.",
+    "Loop: Parse(args), then rest := fs.Args(). If rest is empty you're done. Otherwise append rest[0] to the operands and set args = rest[1:].",
+    "Parse also stops after consuming \"--\". Work out how many arguments it used (len(args) - len(rest)). If the last one was \"--\", everything in rest is an operand."
+  ]
+}

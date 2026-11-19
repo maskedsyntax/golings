@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "signals_01",
+  "topic": "signals",
+  "title": "Reacting to signals",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["select_01", "switch_02"],
+  "starter_files": ["supervise.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Supervise handles one signal and returns, so a second SIGHUP has nobody listening. It needs a loop.",
+    "for sig := range sigs { ... } keeps receiving until the channel is closed. In the loop, SIGHUP calls reload and keeps going, while os.Interrupt or syscall.SIGTERM calls shutdown and returns the signal.",
+    "Ignore any other signal. If the channel is closed, return nil without calling shutdown."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "embed_directive_02",
+  "topic": "embed_directive",
+  "title": "Embedding a directory",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["embed_directive_01", "text_templates_02"],
+  "starter_files": ["pages.go"],
+  "fixture_files": ["templates/hello.tmpl", "templates/bye.tmpl", "templates/_draft.tmpl"],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Put //go:embed templates directly above var files embed.FS. Embedding a directory leaves out files whose names start with . or _, which is what you want here.",
+    "fs.ReadDir(files, \"templates\") lists the embedded entries in sorted order. Return their Name()s.",
+    "template.ParseFS(files, \"templates/*.tmpl\") parses them all, naming each template after its file name, and tmpl.ExecuteTemplate(&b, name, data) renders one."
+  ]
+}

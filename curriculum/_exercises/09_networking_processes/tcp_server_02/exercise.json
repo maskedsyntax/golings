@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "tcp_server_02",
+  "topic": "tcp_server",
+  "title": "Idle timeouts",
+  "type": "debug",
+  "difficulty": "advanced",
+  "estimated_minutes": 15,
+  "prerequisites": ["tcp_server_01"],
+  "starter_files": ["ping.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 20,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A connection whose client never speaks keeps a goroutine (and a file descriptor) busy forever. conn.SetReadDeadline makes a blocked read fail once the deadline passes.",
+    "A deadline is a point in time, not a duration. Setting it once when the connection opens limits the whole conversation, not each pause.",
+    "Before every read, call conn.SetReadDeadline(time.Now().Add(s.Idle)). When the read fails, return, and the deferred Close hangs up."
+  ]
+}

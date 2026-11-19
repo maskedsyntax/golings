@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "execing_processes_02",
+  "topic": "execing_processes",
+  "title": "Replacing the process",
+  "type": "debug",
+  "difficulty": "advanced",
+  "estimated_minutes": 15,
+  "prerequisites": ["execing_processes_01"],
+  "starter_files": ["execer.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 30,
+  "platforms": ["darwin", "linux"],
+  "starter_expect": "check_failure",
+  "hints": [
+    "syscall.Exec(path, argv, env) passes argv to the new program exactly as given, and the program sees it as os.Args. Its first element must be the program name.",
+    "Here argv starts with the first real argument, so the new program thinks it is called \"alpha\" and sees only [\"beta\"] as arguments.",
+    "Pass append([]string{tool}, args...) as argv. Exec returns only if it fails."
+  ]
+}

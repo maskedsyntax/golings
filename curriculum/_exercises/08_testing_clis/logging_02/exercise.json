@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "logging_02",
+  "topic": "logging",
+  "title": "Structured logs",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["logging_01", "json_01"],
+  "starter_files": ["jsonlog.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "slog.NewJSONHandler(w, &slog.HandlerOptions{...}) writes one JSON object per record. The Level option sets the minimum level that gets logged.",
+    "ReplaceAttr is called for every attribute. Returning an empty slog.Attr{} drops it, so drop the one whose Key is slog.TimeKey (only at the top level, where len(groups) == 0).",
+    "slog.New(handler).With(\"service\", \"api\") returns a logger that adds service=api to every record."
+  ]
+}

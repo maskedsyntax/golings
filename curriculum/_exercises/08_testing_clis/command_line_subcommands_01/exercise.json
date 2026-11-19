@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "command_line_subcommands_01",
+  "topic": "command_line_subcommands",
+  "title": "A tool with subcommands",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 20,
+  "prerequisites": ["command_line_flags_02"],
+  "starter_files": ["main.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Look at args[0] to pick the subcommand, and give each one its own flag.NewFlagSet that parses args[1:].",
+    "For add, the task text is strings.Join(fs.Args(), \" \") after parsing. An empty text is a usage error.",
+    "Every usage problem (no subcommand, an unknown one, bad flags, missing text) writes a message to stderr and returns 2."
+  ]
+}

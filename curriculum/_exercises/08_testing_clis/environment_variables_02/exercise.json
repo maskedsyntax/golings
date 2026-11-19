@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "environment_variables_02",
+  "topic": "environment_variables",
+  "title": "Prefixed settings",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["environment_variables_01", "string_functions_02"],
+  "starter_files": ["env.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "os.Environ() returns \"KEY=value\" strings. Split each at its first \"=\" with strings.Cut, because values can contain \"=\" too.",
+    "Keep the entries whose key starts with the prefix (strings.CutPrefix), and skip any whose key is empty after removing the prefix.",
+    "Lowercase the rest of the key with strings.ToLower. Entries without \"=\" are malformed, so skip them."
+  ]
+}

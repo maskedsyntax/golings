@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "embed_directive_01",
+  "topic": "embed_directive",
+  "title": "Embedding a file",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["reading_files_01"],
+  "starter_files": ["version.go"],
+  "fixture_files": ["version.txt"],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A compiler directive must start with exactly //go: and no space. \"// go:embed\" is just a comment, so raw stays empty.",
+    "Once the directive is real, the compiler insists that the file imports the embed package. For a string or []byte variable a blank import is enough: import _ \"embed\".",
+    "//go:embed version.txt goes on the line directly above var raw string."
+  ]
+}

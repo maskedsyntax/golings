@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "temporary_files_and_directories_02",
+  "topic": "temporary_files_and_directories",
+  "title": "A scratch directory",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 10,
+  "prerequisites": ["temporary_files_and_directories_01"],
+  "starter_files": ["scratch.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "os.MkdirTemp(\"\", \"scratch-*\") creates a new, empty directory with a unique name and returns its path.",
+    "os.Remove only deletes empty directories. os.RemoveAll deletes a directory and everything in it.",
+    "defer os.RemoveAll(dir) right after MkdirTemp succeeds, then return fn(dir). Deferred calls run even if fn panics."
+  ]
+}

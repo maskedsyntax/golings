@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "file_paths_02",
+  "topic": "file_paths",
+  "title": "Extensions and relative paths",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["file_paths_01"],
+  "starter_files": ["paths.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "filepath.Ext(p) returns the extension of the last path element only, including its dot: \".gz\" for \"archive.tar.gz\", and \"\" for \"a.b/c\".",
+    "ChangeExt is strings.TrimSuffix(p, filepath.Ext(p)) + ext.",
+    "RelTo is a direct call to filepath.Rel(base, target), which returns an error when no relative path exists."
+  ]
+}

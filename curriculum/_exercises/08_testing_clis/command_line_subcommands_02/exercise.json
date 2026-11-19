@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "command_line_subcommands_02",
+  "topic": "command_line_subcommands",
+  "title": "Flag sets that remember",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["command_line_subcommands_01"],
+  "starter_files": ["main.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A FlagSet keeps the values it parsed. Because these are package-level variables, -loud from one call is still set on the next.",
+    "Create the FlagSets (and their flag pointers) inside run, so every call starts from the defaults.",
+    "Also check len(args) before reading args[0]: with no arguments the program panics instead of printing usage and returning 2."
+  ]
+}

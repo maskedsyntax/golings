@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "command_line_arguments_02",
+  "topic": "command_line_arguments",
+  "title": "Flags, operands and --",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["command_line_arguments_01"],
+  "starter_files": ["args.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Walk the arguments in order and keep a flag that says whether you've seen \"--\".",
+    "Before \"--\", an argument is a flag if it starts with \"-\" and is longer than one character. A lone \"-\" conventionally means standard input, so it's an operand.",
+    "\"--\" itself goes in neither list. After it, everything is an operand, even \"-x\"."
+  ]
+}

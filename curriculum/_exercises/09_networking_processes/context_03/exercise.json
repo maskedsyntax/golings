@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "context_03",
+  "topic": "context",
+  "title": "Request-scoped values",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["context_02"],
+  "starter_files": ["reqid.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Context values are found by key, and a plain string key can collide with any other package that happens to use the same string.",
+    "Use a key of an unexported type, such as type requestIDKey struct{}. No other package can create a value of that type, so no other package can collide with it.",
+    "context.Background() starts from scratch and loses every value. context.WithoutCancel(ctx) keeps ctx's values but is never cancelled, which is what work that must outlive the request needs."
+  ]
+}

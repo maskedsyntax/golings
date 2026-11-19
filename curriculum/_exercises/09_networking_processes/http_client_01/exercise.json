@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "http_client_01",
+  "topic": "http_client",
+  "title": "Status codes and closing bodies",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["json_02", "defer_01"],
+  "starter_files": ["title.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 20,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "client.Get only returns an error when the request couldn't be made at all. A 404 or 500 is a successful round trip, so check resp.StatusCode yourself.",
+    "Return an error that includes resp.Status (for example \"404 Not Found\") when the status isn't http.StatusOK.",
+    "Every response body must be closed, or the connection can't be reused. Put defer resp.Body.Close() right after the error check on client.Get."
+  ]
+}

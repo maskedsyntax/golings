@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "testing_and_benchmarking_02",
+  "topic": "testing_and_benchmarking",
+  "title": "Table-driven tests",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["testing_and_benchmarking_01", "strings_and_runes_03"],
+  "starter_files": ["reverse_test.go"],
+  "fixture_files": ["reverse.go"],
+  "checks": ["unit"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Add rows to the table, one per kind of input: ASCII text, text with multi-byte characters such as \"héllo\" or \"日本\", and the empty string.",
+    "t.Run(tt.name, func(t *testing.T) { ... }) runs each row as a named subtest, so a failure says which case broke and you can run one with -run TestReverse/name.",
+    "Reversing bytes breaks UTF-8: \"héllo\" turns into invalid text. A version that indexes s[0] panics on \"\". Your table needs a row that exposes each one."
+  ]
+}

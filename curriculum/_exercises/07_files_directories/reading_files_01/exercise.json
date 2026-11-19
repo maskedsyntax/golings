@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "reading_files_01",
+  "topic": "reading_files",
+  "title": "Reading a whole file",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 6,
+  "prerequisites": ["errors_01"],
+  "starter_files": ["lines.go"],
+  "fixture_files": ["data/poem.txt"],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "os.ReadFile returns two values, the contents and an error, so assigning it to one variable doesn't compile.",
+    "Write data, err := os.ReadFile(path) and return the error if it isn't nil.",
+    "if err != nil { return 0, err }. The caller can then check errors.Is(err, fs.ErrNotExist)."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "writing_files_02",
+  "topic": "writing_files",
+  "title": "Atomic writes",
+  "type": "implement",
+  "difficulty": "advanced",
+  "estimated_minutes": 20,
+  "prerequisites": ["writing_files_01"],
+  "starter_files": ["atomic.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Never write into the real file directly: if the source fails halfway, the old contents are already gone. Write a temporary file next to it instead, with os.CreateTemp(filepath.Dir(path), \".tmp-*\").",
+    "Copy into the temp file, then Sync and Close it, and only then os.Rename it over path. A rename within one directory replaces the file in one step.",
+    "On any error, close and os.Remove the temporary file so nothing is left behind. A deferred func that checks a named err result keeps this tidy."
+  ]
+}

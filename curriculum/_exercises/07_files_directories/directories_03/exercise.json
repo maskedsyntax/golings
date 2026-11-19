@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "directories_03",
+  "topic": "directories",
+  "title": "Creating directories safely",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 12,
+  "prerequisites": ["directories_02"],
+  "starter_files": ["ensure.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "os.Mkdir creates exactly one directory: it fails when the parent is missing, and when the directory already exists. os.MkdirAll creates every missing parent and succeeds if the directory is already there.",
+    "The relative paths come from outside, so check each one before using it: \"../escape\" or an absolute path would create directories outside root.",
+    "filepath.IsLocal(rel) is true only for a non-empty relative path that stays inside the current directory. Return an error when it's false."
+  ]
+}

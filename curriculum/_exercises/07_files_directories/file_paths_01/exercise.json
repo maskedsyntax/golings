@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "file_paths_01",
+  "topic": "file_paths",
+  "title": "Portable paths",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["string_functions_01"],
+  "starter_files": ["backup.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Cutting at the last \"/\" assumes a slash separator, which Windows doesn't use, and it panics when there is no slash at all.",
+    "filepath.Dir(p) and filepath.Base(p) split a path using the right separator for the OS. Dir of a bare file name is \".\".",
+    "return filepath.Join(filepath.Dir(p), \"backup\", filepath.Base(p)+\".bak\"). Join also cleans away a leading \"./\"."
+  ]
+}

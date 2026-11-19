@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "testing_and_benchmarking_03",
+  "topic": "testing_and_benchmarking",
+  "title": "Benchmarks",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["testing_and_benchmarking_02"],
+  "starter_files": ["join_test.go"],
+  "fixture_files": ["join.go"],
+  "checks": ["unit"],
+  "timeout_seconds": 60,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "A benchmark has the signature func BenchmarkXxx(b *testing.B). Like t.Run for tests, b.Run(name, func(b *testing.B) { ... }) creates a named sub-benchmark.",
+    "Since Go 1.24 the body of a benchmark loop is written for b.Loop() { ... }. The framework decides how many iterations to run.",
+    "b.Run(\"plus\", func(b *testing.B) { for b.Loop() { JoinPlus(parts) } }), and the same for \"builder\" with JoinBuilder. Try go test -bench . -benchmem in your workspace to compare them."
+  ]
+}

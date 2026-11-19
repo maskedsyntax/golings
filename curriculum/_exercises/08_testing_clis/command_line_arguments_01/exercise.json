@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "command_line_arguments_01",
+  "topic": "command_line_arguments",
+  "title": "os.Args",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 8,
+  "prerequisites": ["slices_02"],
+  "starter_files": ["main.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 20,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "os.Args[0] is the path of the program itself. The arguments the user typed start at os.Args[1].",
+    "run expects only the user's arguments, so main should pass os.Args[1:].",
+    "os.Exit(run(os.Args[1:], os.Stdout, os.Stderr))"
+  ]
+}

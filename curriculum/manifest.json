@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "curriculum_version": "0.1.0",
-  "release_complete": false,
+  "release_complete": true,
   "modules": [
     {
       "id": "01_fundamentals",
@@ -103,8 +103,44 @@
         "base64_encoding_01", "base64_encoding_02"
       ]
     },
-    {"id": "07_files_directories", "title": "Files and directories", "exercises": []},
-    {"id": "08_testing_clis", "title": "Testing and CLIs", "exercises": []},
-    {"id": "09_networking_processes", "title": "Networking, context and processes", "exercises": []}
+    {
+      "id": "07_files_directories",
+      "title": "Files and directories",
+      "exercises": [
+        "reading_files_01", "reading_files_02", "reading_files_03",
+        "writing_files_01", "writing_files_02",
+        "line_filters_01", "line_filters_02",
+        "file_paths_01", "file_paths_02",
+        "directories_01", "directories_02", "directories_03",
+        "temporary_files_and_directories_01", "temporary_files_and_directories_02",
+        "embed_directive_01", "embed_directive_02"
+      ]
+    },
+    {
+      "id": "08_testing_clis",
+      "title": "Testing and CLIs",
+      "exercises": [
+        "testing_and_benchmarking_01", "testing_and_benchmarking_02", "testing_and_benchmarking_03",
+        "command_line_arguments_01", "command_line_arguments_02",
+        "command_line_flags_01", "command_line_flags_02", "command_line_flags_03",
+        "command_line_subcommands_01", "command_line_subcommands_02",
+        "environment_variables_01", "environment_variables_02",
+        "logging_01", "logging_02"
+      ]
+    },
+    {
+      "id": "09_networking_processes",
+      "title": "Networking, context and processes",
+      "exercises": [
+        "http_client_01", "http_client_02",
+        "http_server_01", "http_server_02",
+        "tcp_server_01", "tcp_server_02",
+        "context_01", "context_02", "context_03",
+        "spawning_processes_01", "spawning_processes_02",
+        "execing_processes_01", "execing_processes_02",
+        "signals_01", "signals_02",
+        "exit_01", "exit_02"
+      ]
+    }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "testing_and_benchmarking_01",
+  "topic": "testing_and_benchmarking",
+  "title": "Your first test",
+  "type": "compile_fix",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["functions_01"],
+  "starter_files": ["intmin_test.go"],
+  "fixture_files": ["intmin.go"],
+  "checks": ["unit"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "compile_error",
+  "hints": [
+    "Test functions must have exactly the signature func TestXxx(t *testing.T), with a pointer. go test refuses to run anything else.",
+    "Errorf works like Printf: every verb needs an argument. Pass got for the %d.",
+    "Then add a second check where the first argument is the smaller one, such as IntMin(-3, 5) == -3. A version that always returns b passes your first check, but not this one."
+  ]
+}

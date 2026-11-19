@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "spawning_processes_02",
+  "topic": "spawning_processes",
+  "title": "Pipes and stderr",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["spawning_processes_01"],
+  "starter_files": ["filter.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 30,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "The child reads standard input until it ends, and stdin only ends when the pipe is closed. Nobody closes it, so the child waits forever, until ctx kills it.",
+    "Close stdin after writing the input. Simpler still: skip StdinPipe and set cmd.Stdin = strings.NewReader(input).",
+    "Capture standard error in its own bytes.Buffer (cmd.Stderr = &errBuf) and include its trimmed text in the error you return when the command fails."
+  ]
+}

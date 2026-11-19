@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "command_line_flags_01",
+  "topic": "command_line_flags",
+  "title": "Parse before you read",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 12,
+  "prerequisites": ["command_line_arguments_02", "errors_01"],
+  "starter_files": ["main.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "fs.String returns a pointer whose value only changes during fs.Parse. Reading *name before Parse always gives the default.",
+    "Build the greeting after Parse. Also check the error Parse returns: with ContinueOnError it reports unknown flags and -h instead of exiting.",
+    "errors.Is(err, flag.ErrHelp) means the user asked for help. The usage has already been printed, so return 0. Any other error returns 2."
+  ]
+}

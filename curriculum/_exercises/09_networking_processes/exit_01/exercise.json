@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "exit_01",
+  "topic": "exit",
+  "title": "os.Exit skips defers",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["defer_01", "command_line_arguments_01"],
+  "starter_files": ["main.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 20,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "os.Exit ends the program on the spot: deferred calls in main never run, so the buffered output is never flushed.",
+    "Move the work into func run() int, whose defers do run when it returns, and have main do only os.Exit(run()).",
+    "Inside run, defer w.Flush() and return the exit status instead of calling os.Exit."
+  ]
+}

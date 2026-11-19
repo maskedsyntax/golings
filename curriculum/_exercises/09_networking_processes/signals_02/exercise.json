@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "signals_02",
+  "topic": "signals",
+  "title": "Shutting down on SIGTERM",
+  "type": "debug",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["signals_01"],
+  "starter_files": ["graceful.go"],
+  "fixture_files": [],
+  "checks": ["vet", "unit"],
+  "timeout_seconds": 30,
+  "platforms": ["darwin", "linux"],
+  "starter_expect": "check_failure",
+  "hints": [
+    "go vet flags the first problem: signal.Notify never blocks when it delivers, so a signal that arrives while nobody is receiving from an unbuffered channel is lost. Give the channel a buffer of 1.",
+    "Then look at which signals are registered. Only os.Interrupt is, so SIGTERM (what kill and container runtimes send) still kills the program instantly, and cleanup never runs.",
+    "signal.Notify(ch, os.Interrupt, syscall.SIGTERM), and defer signal.Stop(ch) so the handler is removed when Run returns."
+  ]
+}

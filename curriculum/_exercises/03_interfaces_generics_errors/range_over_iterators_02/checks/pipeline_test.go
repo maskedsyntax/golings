@@ -38,7 +38,9 @@ func counting(seq iter.Seq[int], pulled *int) iter.Seq[int] {
 
 func TestTakePullsOnlyWhatItNeeds(t *testing.T) {
 	pulled := 0
-	slices.Collect(Take(counting(Naturals(), &pulled), 3))
+	if got := slices.Collect(Take(counting(Naturals(), &pulled), 3)); len(got) != 3 {
+		t.Errorf("Take(seq, 3) yielded %d values, want 3", len(got))
+	}
 	if pulled != 3 {
 		t.Errorf("Take(seq, 3) pulled %d values from seq, want 3", pulled)
 	}

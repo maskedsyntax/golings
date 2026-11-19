@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "directories_01",
+  "topic": "directories",
+  "title": "Listing a directory",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["file_paths_02"],
+  "starter_files": ["list.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "os.ReadDir(dir) returns the directory's entries already sorted by name, as []os.DirEntry.",
+    "Each entry has Name() and IsDir(). A directory can have a name ending in .go too, so check IsDir.",
+    "Keep entries where !e.IsDir() && strings.HasSuffix(e.Name(), \".go\") && !strings.HasSuffix(e.Name(), \"_test.go\")."
+  ]
+}

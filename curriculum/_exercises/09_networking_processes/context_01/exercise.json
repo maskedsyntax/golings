@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "context_01",
+  "topic": "context",
+  "title": "Cancellable waits",
+  "type": "debug",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["select_02", "timeouts_01"],
+  "starter_files": ["wait.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "time.Sleep can't be interrupted, so cancelling ctx has no effect until the full duration has passed.",
+    "Wait on two channels at once with select: a timer's channel and ctx.Done().",
+    "t := time.NewTimer(d); defer t.Stop(); select { case <-t.C: return nil; case <-ctx.Done(): return ctx.Err() }"
+  ]
+}

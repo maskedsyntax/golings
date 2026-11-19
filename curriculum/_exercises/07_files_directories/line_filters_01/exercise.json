@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "line_filters_01",
+  "topic": "line_filters",
+  "title": "An uppercase filter",
+  "type": "implement",
+  "difficulty": "beginner",
+  "estimated_minutes": 10,
+  "prerequisites": ["reading_files_03"],
+  "starter_files": ["upper.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Wrap the reader in bufio.NewScanner and loop with for sc.Scan(). sc.Text() is the line without its newline.",
+    "Write each line back with fmt.Fprintln(w, strings.ToUpper(sc.Text())).",
+    "When the loop ends, return sc.Err(): nil at the end of the input, or the read error that stopped it."
+  ]
+}

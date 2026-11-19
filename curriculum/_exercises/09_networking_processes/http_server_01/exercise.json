@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "http_server_01",
+  "topic": "http_server",
+  "title": "Routing with ServeMux",
+  "type": "implement",
+  "difficulty": "intermediate",
+  "estimated_minutes": 15,
+  "prerequisites": ["http_client_01"],
+  "starter_files": ["routes.go"],
+  "fixture_files": [],
+  "checks": ["unit"],
+  "timeout_seconds": 10,
+  "platforms": [],
+  "starter_expect": "check_failure",
+  "hints": [
+    "Since Go 1.22, ServeMux patterns can name a method and wildcards: mux.HandleFunc(\"GET /hello/{name}\", ...). r.PathValue(\"name\") reads the wildcard.",
+    "A pattern with a method answers 405 Method Not Allowed for other methods by itself, and a GET pattern also matches HEAD.",
+    "For the echo route, io.Copy(w, r.Body) writes the request body back."
+  ]
+}
