@@ -318,8 +318,10 @@ func validateExercise(ex *Exercise, topics map[string]*Topic) []string {
 	}
 	seen := map[string]bool{}
 	for _, f := range ex.StarterFiles {
-		if !fileNameRE.MatchString(f) || !strings.HasSuffix(f, ".go") || strings.HasSuffix(f, "_test.go") {
-			addf("invalid starter file %q (want a plain non-test .go file name)", f)
+		// _test.go starters are allowed: in the testing topics the learner
+		// writes the tests and the canonical checks grade them.
+		if !fileNameRE.MatchString(f) || !strings.HasSuffix(f, ".go") {
+			addf("invalid starter file %q (want a plain .go file name)", f)
 		}
 		if seen[f] {
 			addf("duplicate starter file %q", f)
@@ -329,6 +331,9 @@ func validateExercise(ex *Exercise, topics map[string]*Topic) []string {
 	for _, f := range ex.FixtureFiles {
 		if !fs.ValidPath(f) || f == "." {
 			addf("invalid fixture path %q", f)
+		}
+		if seen[f] {
+			addf("fixture %q collides with a starter file", f)
 		}
 	}
 	if len(ex.Checks) == 0 {

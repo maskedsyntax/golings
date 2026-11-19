@@ -27,11 +27,13 @@ what order; an exercise's ordinal is its position in the manifest. Each exercise
 ```
 exercise.json   metadata (no ordinal, no URL: both are derived)
 README.md       learner-facing instructions, copied into the workspace
-starter/        files the learner edits, copied into the workspace
+starter/        files the learner edits, copied into the workspace (may include _test.go
+                files when the learner writes the tests, as in the testing topic)
 checks/         canonical *_test.go files and expected_stdout.txt, never copied to the workspace
 solution/       reference solution (same file names as starter/)
 mutants/<name>/ plausible wrong answers that must fail the checks
-fixtures/       optional data files staged next to the code
+fixtures/       optional data files staged next to the code; reference copies are also
+                written to the workspace, but checks always use the embedded originals
 ```
 
 The directory is named `_exercises` so the go tool ignores it: intentionally broken

@@ -38,17 +38,28 @@ func TestInitMaterializesStartersOnly(t *testing.T) {
 			}
 		}
 	}
-	// Canonical checks and solutions never reach the workspace.
-	filepath.WalkDir(dest, func(p string, d os.DirEntry, err error) error {
-		if err != nil {
-			return err
+	// Canonical checks and solutions never reach the workspace: an exercise
+	// directory holds only its starters, README and fixture copies.
+	for _, ex := range cat.Exercises() {
+		dir := ws.ExerciseDir(ex)
+		allowed := map[string]bool{"README.md": true}
+		for _, f := range ex.StarterFiles {
+			allowed[f] = true
 		}
-		name := d.Name()
-		if strings.HasSuffix(name, "_test.go") || name == "solution" || name == "checks" || name == "mutants" {
-			t.Errorf("workspace contains %s", p)
+		for _, f := range ex.FixtureFiles {
+			allowed[f] = true
 		}
-		return nil
-	})
+		filepath.WalkDir(dir, func(p string, d os.DirEntry, err error) error {
+			if err != nil || d.IsDir() {
+				return err
+			}
+			rel, _ := filepath.Rel(dir, p)
+			if !allowed[filepath.ToSlash(rel)] {
+				t.Errorf("%s: workspace contains unexpected file %s", ex.ID, rel)
+			}
+			return nil
+		})
+	}
 	for _, f := range []string{"go.mod", "README.md", ".golings/workspace.json"} {
 		if _, err := os.Stat(filepath.Join(dest, f)); err != nil {
 			t.Errorf("missing %s: %v", f, err)
@@ -188,5 +199,29 @@ func TestResetRestoresWithBackup(t *testing.T) {
 	}
 	if data, _ := os.ReadFile(file); !bytes.Equal(data, original) {
 		t.Error("missing file not restored")
+	}
+}
+
+func TestFixturesAreCopiedAndRestored(t *testing.T) {
+	cat := loadCatalog(t)
+	ex, ok := cat.Get("embed_directive_02")
+	if !ok {
+		t.Fatal("embed_directive_02 not in the catalog")
+	}
+	ws, err := workspace.Init(filepath.Join(t.TempDir(), "ws"), cat, workspace.InitOptions{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	fixture := filepath.Join(ws.ExerciseDir(ex), "templates", "hello.tmpl")
+	original, err := os.ReadFile(fixture)
+	if err != nil {
+		t.Fatalf("fixture not copied into the workspace: %v", err)
+	}
+	os.WriteFile(fixture, []byte("edited"), 0o644)
+	if _, err := ws.Reset(cat, ex, false); err != nil {
+		t.Fatal(err)
+	}
+	if got, _ := os.ReadFile(fixture); !bytes.Equal(got, original) {
+		t.Fatalf("reset left the fixture as %q", got)
 	}
 }

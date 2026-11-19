@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"runtime"
 	"time"
 
 	"github.com/maskedsyntax/golings/internal/catalog"
@@ -20,11 +21,22 @@ type App struct {
 	Catalog   *catalog.Catalog
 	Workspace *workspace.Workspace
 	Store     *progress.Store
+	// GOOS is the platform exercises are checked on. Exercises that don't
+	// support it are never chosen automatically as the next one to do.
+	GOOS string
 }
 
 // New returns an App for an opened workspace.
 func New(cat *catalog.Catalog, ws *workspace.Workspace) *App {
-	return &App{Catalog: cat, Workspace: ws, Store: progress.NewStore(ws.MetaPath(), cat.Version())}
+	return &App{Catalog: cat, Workspace: ws, Store: progress.NewStore(ws.MetaPath(), cat.Version()), GOOS: runtime.GOOS}
+}
+
+// pending reports whether v still needs doing on this platform.
+func (a *App) pending(v View) bool {
+	if v.Status.Done() || v.Status == DisplaySkipped {
+		return false
+	}
+	return a.GOOS == "" || v.Exercise.SupportsOS(a.GOOS)
 }
 
 // DisplayStatus is the status shown to learners. It refines the persisted
@@ -86,7 +98,7 @@ func (a *App) Views(st *progress.State) []View {
 // skipped, or nil when everything is done.
 func (a *App) NextUnfinished(st *progress.State) *catalog.Exercise {
 	for _, v := range a.Views(st) {
-		if !v.Status.Done() && v.Status != DisplaySkipped {
+		if a.pending(v) {
 			return v.Exercise
 		}
 	}
@@ -97,7 +109,7 @@ func (a *App) NextUnfinished(st *progress.State) *catalog.Exercise {
 // the next unfinished one. It returns nil when everything is done.
 func (a *App) Current(st *progress.State) *catalog.Exercise {
 	if ex, ok := a.Catalog.Get(st.CurrentExerciseID); ok {
-		if v := a.ViewOf(ex, st); !v.Status.Done() && v.Status != DisplaySkipped {
+		if a.pending(a.ViewOf(ex, st)) {
 			return ex
 		}
 	}

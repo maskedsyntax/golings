@@ -58,6 +58,9 @@ func (w *Workspace) PlanReset(cat *catalog.Catalog, ex *catalog.Exercise) (Reset
 // .golings/backups/<id>/<timestamp>/. It returns the backup directory ("" if
 // none was made).
 func (w *Workspace) Reset(cat *catalog.Catalog, ex *catalog.Exercise, backup bool) (string, error) {
+	if err := w.restoreFixtures(cat, ex); err != nil {
+		return "", err
+	}
 	plan, err := w.PlanReset(cat, ex)
 	if err != nil || plan.Empty() {
 		return "", err
@@ -106,6 +109,42 @@ func (w *Workspace) Reset(cat *catalog.Catalog, ex *catalog.Exercise, backup boo
 		}
 	}
 	return backupDir, nil
+}
+
+// restoreFixtures rewrites the workspace copies of the exercise's fixtures.
+// They are reference copies that checks never read, so they are replaced
+// without a backup.
+func (w *Workspace) restoreFixtures(cat *catalog.Catalog, ex *catalog.Exercise) error {
+	if len(ex.FixtureFiles) == 0 {
+		return nil
+	}
+	assets, err := cat.Assets(ex)
+	if err != nil {
+		return err
+	}
+	dir := w.ExerciseDir(ex)
+	for _, rel := range ex.FixtureFiles {
+		data, err := fs.ReadFile(assets, path.Join("fixtures", rel))
+		if err != nil {
+			return err
+		}
+		target := filepath.Join(dir, filepath.FromSlash(rel))
+		if cur, err := os.ReadFile(target); err == nil && bytes.Equal(cur, data) {
+			continue
+		}
+		if fi, err := os.Lstat(target); err == nil && !fi.Mode().IsRegular() {
+			if err := os.Remove(target); err != nil {
+				return err
+			}
+		}
+		if err := os.MkdirAll(filepath.Dir(target), 0o755); err != nil {
+			return err
+		}
+		if err := replaceFile(target, data); err != nil {
+			return fmt.Errorf("restoring fixture %s: %w", rel, err)
+		}
+	}
+	return nil
 }
 
 func starterFiles(cat *catalog.Catalog, ex *catalog.Exercise) (map[string][]byte, error) {

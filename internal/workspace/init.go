@@ -128,6 +128,22 @@ func (w *Workspace) materialize(cat *catalog.Catalog, ex *catalog.Exercise) erro
 			return err
 		}
 	}
+	// Fixtures are copied so learners can open them and editors can resolve
+	// //go:embed patterns. Checks always stage the embedded originals, so
+	// edits here never change a result.
+	for _, rel := range ex.FixtureFiles {
+		data, err := fs.ReadFile(assets, path.Join("fixtures", rel))
+		if err != nil {
+			return err
+		}
+		dest := filepath.Join(dir, filepath.FromSlash(rel))
+		if err := os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
+			return err
+		}
+		if err := createFile(dest, data); err != nil {
+			return err
+		}
+	}
 	if data, err := fs.ReadFile(assets, "README.md"); err == nil {
 		if err := createFile(filepath.Join(dir, "README.md"), data); err != nil {
 			return err

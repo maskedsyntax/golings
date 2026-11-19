@@ -260,3 +260,43 @@ func TestRunASTConstraint(t *testing.T) {
 		t.Errorf("syntax error: %+v", res)
 	}
 }
+
+func TestLoopbackBlocked(t *testing.T) {
+	for _, tt := range []struct {
+		out  string
+		want bool
+	}{
+		{"panic: httptest: failed to listen on a port: listen tcp6 [::1]:0: socket: operation not permitted", true},
+		{"server_test.go:12: listen tcp 127.0.0.1:0: bind: permission denied", true},
+		{"listen tcp4 127.0.0.1:0: socket: An attempt was made to access a socket in a way forbidden by its access permissions.", true},
+		{"listen tcp 127.0.0.1:8080: bind: address already in use", false},
+		{"--- FAIL: TestEcho: got \"a\", want \"A\"", false},
+	} {
+		got := loopbackBlocked(testReport{}, []TestResult{{Output: tt.out}})
+		if got != tt.want {
+			t.Errorf("loopbackBlocked(%q) = %v, want %v", tt.out, got, tt.want)
+		}
+		if got := loopbackBlocked(testReport{PackageOutput: tt.out}, nil); got != tt.want {
+			t.Errorf("loopbackBlocked(package output %q) = %v, want %v", tt.out, got, tt.want)
+		}
+	}
+}
+
+// Tools sometimes print absolute paths with symlinks resolved (macOS's
+// /var -> /private/var); the staging directory must already be in that form
+// or the diagnostics rewriter leaves a mangled prefix behind.
+func TestStageDirIsCanonical(t *testing.T) {
+	ex := &catalog.Exercise{ID: "x_01", StarterFiles: []string{"a.go"}}
+	st, err := newStage(ex, map[string][]byte{"a.go": []byte("package x\n")}, fstest.MapFS{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer st.cleanup()
+	real, err := filepath.EvalSymlinks(st.dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if real != st.dir {
+		t.Fatalf("staging dir %q is not canonical (%q)", st.dir, real)
+	}
+}

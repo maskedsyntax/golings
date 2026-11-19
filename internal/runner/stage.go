@@ -32,6 +32,12 @@ func newStage(ex *catalog.Exercise, files map[string][]byte, assets fs.FS) (st *
 	if err != nil {
 		return nil, fmt.Errorf("creating staging directory: %w", err)
 	}
+	// Resolve symlinks (macOS's /var -> /private/var, Windows 8.3 short
+	// names) so every path the go tools print uses the same form the
+	// diagnostics rewriter strips.
+	if real, err := filepath.EvalSymlinks(dir); err == nil {
+		dir = real
+	}
 	st = &stage{dir: dir}
 	defer func() {
 		if err != nil {

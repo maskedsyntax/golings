@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io/fs"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strconv"
 	"strings"
@@ -253,7 +254,31 @@ func (c *checker) goTest(ctx context.Context, race bool) CheckResult {
 		cr.Diagnostic = "go test failed unexpectedly (exit code " + strconv.Itoa(r.ExitCode) + ")"
 		cr.Stderr = stderr
 	}
+	if cr.Status == StatusFail && cr.Failure != FailureCompile && loopbackBlocked(rep, cr.Tests) {
+		// Not the learner's fault: the checks could not open a local socket.
+		cr.Status, cr.Failure = StatusRunnerError, FailureRunner
+		cr.Diagnostic = "the checks could not listen on the loopback network (127.0.0.1). " +
+			"A firewall, sandbox or security tool is probably blocking local connections; allow them for the Go test binary and try again"
+	}
 	return cr
+}
+
+// loopbackListenFailure matches the errors net.Listen and httptest report
+// when the OS refuses a local socket.
+var loopbackListenFailure = regexp.MustCompile(
+	`(?i)(listen tcp[46]? [^\s]*:\d+: (bind|socket): (operation not permitted|permission denied|address family not supported|can't assign requested address|an attempt was made to access a socket))` +
+		`|httptest: failed to listen on a port`)
+
+func loopbackBlocked(rep testReport, tests []TestResult) bool {
+	if loopbackListenFailure.MatchString(rep.PackageOutput) {
+		return true
+	}
+	for _, t := range tests {
+		if loopbackListenFailure.MatchString(t.Output) {
+			return true
+		}
+	}
+	return false
 }
 
 func anyFailed(tests []TestResult) bool {
