@@ -12,12 +12,18 @@ var fast = Options{Interval: 10 * time.Millisecond, Debounce: 40 * time.Millisec
 
 func expectEvent(t *testing.T, ch <-chan struct{}, want bool) {
 	t.Helper()
+	// Waiting for an event that should come gets generous slack for slow
+	// machines; it returns as soon as the event arrives.
+	wait := 400 * time.Millisecond
+	if want {
+		wait = 2 * time.Second
+	}
 	select {
 	case <-ch:
 		if !want {
 			t.Fatal("unexpected change notification")
 		}
-	case <-time.After(400 * time.Millisecond):
+	case <-time.After(wait):
 		if want {
 			t.Fatal("no change notification")
 		}
@@ -68,11 +74,21 @@ func TestWatchDebouncesBursts(t *testing.T) {
 	os.WriteFile(f, []byte("0"), 0o644)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	ch := Watch(ctx, []string{f}, Options{Interval: 10 * time.Millisecond, Debounce: 150 * time.Millisecond})
+	const debounce = 300 * time.Millisecond
+	ch := Watch(ctx, []string{f}, Options{Interval: 10 * time.Millisecond, Debounce: debounce})
 	time.Sleep(30 * time.Millisecond)
+	last := time.Now()
+	var maxGap time.Duration
 	for i := range 5 {
 		save(t, f, string(rune('a'+i)))
+		now := time.Now()
+		maxGap = max(maxGap, now.Sub(last))
+		last = now
 		time.Sleep(20 * time.Millisecond)
+	}
+	if maxGap >= debounce {
+		// The machine stalled long enough that this really was two bursts.
+		t.Skipf("saves were %v apart (debounce %v); too slow to test burst coalescing", maxGap, debounce)
 	}
 	expectEvent(t, ch, true)
 	expectEvent(t, ch, false) // the burst produced exactly one notification

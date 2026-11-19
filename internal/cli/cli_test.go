@@ -8,6 +8,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -114,7 +115,7 @@ func TestLearnerJourney(t *testing.T) {
 	r := cmd("progress", "--json")
 	r.expect(t, exitcode.OK)
 	var sum struct{ Total, Completed int }
-	if err := json.Unmarshal([]byte(r.stdout), &sum); err != nil || sum.Completed != 1 || sum.Total != total {
+	if err := json.Unmarshal([]byte(r.stdout), &sum); err != nil || sum.Completed != 1 || sum.Total != supportedSize(t) {
 		t.Errorf("progress --json = %s (%v)", r.stdout, err)
 	}
 	r = golings(t, "--workspace", ws, "list", "--json")
@@ -161,4 +162,21 @@ func curriculumSize(t *testing.T) int {
 		t.Fatal(err)
 	}
 	return len(cat.Exercises())
+}
+
+// supportedSize is the progress denominator on this OS: exercises that can't
+// be checked here are excluded from it.
+func supportedSize(t *testing.T) int {
+	t.Helper()
+	cat, err := catalog.Load(curriculum.FS)
+	if err != nil {
+		t.Fatal(err)
+	}
+	n := 0
+	for _, ex := range cat.Exercises() {
+		if ex.SupportsOS(runtime.GOOS) {
+			n++
+		}
+	}
+	return n
 }

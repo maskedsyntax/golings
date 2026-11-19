@@ -102,7 +102,7 @@ func TestWatchLineMode(t *testing.T) {
 	case <-time.After(10 * time.Second):
 		t.Fatal("watch did not quit")
 	}
-	if !strings.Contains(golings(t, "--workspace", ws, "progress").stdout, fmt.Sprintf("1/%d", curriculumSize(t))) {
+	if !strings.Contains(golings(t, "--workspace", ws, "progress").stdout, fmt.Sprintf("1/%d", supportedSize(t))) {
 		t.Error("progress not recorded by watch mode")
 	}
 }
