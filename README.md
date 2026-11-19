@@ -5,11 +5,9 @@ Learn Go by fixing small, broken Go programs until their checks pass, in the spi
 following the topics of [Go by Example](https://gobyexample.com/).
 
 Everything runs locally with the Go toolchain you already have: no accounts, no network,
-no other runtimes.
-
-> **Status:** feature-complete: 220 exercises covering all 85 Go by Example topics, from hello
-> world to signals and process exit codes, with watch mode, hints, solutions and workspace
-> upgrades. Heading for 1.0.
+no other runtimes. There are 220 exercises across 9 modules. They start at hello world and go
+through slices, generics, goroutines and channels, files, testing, HTTP, signals and process
+exit codes.
 
 ## Requirements
 
@@ -96,7 +94,6 @@ More documentation:
 - [docs/authoring.md](docs/authoring.md): writing and changing exercises
 - [docs/contributing.md](docs/contributing.md): development workflow and releases
 - [docs/architecture.md](docs/architecture.md): how the code fits together
-- [spec.md](spec.md): the full specification
 
 ## Credits
 
